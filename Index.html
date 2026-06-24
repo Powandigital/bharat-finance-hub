@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat Finance Hub - Tax, SIP & FD Calculators</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; color: #333; }
+        .portal-header { text-align: center; margin: 20px 0 10px 0; }
+        .portal-header h1 { color: #1e293b; margin: 0; font-size: 28px; }
+        .portal-header p { color: #64748b; margin: 5px 0 20px 0; font-size: 15px; }
+        .tabs { display: flex; max-width: 650px; margin: 0 auto 20px auto; background: #e2e8f0; border-radius: 8px; padding: 4px; }
+        .tab-btn { flex: 1; padding: 12px; text-align: center; background: none; border: none; font-weight: bold; color: #4a5568; cursor: pointer; border-radius: 6px; transition: all 0.2s; font-size: 14px; }
+        .tab-btn.active { background: white; color: #10b981; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .container { max-width: 650px; background: white; margin: 0 auto 30px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: none; box-sizing: border-box; }
+        .container.active { display: block; }
+        h2 { color: #2c3e50; font-size: 20px; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #4a5568; font-size: 15px; }
+        input[type="number"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        .breakdown-box { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .breakdown-title { font-weight: bold; margin-bottom: 12px; color: #1e293b; font-size: 15px; display: flex; justify-content: space-between; }
+        .sub-input { margin-bottom: 12px; }
+        .sub-input label { font-weight: normal; font-size: 14px; color: #64748b; }
+        .cap-note { font-size: 11px; color: #ef4444; margin-top: 4px; display: none; }
+        button.calc-btn { width: 100%; background: #10b981; color: white; border: none; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-bottom: 10px; }
+        button.calc-btn:hover { background: #059669; }
+        .ad-placeholder { background: #edf2f7; border: 2px dashed #cbd5e1; padding: 20px; text-align: center; color: #718096; font-size: 14px; margin: 20px 0; border-radius: 6px; }
+        .results { display: none; margin-top: 25px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
+        .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e2e8f0; font-size: 15px; }
+        .result-row:last-child { border-bottom: none; }
+        .verdict { font-weight: bold; color: #1e3a8a; background: #dbeafe; padding: 12px; text-align: center; border-radius: 6px; margin-top: 15px; font-size: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="portal-header">
+    <h1>🇮🇳 Bharat Finance Hub</h1>
+    <p>Free Premium Financial Tools & Calculators</p>
+</div>
+
+<div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('tax-container', this)">📊 Tax Calculator</button>
+    <button class="tab-btn" onclick="switchTab('sip-container', this)">📈 SIP Calculator</button>
+    <button class="tab-btn" onclick="switchTab('fd-container', this)">💰 FD Calculator</button>
+</div>
+
+<!-- 1. TAX CALCULATOR CONTAINER -->
+<div id="tax-container" class="container active">
+    <h2>📊 Income Tax Calculator (FY 2025-26)</h2>
+    <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
+
+    <div class="form-group">
+        <label for="income">Annual Gross Income (₹):</label>
+        <input type="number" id="income" value="1300000" min="0" oninput="calculateTax()">
+    </div>
+
+    <div class="breakdown-box">
+        <div class="breakdown-title">
+            <span>Deductions Helper (For Old Regime)</span>
+            <span style="color: #10b981;" id="liveTotalDisplay">Total Allowable: ₹0</span>
+        </div>
+        <div class="form-group sub-input">
+            <label for="sec80c">Section 80C Investments (PPF, ELSS, LIC etc.):</label>
+            <input type="number" id="sec80c" value="200000" oninput="calculateTax()" min="0">
+            <div id="cncNote" class="cap-note">⚠️ Note: Maximum legal limit for Sec 80C is ₹1,50,000. Excess won't count.</div>
+        </div>
+        <div class="form-group sub-input">
+            <label for="sec80d">Section 80D (Medical Insurance Premium):</label>
+            <input type="number" id="sec80d" value="50000" oninput="calculateTax()" min="0">
+            <div id="dncNote" class="cap-note">⚠️ Note: Maximum legal limit for Sec 80D is ₹50,000. Excess won't count.</div>
+        </div>
+        <div class="form-group sub-input">
+            <label for="hra">House Rent Allowance (HRA) Exemption / Home Loan Interest:</label>
+            <input type="number" id="hra" value="0" oninput="calculateTax()" min="0">
+            <div id="hrancNote" class="cap-note">⚠️ Note: Maximum allowable combined total for HRA/Home Loan here is capped at ₹12,0,000.</div>
+        </div>
+    </div>
+
+    <button class="calc-btn" onclick="window.print()">🖨️ Print / Save Tax Summary</button>
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
+
+    <div class="results" id="taxResults">
+        <div class="result-row"><span>Standard Deduction (Old Regime):</span><span>₹50,000</span></div>
+        <div class="result-row"><span>Standard Deduction (New Regime):</span><span>₹75,000</span></div>
+        <div class="result-row"><span>Total Legally Allowed Deductions Used (Old):</span><span id="displayUsedDeductions" style="font-weight:600;">₹0</span></div>
+        <div class="result-row" style="background:#fee2e2; padding:6px 10px; border-radius:4px;"><strong>Tax under Old Regime:</strong><span id="oldTax" style="color:#b91c1c; font-weight:bold;">₹0</span></div>
+        <div class="result-row" style="background:#dcfce7; padding:6px 10px; border-radius:4px;"><strong>Tax under New Regime:</strong><span id="newTax" style="color:#15803d; font-weight:bold;">₹0</span></div>
+        <div class="verdict" id="verdictText"></div>
+    </div>
+</div>
+
+<!-- 2. SIP CALCULATOR CONTAINER -->
+<div id="sip-container" class="container">
+    <h2>📈 Mutual Fund SIP Calculator</h2>
+    <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
+
+    <div class="form-group">
+        <label for="sipAmount">Monthly Investment Amount (₹):</label>
+        <input type="number" id="sipAmount" value="5000" min="0" max="1000000" oninput="calculateSIP()">
+        <div id="sipAmtNote" class="cap-note">⚠️ Note: Maximum monthly investment for this tool is capped at ₹1,000,000.</div>
+    </div>
+    <div class="form-group">
+        <label for="sipRate">Expected Return Rate per Year (%):</label>
+        <input type="number" id="sipRate" value="12" min="1" max="30" oninput="calculateSIP()">
+        <div id="sipRateNote" class="cap-note">⚠️ Note: Expected return rate is restricted to a maximum of 30% p.a.</div>
+    </div>
+    <div class="form-group">
+        <label for="sipYears">Time Period (Years):</label>
+        <input type="number" id="sipYears" value="10" min="1" max="50" oninput="calculateSIP()">
+        <div id="sipYearsNote" class="cap-note">⚠️ Note: Time period is limited to a maximum of 50 years.</div>
+    </div>
+
+    <button class="calc-btn" onclick="toggleSipTips()">💡 Get Wealth Maximization Tips</button>
+    
+    <div id="sipTipsBox" style="display:none; margin-top:15px; padding:15px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; font-size:14px; line-height:1.5;">
+        <strong style="color:#166534; display:block; margin-bottom:8px;">🚀 Top SIP Growth Strategy:</strong>
+        • <strong>Power of Compounding:</strong> Invest consistently every month without trying to time the stock market.<br>
+        • <strong>Step-Up Strategy:</strong> Increase your monthly SIP amount by 5-10% every year as your salary grows.<br>
+        • <strong>Long-Term Horizon:</strong> Keeping a SIP active for more than 7+ years significantly reduces risk.
+    </div>
+
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
+
+    <div class="results" id="sipResults">
+        <div class="result-row"><span>Total Amount Invested:</span><span id="sipInvested" style="font-weight:600;">₹0</span></div>
+        <div class="result-row"><span>Estimated Returns Earned:</span><span id="sipGain" style="color:#15803d; font-weight:600;">₹0</span></div>
+        <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Future Maturity Value:</strong><span id="sipTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
+    </div>
+</div>
+
+<!-- 3. FD CALCULATOR CONTAINER -->
+<div id="fd-container" class="container">
+    <h2>💰 Fixed Deposit (FD) Calculator</h2>
+    <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
+
+    <div class="form-group">
+        <label for="fdPrincipal">Total Principal Deposit Amount (₹):</label>
+        <input type="number" id="fdPrincipal" value="100000" min="0" max="1000000000" oninput="calculateFD()">
+        <div id="fdAmtNote" class="cap-note">⚠️ Note: Maximum principal amount for this tool is capped at ₹100 Crore.</div>
+    </div>
+    <div class="form-group">
+        <label for="fdRate">Rate of Interest per Year (%):</label>
+        <input type="number" id="fdRate" value="7.1" step="0.1" min="1" max="20" oninput="calculateFD()">
+        <div id="fdRateNote" class="cap-note">⚠️ Note: Maximum interest rate is restricted to a maximum of 20% p.a.</div>
+    </div>
+    <div class="form-group">
+        <label for="fdYears">Time Period (Years):</label>
+        <input type="number" id="fdYears" value="5" min="1" max="25" oninput="calculateFD()">
+        <div id="fdYearsNote" class="cap-note">⚠️ Note: Time period is limited to a maximum of 25 years.</div>
+    </div>
+
+    <button class="calc-btn" onclick="toggleFdTable()">🏦 View Bank Interest Comparison</button>
+    
+    <div id="fdTableBox" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:14px;">
+        <table style="width:100%; border-collapse:collapse; text-align:left;">
+            <thead>
+                <tr style="border-bottom:2px solid #cbd5e1; color:#475569;">
+                    <th style="padding:6px 0;">Bank Name</th>
+                    <th style="padding:6px 0; text-align:right;">Interest Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px 0;">State Bank of India (SBI)</td><td style="text-align:right; padding:8px 0; font-weight:600;">6.50% - 7.00%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px 0;">HDFC Bank</td><td style="text-align:right; padding:8px 0; font-weight:600;">6.60% - 7.25%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px 0;">ICICI Bank</td><td style="text-align:right; padding:8px 0; font-weight:600;">6.70% - 7.20%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px 0;">IDFC First / Small Banks</td><td style="text-align:right; padding:8px 0; font-weight:600; color:#16a34a;">7.50% - 8.00%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
+
+    <div class="results" id="fdResults">
+        <div class="result-row"><span>Invested Principal Amount:</span><span id="fdInvested" style="font-weight:600;">₹0</span></div>
+        <div class="result-row"><span>Total Interest Acquired:</span><span id="fdInterest" style="color:#15803d; font-weight:600;">₹0</span></div>
+        <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Maturity Wealth Value:</strong><span id="fdTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
+    </div>
+</div>
+
+<!-- GLOBAL SEO KEYWORD CONTENT HUB (FOR GOOGLE RANKING) -->
+<div class="seo-static-hub" style="max-width: 650px; background: white; margin: 20px auto 30px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #10b981; font-size: 14px; line-height: 1.6; color: #475569; box-sizing: border-box;">
+
+    
+    <!-- TAX SEO UNIT -->
+    <section style="margin-bottom: 30px;">
+        <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">Understanding the Indian Income Tax Regime (FY 2025-26 / AY 2026-27)</h3>
+        <p>Choosing between the <strong>Old Tax Regime</strong> and the <strong>New Tax Regime</strong> depends entirely on your investment profile and gross salary structure. Bharat Finance Hub provides an instant calculations matrix utilizing current legal limits to map your exact tax liability.</p>
+        
+        <h4 style="color: #2c3e50; font-size: 15px; margin: 15px 0 8px 0;">New Tax Regime Slab Rates</h4>
+        <p>The New Tax Regime offers lower tax rates but eliminates traditional deductions like Section 80C, 80D, and HRA. However, it provides a generous <strong>Standard Deduction of ₹75,000</strong> and complete tax relief under Section 87A rebate for net taxable income up to ₹12 Lakhs.</p>
+        <table style="width:100%; border-collapse:collapse; text-align:left; font-size:13px; margin-bottom:15px;">
+            <thead>
+                <tr style="background:#f1f5f9; color:#1e293b; border-bottom:2px solid #cbd5e1;">
+                    <th style="padding:6px;">Income Slab (₹)</th>
+                    <th style="padding:6px; text-align:right;">Tax Rate (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">0 - 4,00,000</td><td style="text-align:right; padding:6px;">Nil</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">4,00,001 - 8,00,000</td><td style="text-align:right; padding:6px;">5%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">8,00,001 - 12,00,000</td><td style="text-align:right; padding:6px;">10%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">12,00,001 - 16,00,000</td><td style="text-align:right; padding:6px;">15%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">16,00,001 - 20,00,000</td><td style="text-align:right; padding:6px;">20%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">20,00,001 - 24,00,000</td><td style="text-align:right; padding:6px;">25%</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">Above 24,00,000</td><td style="text-align:right; padding:6px;">30%</td></tr>
+            </tbody>
+        </table>
+
+        <h4 style="color: #2c3e50; font-size: 15px; margin: 15px 0 8px 0;">Old Tax Regime Deductions Ceiling</h4>
+        <p>The Old Tax Regime retains a basic <strong>Standard Deduction of ₹50,000</strong> but allows users to heavily scale down taxable income using lawful exemptions:</p>
+        <ul style="padding-left:20px; margin:5px 0;">
+            <li><strong>Section 80C (Max ₹1.5 Lakh):</strong> Covers PPF, Employee Provident Fund (EPF), ELSS Mutual Funds, National Savings Certificates (NSC), and Life Insurance premiums.</li>
+            <li><strong>Section 80D (Max ₹50,000):</strong> Exemptions on health insurance premiums for yourself, your spouse, children, and dependent parents.</li>
+            <li><strong>HRA & Home Loan Interest (Section 24b):</strong> Exemption benefits on house rent allowance or up to ₹2 Lakhs deduction on interest paid toward home loans.</li>
+        </ul>
+    </section>
+
+    <!-- SIP SEO UNIT -->
+    <section style="margin-bottom: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">How Does a Mutual Fund SIP Calculator Work?</h3>
+        <p>A Systematic Investment Plan (SIP) allows individuals to deploy fixed monetary amounts into equity mutual funds systematically. Our calculator computes future estimated wealth generation utilizing standard compound interest formulas.</p>
+        <p>The mathematical architecture behind the tool processes compounding cycles monthly using this specific structural engineering formula:</p>
+        <div style="background:#f8fafc; padding:10px; border-radius:6px; font-family:monospace; text-align:center; margin:10px 0; font-weight:bold; color:#0f766e;">
+            M = P × [ ((1 + i)^n - 1) / i ] × (1 + i)
+        </div>
+        <p>Where <em>M</em> represents ultimate maturity wealth, <em>P</em> represents your fixed monthly deposit, <em>i</em> denotes the monthly periodic rate of return, and <em>n</em> reflects the aggregate compounding intervals (total months duration).</p>
+    </section>
+
+    <!-- FD SEO UNIT -->
+    <section style="border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">Fixed Deposit (FD) Quarterly Compounding Explained</h3>
+        <p>Unlike simple savings systems, fixed deposits held across prominent Indian banking institutions like SBI, HDFC, and ICICI utilize **Quarterly Compounding Cycles** (4 calculation phases per fiscal year). This ensures that interest earned during the initial three months is added to your core principal pool, increasing the base amount for the next quarter's interest calculation.</p>
+        <p>Our safe computing script dynamically executes your calculations using quarterly variables, ensuring your projected principal gains perfectly align with real-world institutional bank passbooks without displaying errors.</p>
+    </section>
+</div>
+
+<script>
+function switchTab(containerId, buttonElement) {
+    document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(containerId).classList.add('active');
+    buttonElement.classList.add('active');
+}
+
+function toggleSipTips() {
+    let box = document.getElementById('sipTipsBox');
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleFdTable() {
+    let box = document.getElementById('fdTableBox');
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+
+function updateLiveTotal() {
+    let raw80c = parseFloat(document.getElementById('sec80c').value) || 0;
+    let raw80d = parseFloat(document.getElementById('sec80d').value) || 0;
+    let rawHra = parseFloat(document.getElementById('hra').value) || 0;
+
+    let allowed80c = Math.min(150000, raw80c);
+    let allowed80d = Math.min(50000, raw80d);
+    let allowedHra = Math.min(1200000, rawHra);
+
+    document.getElementById('cncNote').style.display = raw80c > 150000 ? 'block' : 'none';
+    document.getElementById('dncNote').style.display = raw80d > 50000 ? 'block' : 'none';
+    document.getElementById('hrancNote').style.display = rawHra > 1200000 ? 'block' : 'none';
+    
+    let legalTotal = allowed80c + allowed80d + allowedHra;
+    document.getElementById('liveTotalDisplay').innerText = "Total Allowable: ₹" + legalTotal.toLocaleString('en-IN');
+    return legalTotal;
+}
+
+function calculateTax() {
+    let income = parseFloat(document.getElementById('income').value) || 0;
+    let legalDeductions = updateLiveTotal();
+    let oldStdDeduction = 50000; 
+    let taxableOld = Math.max(0, income - legalDeductions - oldStdDeduction);
+    let oldTax = 0;
+    if (taxableOld > 1000000) { oldTax += (taxableOld - 1000000) * 0.3 + 112500; }
+    else if (taxableOld > 500000) { oldTax += (taxableOld - 500000) * 0.2 + 12500; }
+    else if (taxableOld > 250000) { oldTax += (taxableOld - 250000) * 0.05; }
+    if (taxableOld <= 500000) { oldTax = 0; } 
+    oldTax = oldTax * 1.04; 
+
+    let newStdDeduction = 75000;
+    let taxableNew = Math.max(0, income - newStdDeduction);
+    let newTax = 0;
+    if (taxableNew > 2400000) { newTax += (taxableNew - 2400000) * 0.3 + 300000; }
+    else if (taxableNew > 2000000) { newTax += (taxableNew - 2000000) * 0.25 + 200000; }
+    else if (taxableNew > 1600000) { newTax += (taxableNew - 1600000) * 0.2 + 120000; }
+    else if (taxableNew > 1200000) { newTax += (taxableNew - 1200000) * 0.15 + 60000; }
+    else if (taxableNew > 800000) { newTax += (taxableNew - 800000) * 0.1 + 20000; }
+    else if (taxableNew > 400000) { newTax += (taxableNew - 400000) * 0.05; }
+    if (taxableNew <= 1200000) { newTax = 0; } 
+    newTax = newTax * 1.04; 
+
+    document.getElementById('displayUsedDeductions').innerText = "₹" + legalDeductions.toLocaleString('en-IN');
+    document.getElementById('oldTax').innerText = "₹" + Math.round(oldTax).toLocaleString('en-IN');
+    document.getElementById('newTax').innerText = "₹" + Math.round(newTax).toLocaleString('en-IN');
+    let verdict = document.getElementById('verdictText');
+    if (newTax < oldTax) {
+        verdict.innerText = "💡 Recommendation: Choose the New Regime to save ₹" + Math.round(oldTax - newTax).toLocaleString('en-IN') + "!";
+    } else if (oldTax < newTax) {
+        verdict.innerText = "💡 Recommendation: Choose the Old Regime to save ₹" + Math.round(newTax - oldTax).toLocaleString('en-IN') + "!";
+    } else {
+        verdict.innerText = "💡 Both regimes result in the exact same tax liability.";
+    }
+    document.getElementById('taxResults').style.display = 'block';
+}
+
+function calculateSIP() {
+    let rawP = parseFloat(document.getElementById('sipAmount').value) || 0;
+    let rawRate = parseFloat(document.getElementById('sipRate').value) || 0;
+    let rawYears = parseFloat(document.getElementById('sipYears').value) || 0;
+
+    let P = Math.min(1000000, Math.max(0, rawP));
+    let annualRate = Math.min(30, Math.max(0, rawRate));
+    let years = Math.min(50, Math.max(0, rawYears));
+
+    document.getElementById('sipAmtNote').style.display = rawP > 1000000 ? 'block' : 'none';
+    document.getElementById('sipRateNote').style.display = rawRate > 30 ? 'block' : 'none';
+    document.getElementById('sipYearsNote').style.display = rawYears > 50 ? 'block' : 'none';
+
+    let i = (annualRate / 100) / 12;
+    let n = years * 12;
+
+    if(i === 0 || n === 0) {
+        let totalInvested = P * n;
+        document.getElementById('sipInvested').innerText = "₹" + totalInvested.toLocaleString('en-IN');
+        document.getElementById('sipGain').innerText = "₹0";
+        document.getElementById('sipTotal').innerText = "₹" + totalInvested.toLocaleString('en-IN');
+    } else {
+        let maturityValue = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+        let totalInvested = P * n;
+        let estimatedReturns = maturityValue - totalInvested;
+        document.getElementById('sipInvested').innerText = "₹" + Math.round(totalInvested).toLocaleString('en-IN');
+        document.getElementById('sipGain').innerText = "₹" + Math.round(estimatedReturns).toLocaleString('en-IN');
+        document.getElementById('sipTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
+    }
+    document.getElementById('sipResults').style.display = 'block';
+}
+
+function calculateFD() {
+    let rawP = parseFloat(document.getElementById('fdPrincipal').value) || 0;
+    let rawR = parseFloat(document.getElementById('fdRate').value) || 0;
+    let rawT = parseFloat(document.getElementById('fdYears').value) || 0;
+
+    let P = Math.min(1000000000, Math.max(0, rawP));
+    let r = Math.min(20, Math.max(0, rawR));
+    let t = Math.min(25, Math.max(0, rawT));
+
+    document.getElementById('fdAmtNote').style.display = rawP > 1000000000 ? 'block' : 'none';
+    document.getElementById('fdRateNote').style.display = rawR > 20 ? 'block' : 'none';
+    document.getElementById('fdYearsNote').style.display = rawT > 25 ? 'block' : 'none';
+
+    let n = 4; 
+    let maturityValue = P * Math.pow((1 + (r / 100) / n), (n * t));
+    let totalInterest = maturityValue - P;
+
+    document.getElementById('fdInvested').innerText = "₹" + Math.round(P).toLocaleString('en-IN');
+    document.getElementById('fdInterest').innerText = "₹" + Math.round(totalInterest).toLocaleString('en-IN');
+    document.getElementById('fdTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
+    document.getElementById('fdResults').style.display = 'block';
+}
+
+window.addEventListener("load", function() {
+    calculateTax();
+    calculateSIP();
+    calculateFD();
+});
+</script>
+</body>
+</html>
