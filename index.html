@@ -244,6 +244,25 @@
                     </p>
                 </div>
             </div>
+
+                    <!-- INTERACTIVE MONTHLY TAKE-HOME BREAKDOWN PANEL -->
+        <div style="margin-top: 25px; padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; border-top: 4px solid #10b981;">
+            <h4 style="color: #1e293b; font-size: 16px; margin-top: 0; margin-bottom: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px;">💵 Your Estimated Monthly Take-Home Pay (New Regime)</h4>
+            <div style="display: grid; gap: 12px; font-size: 14px;">
+                <div style="display: flex; justify-content: space-between; color: #475569;">
+                    <span>Monthly Gross Salary:</span>
+                    <span id="monthlyGross" style="font-weight: 600;">₹0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; color: #b91c1c;">
+                    <span>Estimated Monthly Tax:</span>
+                    <span id="monthlyTax" style="font-weight: 600;">₹0</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px dashed #cbd5e1; color: #15803d; font-size: 16px;">
+                    <strong>In-Hand Monthly Salary:</strong>
+                    <strong id="monthlyTakeHome">₹0</strong>
+                </div>
+            </div>
+        </div>
             
         </div>
     </div>
@@ -398,6 +417,16 @@ function calculateTax() {
         verdict.innerText = "💡 Both regimes result in the exact same tax liability.";
     }
     document.getElementById('taxResults').style.display = 'block';
+    
+        // Calculate and update the dynamic monthly take-home values
+    let grossMonthly = income / 12;
+    let taxMonthly = newFinalTax / 12; // Base it on the optimal New Regime calculations
+    let inHandMonthly = grossMonthly - taxMonthly;
+
+    document.getElementById('monthlyGross').innerText = "₹" + Math.round(grossMonthly).toLocaleString('en-IN');
+    document.getElementById('monthlyTax').innerText = "₹" + Math.round(taxMonthly).toLocaleString('en-IN');
+    document.getElementById('monthlyTakeHome').innerText = "₹" + Math.round(inHandMonthly).toLocaleString('en-IN');
+
 }
 
 
