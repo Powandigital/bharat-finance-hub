@@ -494,10 +494,22 @@ function calculateTax() {
                               "Check your tax savings, monthly take-home pay, and compound wealth instantly without any sign-up or login here: https://bharatfinhub.com";
 }
 
-// Global programmatic sharing function configuration
+// Bulletproof programmatic sharing function configuration
 function shareToWhatsApp() {
-    let shareText = window.whatsappShareText || "Check your income tax savings, monthly take-home pay, and compound wealth instantly on https://bharatfinhub.com";
-    let encodedText = encodeURIComponent(shareText);
+    // If the user hasn't typed anything new, generate a clean default fallback message using the current visible values
+    if (!window.whatsappShareText) {
+        let currentIncome = parseFloat(document.getElementById('income').value) || 1300000;
+        let currentOldTax = document.getElementById('oldTax').innerText || "₹1,32,600";
+        let currentNewTax = document.getElementById('newTax').innerText || "₹66,300";
+        
+        window.whatsappShareText = "I just calculated my income tax and take-home pay instantly on Bharat Finance Hub! \n\n" +
+                                  "📊 Gross Income: ₹" + currentIncome.toLocaleString('en-IN') + "\n" +
+                                  "🔴 Old Regime Tax: " + currentOldTax + "\n" +
+                                  "🟢 New Regime Tax: " + currentNewTax + "\n\n" +
+                                  "Check your tax savings, monthly take-home pay, and compound wealth instantly without any sign-up or login here: https://bharatfinhub.com";
+    }
+    
+    let encodedText = encodeURIComponent(window.whatsappShareText);
     window.open("https://whatsapp.com" + encodedText, "_blank");
 }
 
