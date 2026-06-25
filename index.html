@@ -81,15 +81,43 @@
 
     <button class="calc-btn" onclick="window.print()">🖨️ Print / Save Tax Summary</button>
     <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
-
+    <!-- 1. UPGRADED INTEGRATED TAX RESULTS WINDOW -->
     <div class="results" id="taxResults">
         <div class="result-row"><span>Standard Deduction (Old Regime):</span><span>₹50,000</span></div>
         <div class="result-row"><span>Standard Deduction (New Regime):</span><span>₹75,000</span></div>
         <div class="result-row"><span>Total Legally Allowed Deductions Used (Old):</span><span id="displayUsedDeductions" style="font-weight:600;">₹0</span></div>
-        <div class="result-row" style="background:#fee2e2; padding:6px 10px; border-radius:4px;"><strong>Tax under Old Regime:</strong><span id="oldTax" style="color:#b91c1c; font-weight:bold;">₹0</span></div>
-        <div class="result-row" style="background:#dcfce7; padding:6px 10px; border-radius:4px;"><strong>Tax under New Regime:</strong><span id="newTax" style="color:#15803d; font-weight:bold;">₹0</span></div>
+        
+        <!-- INTEGRATED OLD REGIME ROW -->
+        <div class="result-row" style="background:#fee2e2; padding:10px; border-radius:6px; margin-top:8px; display:block;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; color:#b91c1c;">
+                <span>Tax under Old Regime (Annual):</span>
+                <span id="oldTax">₹0</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#991b1b; margin-top:4px; border-top:1px dashed #fca5a5; padding-top:4px;">
+                <span>Estimated Tax Per Month:</span>
+                <span id="oldTaxMonthly">₹0 / month</span>
+            </div>
+        </div>
+
+        <!-- INTEGRATED NEW REGIME ROW -->
+        <div class="result-row" style="background:#dcfce7; padding:10px; border-radius:6px; margin-top:10px; display:block;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; color:#15803d;">
+                <span>Tax under New Regime (Annual):</span>
+                <span id="newTax">₹0</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#166534; margin-top:4px; border-top:1px dashed #bbf7d0; padding-top:4px;">
+                <span>Estimated Tax Per Month:</span>
+                <span id="newTaxMonthly">₹0 / month</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:13.5px; color:#14532d; margin-top:6px; border-top:1px solid #86efac; padding-top:6px; font-weight:600;">
+                <span>Estimated Net Take-Home Salary:</span>
+                <span id="newTakeHomeMonthly">₹0 / month</span>
+            </div>
+        </div>
+
         <div class="verdict" id="verdictText"></div>
     </div>
+    
 </div>
 
 <!-- 2. SIP CALCULATOR CONTAINER -->
@@ -245,28 +273,50 @@
                 </div>
             </div>
 
-                    <!-- INTERACTIVE MONTHLY TAKE-HOME BREAKDOWN PANEL -->
-        <div style="margin-top: 25px; padding: 20px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; border-top: 4px solid #10b981;">
-            <h4 style="color: #1e293b; font-size: 16px; margin-top: 0; margin-bottom: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px;">💵 Your Estimated Monthly Take-Home Pay (New Regime)</h4>
-            <div style="display: grid; gap: 12px; font-size: 14px;">
-                <div style="display: flex; justify-content: space-between; color: #475569;">
-                    <span>Monthly Gross Salary:</span>
-                    <span id="monthlyGross" style="font-weight: 600;">₹0</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; color: #b91c1c;">
-                    <span>Estimated Monthly Tax:</span>
-                    <span id="monthlyTax" style="font-weight: 600;">₹0</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px dashed #cbd5e1; color: #15803d; font-size: 16px;">
-                    <strong>In-Hand Monthly Salary:</strong>
-                    <strong id="monthlyTakeHome">₹0</strong>
+                                <!-- Strategy 5: National Pension Scheme Tier 1 Individual -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #06b6d4; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #ecfeff; color: #0891b2; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(6,182,212,0.1);">5</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Section 80CCD(1B) Extra Cushion</strong>
+                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Old Regime Only</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
+                        Most taxpayers believe their total deduction stops at the ₹1,50,000 threshold under Section 80C. However, by manually putting an additional investment into a voluntary <span style="background: #e2e8f0; color: #1e293b; padding: 2px 5px; border-radius: 4px; font-weight: 600; font-size: 12.5px;">NPS Tier-1 Account</span>, you can claim an exclusive supplementary exemption of up to <strong>₹50,000</strong> completely above the 80C limit.
+                    </p>
                 </div>
             </div>
+
+            <!-- Strategy 6: Education Loan Unlimited Clause -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #a855f7; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #f3e8ff; color: #7e22ce; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(168,85,247,0.1);">6</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Unlimited Section 80E Interest Clause</strong>
+                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Old Regime Only</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
+                        If you have secured a financing loan for higher education for yourself, your spouse, or your children, <span style="background: #e2e8f0; color: #1e293b; padding: 2px 5px; border-radius: 4px; font-weight: 600; font-size: 12.5px;">Section 80E</span> allows you to deduct the **entire interest amount paid** from your taxable salary pool. Unlike home loans, this section features <strong>no upper dollar or rupee ceiling limit</strong> for an active span of up to 8 consecutive fiscal years.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Strategy 7: Section 80G Charity Clause -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #ec4899; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #fce7f3; color: #be185d; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(236,72,153,0.1);">7</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Donation Exemptions via Section 80G</strong>
+                        <span style="background: #dbeafe; color: #1e40af; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Both Regimes</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
+                        Contributions routed toward notified government relief funds, clean energy structures, or certified charitable foundations entitle you to either a <strong>50% or 100% deduction</strong> under <span style="background: #e2e8f0; color: #1e293b; padding: 2px 5px; border-radius: 4px; font-weight: 600; font-size: 12.5px;">Section 80G</span>. Ensure to retain a valid digital receipt containing the institution's active 10-digit PAN details to defend the deduction claims during filing.
+                    </p>
+                </div>
+            </div>
+
         </div>
-            
-        </div>
-    </div>
-  
+        
     <!-- TAX SEO UNIT -->
     <section style="margin-bottom: 30px;">
         <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">Understanding the Indian Income Tax Regime (FY 2025-26 / AY 2026-27)</h3>
@@ -418,14 +468,31 @@ function calculateTax() {
     }
     document.getElementById('taxResults').style.display = 'block';
     
-        // Calculate and update the dynamic monthly take-home values
-    let grossMonthly = income / 12;
-    let taxMonthly = newFinalTax / 12; // Base it on the optimal New Regime calculations
-    let inHandMonthly = grossMonthly - taxMonthly;
+            // --- INTEGRATED MONTHLY AND IN-HAND SALARY COMPILATION ---
+    let grossMonthlyPay = income / 12;
+    let oldTaxMonthlyPay = oldFinalTax / 12;
+    let newTaxMonthlyPay = newFinalTax / 12;
+    let finalTakeHomeInHand = grossMonthlyPay - newTaxMonthlyPay; // Aligned directly with the optimal New Regime pathway
 
-    document.getElementById('monthlyGross').innerText = "₹" + Math.round(grossMonthly).toLocaleString('en-IN');
-    document.getElementById('monthlyTax').innerText = "₹" + Math.round(taxMonthly).toLocaleString('en-IN');
-    document.getElementById('monthlyTakeHome').innerText = "₹" + Math.round(inHandMonthly).toLocaleString('en-IN');
+    // Mapping calculations directly into respective results fields
+    document.getElementById('displayUsedDeductions').innerText = "₹" + legalDeductions.toLocaleString('en-IN');
+    document.getElementById('oldTax').innerText = "₹" + Math.round(oldFinalTax).toLocaleString('en-IN');
+    document.getElementById('newTax').innerText = "₹" + Math.round(newFinalTax).toLocaleString('en-IN');
+    
+    // Injecting the new monthly breakdowns seamlessly
+    document.getElementById('oldTaxMonthly').innerText = "₹" + Math.round(oldTaxMonthlyPay).toLocaleString('en-IN') + " / month";
+    document.getElementById('newTaxMonthly').innerText = "₹" + Math.round(newTaxMonthlyPay).toLocaleString('en-IN') + " / month";
+    document.getElementById('newTakeHomeMonthly').innerText = "₹" + Math.round(finalTakeHomeInHand).toLocaleString('en-IN') + " / month";
+
+    let verdict = document.getElementById('verdictText');
+    if (newFinalTax < oldFinalTax) {
+        verdict.innerText = "💡 Recommendation: Choose the New Regime to save ₹" + Math.round(oldFinalTax - newFinalTax).toLocaleString('en-IN') + "!";
+    } else if (oldFinalTax < newFinalTax) {
+        verdict.innerText = "💡 Recommendation: Choose the Old Regime to save ₹" + Math.round(newFinalTax - oldFinalTax).toLocaleString('en-IN') + "!";
+    } else {
+        verdict.innerText = "💡 Both regimes result in the exact same tax liability.";
+    }
+    document.getElementById('taxResults').style.display = 'block';
 
 }
 
