@@ -120,10 +120,11 @@
 
         <div class="verdict" id="verdictText"></div>
 
-        <!-- WHATSAPP VIRAL SHARE BUTTON -->
-        <button onclick="shareToWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(37,211,102,0.15); transition:background 0.2s;">
+                <!-- BULLETPROOF NATIVE WHATSAPP VIRAL SHARE LINK -->
+        <a id="whatsappShareBtn" href="https://whatsapp.com" target="_blank" style="width:100%; background:#25d366; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(37,211,102,0.15); transition:background 0.2s; text-decoration:none; box-sizing:border-box;">
             🟢 Share Results via WhatsApp
-        </button>
+        </a>
+
     </div>
 
 </div>
@@ -494,24 +495,19 @@ function calculateTax() {
                               "Check your tax savings, monthly take-home pay, and compound wealth instantly without any sign-up or login here: https://bharatfinhub.com";
 }
 
-// Bulletproof programmatic sharing function configuration
-function shareToWhatsApp() {
-    // If the user hasn't typed anything new, generate a clean default fallback message using the current visible values
-    if (!window.whatsappShareText) {
-        let currentIncome = parseFloat(document.getElementById('income').value) || 1300000;
-        let currentOldTax = document.getElementById('oldTax').innerText || "₹1,32,600";
-        let currentNewTax = document.getElementById('newTax').innerText || "₹66,300";
-        
-        window.whatsappShareText = "I just calculated my income tax and take-home pay instantly on Bharat Finance Hub! \n\n" +
-                                  "📊 Gross Income: ₹" + currentIncome.toLocaleString('en-IN') + "\n" +
-                                  "🔴 Old Regime Tax: " + currentOldTax + "\n" +
-                                  "🟢 New Regime Tax: " + currentNewTax + "\n\n" +
-                                  "Check your tax savings, monthly take-home pay, and compound wealth instantly without any sign-up or login here: https://bharatfinhub.com";
-    }
+    // Dynamically compile and inject the text parameters directly into the native link href string
+    let shareText = "I just calculated my income tax and take-home pay instantly on Bharat Finance Hub! \n\n" +
+                    "📊 Gross Income: ₹" + income.toLocaleString('en-IN') + "\n" +
+                    "🔴 Old Regime Tax: ₹" + Math.round(oldFinalTax).toLocaleString('en-IN') + "\n" +
+                    "🟢 New Regime Tax: ₹" + Math.round(newFinalTax).toLocaleString('en-IN') + "\n\n" +
+                    "Check your tax savings, monthly take-home pay, and compound wealth instantly without any sign-up or login here: https://bharatfinhub.com";
     
-    let encodedText = encodeURIComponent(window.whatsappShareText);
-    window.open("https://whatsapp.com" + encodedText, "_blank");
-}
+    let btnElement = document.getElementById('whatsappShareBtn');
+    if (btnElement) {
+        btnElement.href = "https://whatsapp.com" + encodeURIComponent(shareText);
+    }
+} // <--- This closes your calculateTax() function safely
+
 
 function calculateSIP() {
     let rawP = parseFloat(document.getElementById('sipAmount').value) || 0;
