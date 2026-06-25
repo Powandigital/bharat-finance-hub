@@ -276,40 +276,66 @@ function updateLiveTotal() {
 function calculateTax() {
     let income = parseFloat(document.getElementById('income').value) || 0;
     let legalDeductions = updateLiveTotal();
+
+    // ==========================================
+    // 1. OLD REGIME TAX CALCULATION
+    // ==========================================
     let oldStdDeduction = 50000; 
     let taxableOld = Math.max(0, income - legalDeductions - oldStdDeduction);
-    let oldTax = 0;
-    if (taxableOld > 1000000) { oldTax += (taxableOld - 1000000) * 0.3 + 112500; }
-    else if (taxableOld > 500000) { oldTax += (taxableOld - 500000) * 0.2 + 12500; }
-    else if (taxableOld > 250000) { oldTax += (taxableOld - 250000) * 0.05; }
-    if (taxableOld <= 500000) { oldTax = 0; } 
-    oldTax = oldTax * 1.04; 
+    let oldBaseTax = 0;
 
+    if (taxableOld > 1000000) { oldBaseTax += (taxableOld - 1000000) * 0.3 + 112500; }
+    else if (taxableOld > 500000) { oldBaseTax += (taxableOld - 500000) * 0.2 + 12500; }
+    else if (taxableOld > 250000) { oldBaseTax += (taxableOld - 250000) * 0.05; }
+    if (taxableOld <= 500000) { oldBaseTax = 0; } 
+
+    // Apply Old Regime Surcharge (10% if income > 50L)
+    let oldSurcharge = 0;
+    if (taxableOld > 5000000) { oldSurcharge = oldBaseTax * 0.10; }
+    
+    let oldFinalTax = (oldBaseTax + oldSurcharge) * 1.04; // Add 4% Cess
+
+    // ==========================================
+    // 2. NEW REGIME TAX CALCULATION
+    // ==========================================
     let newStdDeduction = 75000;
     let taxableNew = Math.max(0, income - newStdDeduction);
-    let newTax = 0;
-    if (taxableNew > 2400000) { newTax += (taxableNew - 2400000) * 0.3 + 300000; }
-    else if (taxableNew > 2000000) { newTax += (taxableNew - 2000000) * 0.25 + 200000; }
-    else if (taxableNew > 1600000) { newTax += (taxableNew - 1600000) * 0.2 + 120000; }
-    else if (taxableNew > 1200000) { newTax += (taxableNew - 1200000) * 0.15 + 60000; }
-    else if (taxableNew > 800000) { newTax += (taxableNew - 800000) * 0.1 + 20000; }
-    else if (taxableNew > 400000) { newTax += (taxableNew - 400000) * 0.05; }
-    if (taxableNew <= 1200000) { newTax = 0; } 
-    newTax = newTax * 1.04; 
+    let newBaseTax = 0;
 
+    if (taxableNew > 2400000) { newBaseTax += (taxableNew - 2400000) * 0.3 + 300000; }
+    else if (taxableNew > 2000000) { newBaseTax += (taxableNew - 2000000) * 0.25 + 200000; }
+    else if (taxableNew > 1600000) { newBaseTax += (taxableNew - 1600000) * 0.2 + 120000; }
+    else if (taxableNew > 1200000) { newBaseTax += (taxableNew - 1200000) * 0.15 + 60000; }
+    else if (taxableNew > 800000) { newBaseTax += (taxableNew - 800000) * 0.1 + 20000; }
+    else if (taxableNew > 400000) { newBaseTax += (taxableNew - 400000) * 0.05; }
+    
+    // Strict Section 87A Rebate check (Zero tax ONLY if taxable income is <= 12 Lakhs)
+    if (taxableNew <= 1200000) { newBaseTax = 0; } 
+
+    // Apply New Regime Surcharge (10% if income > 50L)
+    let newSurcharge = 0;
+    if (taxableNew > 5000000) { newSurcharge = newBaseTax * 0.10; }
+    
+    let newFinalTax = (newBaseTax + newSurcharge) * 1.04; // Add 4% Cess
+
+    // ==========================================
+    // DISPLAY RESULTS
+    // ==========================================
     document.getElementById('displayUsedDeductions').innerText = "₹" + legalDeductions.toLocaleString('en-IN');
-    document.getElementById('oldTax').innerText = "₹" + Math.round(oldTax).toLocaleString('en-IN');
-    document.getElementById('newTax').innerText = "₹" + Math.round(newTax).toLocaleString('en-IN');
+    document.getElementById('oldTax').innerText = "₹" + Math.round(oldFinalTax).toLocaleString('en-IN');
+    document.getElementById('newTax').innerText = "₹" + Math.round(newFinalTax).toLocaleString('en-IN');
+    
     let verdict = document.getElementById('verdictText');
-    if (newTax < oldTax) {
-        verdict.innerText = "💡 Recommendation: Choose the New Regime to save ₹" + Math.round(oldTax - newTax).toLocaleString('en-IN') + "!";
-    } else if (oldTax < newTax) {
-        verdict.innerText = "💡 Recommendation: Choose the Old Regime to save ₹" + Math.round(newTax - oldTax).toLocaleString('en-IN') + "!";
+    if (newFinalTax < oldFinalTax) {
+        verdict.innerText = "💡 Recommendation: Choose the New Regime to save ₹" + Math.round(oldFinalTax - newFinalTax).toLocaleString('en-IN') + "!";
+    } else if (oldFinalTax < newFinalTax) {
+        verdict.innerText = "💡 Recommendation: Choose the Old Regime to save ₹" + Math.round(newFinalTax - oldFinalTax).toLocaleString('en-IN') + "!";
     } else {
         verdict.innerText = "💡 Both regimes result in the exact same tax liability.";
     }
     document.getElementById('taxResults').style.display = 'block';
 }
+
 
 function calculateSIP() {
     let rawP = parseFloat(document.getElementById('sipAmount').value) || 0;
