@@ -387,6 +387,7 @@
         <button onclick="togglePrivacyBox()" style="background: #64748b; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px;">Close Policy Window</button>
     </div>
 </footer>
+<!-- SINGLE COMBINED CENTRAL MASTER JAVASCRIPT ENGINE -->
 <script>
 function switchTab(containerId, buttonElement) {
     document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
@@ -455,21 +456,16 @@ function calculateTax() {
     let newSurcharge = taxableNew > 5000000 ? newBaseTax * 0.10 : 0;
     let newFinalTax = (newBaseTax + newSurcharge) * 1.04; 
 
-        // --- INTEGRATED MONTHLY AND IN-HAND SALARY COMPILATION ---
     let grossMonthlyPay = income / 12;
     let oldTaxMonthlyPay = oldFinalTax / 12;
     let newTaxMonthlyPay = newFinalTax / 12;
     
-    // Balanced take-home salary calculations for both pathways
     let oldTakeHomeInHand = grossMonthlyPay - oldTaxMonthlyPay;
     let newTakeHomeInHand = grossMonthlyPay - newTaxMonthlyPay;
 
-    // Mapping calculations directly into respective results fields
     document.getElementById('displayUsedDeductions').innerText = "₹" + legalDeductions.toLocaleString('en-IN');
     document.getElementById('oldTax').innerText = "₹" + Math.round(oldFinalTax).toLocaleString('en-IN');
     document.getElementById('newTax').innerText = "₹" + Math.round(newFinalTax).toLocaleString('en-IN');
-    
-    // Injecting the new monthly breakdowns seamlessly
     document.getElementById('oldTaxMonthly').innerText = "₹" + Math.round(oldTaxMonthlyPay).toLocaleString('en-IN') + " / month";
     document.getElementById('oldTakeHomeMonthly').innerText = "₹" + Math.round(oldTakeHomeInHand).toLocaleString('en-IN') + " / month";
     document.getElementById('newTaxMonthly').innerText = "₹" + Math.round(newTaxMonthlyPay).toLocaleString('en-IN') + " / month";
@@ -486,16 +482,8 @@ function calculateTax() {
     }
     verdict.innerText = "💡 Recommendation: " + savingsMessage;
     document.getElementById('taxResults').style.display = 'block';
-    
-    // Dynamically store sharing text globally for the WhatsApp button
-    window.whatsappShareText = "I just calculated my income tax and take-home pay instantly on Bharat Finance Hub! \n\n" +
-                              "📊 Gross Income: ₹" + income.toLocaleString('en-IN') + "\n" +
-                              "🔴 Old Regime Tax: ₹" + Math.round(oldFinalTax).toLocaleString('en-IN') + "\n" +
-                              "🟢 New Regime Tax: ₹" + Math.round(newFinalTax).toLocaleString('en-IN') + "\n\n" +
-                              "Check your tax savings, monthly take-home pay, and compound wealth instantly without any sign-up or login here: https://bharatfinhub.com";
-}
 
-    // Dynamically compile and inject the text parameters directly into the native link href string
+    // Native text compiler
     let shareText = "I just calculated my income tax and take-home pay instantly on Bharat Finance Hub! \n\n" +
                     "📊 Gross Income: ₹" + income.toLocaleString('en-IN') + "\n" +
                     "🔴 Old Regime Tax: ₹" + Math.round(oldFinalTax).toLocaleString('en-IN') + "\n" +
@@ -506,10 +494,8 @@ function calculateTax() {
     if (btnElement) {
         btnElement.href = "https://whatsapp.com" + encodeURIComponent(shareText);
     }
-} // <--- This closes your calculateTax() function safely
-
 }
-    
+
 function calculateSIP() {
     let rawP = parseFloat(document.getElementById('sipAmount').value) || 0;
     let rawRate = parseFloat(document.getElementById('sipRate').value) || 0;
