@@ -5,6 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bharat Finance Hub - Tax, SIP & FD Calculators</title>
+
+    <!-- OpenGraph Metadata Infrastructure for WhatsApp Rich Preview Cards -->
+    <meta property="og:site_name" content="Bharat Finance Hub" />
+    <meta property="og:title" content="Bharat Finance Hub - Free Tax & Wealth Calculators" />
+    <meta property="og:description" content="Calculate your progressive Income Tax (FY 2025-26), Mutual Fund SIP wealth projections, and Bank FD yields instantly. No logins or paywalls." />
+    <meta property="og:url" content="https://bharatfinhub.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://bharatfinhub.com" />
+    <meta property="og:image:secure_url" content="https://bharatfinhub.com" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bharat Finance Hub Dashboard Interface Preview" />
+
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; color: #333; }
         .portal-header { text-align: center; margin: 20px 0 10px 0; }
@@ -80,7 +94,7 @@
     <button class="calc-btn" onclick="window.print()">🖨️ Print / Save Tax Summary</button>
     <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
 
-        <!-- 1. UPGRADED INTEGRATED TAX RESULTS WINDOW -->
+    <!-- 1. UPGRADED INTEGRATED TAX RESULTS WINDOW -->
     <div class="results" id="taxResults">
         <div class="result-row"><span>Standard Deduction (Old Regime):</span><span>₹50,000</span></div>
         <div class="result-row"><span>Standard Deduction (New Regime):</span><span>₹75,000</span></div>
@@ -120,14 +134,13 @@
 
         <div class="verdict" id="verdictText"></div>
 
-                <!-- BULLETPROOF NATIVE WHATSAPP VIRAL SHARE LINK -->
-        <a id="whatsappShareBtn" href="https://whatsapp.com" target="_blank" style="width:100%; background:#25d366; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(37,211,102,0.15); transition:background 0.2s; text-decoration:none; box-sizing:border-box;">
+        <!-- BULLETPROOF NATIVE WHATSAPP VIRAL SHARE LINK -->
+        <a id="whatsappShareBtn" href="#" style="width:100%; background:#25d366; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(37,211,102,0.15); transition:background 0.2s; text-decoration:none; box-sizing:border-box;">
             🟢 Share Results via WhatsApp
         </a>
-
     </div>
-
 </div>
+
 <!-- 2. SIP CALCULATOR CONTAINER -->
 <div id="sip-container" class="container">
     <h2>📈 Mutual Fund SIP Calculator</h2>
@@ -189,8 +202,8 @@
 
     <button class="calc-btn" onclick="toggleFdTable()">🏦 View Bank Interest Comparison</button>
     
-    <div id="fdTableBox" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:14px;">
-        <table style="width:100%; border-collapse:collapse; text-align:left;">
+    <div id="fdTableBox" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:14px; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; text-align:left; min-width:280px;">
             <thead>
                 <tr style="border-bottom:2px solid #cbd5e1; color:#475569;">
                     <th style="padding:6px 0;">Bank Name</th>
@@ -214,6 +227,7 @@
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Maturity Wealth Value:</strong><span id="fdTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
     </div>
 </div>
+
 <!-- GLOBAL SEO KEYWORD CONTENT HUB (FOR GOOGLE RANKING) -->
 <div class="seo-static-hub" style="max-width: 650px; background: white; margin: 20px auto 30px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #10b981; font-size: 14px; line-height: 1.6; color: #475569; box-sizing: border-box;">
     
@@ -250,9 +264,9 @@
                 </div>
             </div>
 
-            <!-- Strategy 3 -->
+                <!-- Strategy 3 -->
             <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #f97316; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(249,115,22,0.1);">3</div>
+                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(249,115,22,0.1); flex-shrink: 0;">3</div>
                 <div style="flex: 1;">
                     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
                         <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Maximize Medical Protection Deductions</strong>
@@ -266,7 +280,7 @@
 
             <!-- Strategy 4 -->
             <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #f97316; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(249,115,22,0.1);">4</div>
+                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(249,115,22,0.1); flex-shrink: 0;">4</div>
                 <div style="flex: 1;">
                     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
                         <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Simultaneous HRA & Home Loan Claims</strong>
@@ -277,9 +291,10 @@
                     </p>
                 </div>
             </div>
+
             <!-- Strategy 5 -->
             <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #06b6d4; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #ecfeff; color: #0891b2; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(6,182,212,0.1);">5</div>
+                <div style="background: #ecfeff; color: #0891b2; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(6,182,212,0.1); flex-shrink: 0;">5</div>
                 <div style="flex: 1;">
                     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
                         <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Section 80CCD(1B) Extra Cushion</strong>
@@ -293,21 +308,21 @@
 
             <!-- Strategy 6 -->
             <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #a855f7; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #f3e8ff; color: #7e22ce; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(168,85,247,0.1);">6</div>
+                <div style="background: #f3e8ff; color: #7e22ce; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(168,85,247,0.1); flex-shrink: 0;">6</div>
                 <div style="flex: 1;">
                     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
                         <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Unlimited Section 80E Interest Clause</strong>
                         <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Old Regime Only</span>
                     </div>
                     <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        If you have secured a financing loan for higher education for yourself, your spouse, or your children, <strong>Section 80E</strong> allows you to deduct the entire interest amount paid from your taxable salary pool. Unlike home loans, this section features no upper dollar or rupee ceiling limit for an active span of up to 8 consecutive fiscal years.
+                        If you have secured a financing loan for higher education for yourself, your spouse, or your children, <strong>Section 80E</strong> allows you to deduct the entire interest amount paid from your taxable salary pool. Unlike home loans, this section features no upper ceiling limit for an active span of up to 8 consecutive fiscal years.
                     </p>
                 </div>
             </div>
 
             <!-- Strategy 7 -->
             <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #ec4899; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #fce7f3; color: #be185d; font-weight: 800; min-width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(236,72,153,0.1);">7</div>
+                <div style="background: #fce7f3; color: #be185d; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(236,72,153,0.1); flex-shrink: 0;">7</div>
                 <div style="flex: 1;">
                     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
                         <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Donation Exemptions via Section 80G</strong>
@@ -318,31 +333,33 @@
                     </p>
                 </div>
             </div>
-            
-        </div>
-    </div>
     <section style="margin-bottom: 30px;">
         <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">Understanding the Indian Income Tax Regime (FY 2025-26 / AY 2026-27)</h3>
         <p>Choosing between the <strong>Old Tax Regime</strong> and the <strong>New Tax Regime</strong> depends entirely on your investment profile and gross salary structure. Bharat Finance Hub provides an instant calculations matrix utilizing current legal limits to map your exact tax liability.</p>
         <h4 style="color: #2c3e50; font-size: 15px; margin: 15px 0 8px 0;">New Tax Regime Slab Rates</h4>
         <p>The New Tax Regime offers lower tax rates but eliminates traditional deductions like Section 80C, 80D, and HRA. However, it provides a generous <strong>Standard Deduction of ₹75,000</strong> and complete tax relief under Section 87A rebate for net taxable income up to ₹12 Lakhs.</p>
-        <table style="width:100%; border-collapse:collapse; text-align:left; font-size:13px; margin-bottom:15px;">
-            <thead>
-                <tr style="background:#f1f5f9; color:#1e293b; border-bottom:2px solid #cbd5e1;">
-                    <th style="padding:6px;">Income Slab (₹)</th>
-                    <th style="padding:6px; text-align:right;">Tax Rate (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">0 - 4,00,000</td><td style="text-align:right; padding:6px;">Nil</td></tr>
-                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">4,00,001 - 8,00,000</td><td style="text-align:right; padding:6px;">5%</td></tr>
-                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">8,00,001 - 12,00,000</td><td style="text-align:right; padding:6px;">10%</td></tr>
-                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">12,00,001 - 16,00,000</td><td style="text-align:right; padding:6px;">15%</td></tr>
-                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">16,00,001 - 20,00,000</td><td style="text-align:right; padding:6px;">20%</td></tr>
-                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">20,00,001 - 24,00,000</td><td style="text-align:right; padding:6px;">25%</td></tr>
-                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">Above 24,00,000</td><td style="text-align:right; padding:6px;">30%</td></tr>
-            </tbody>
-        </table>
+        
+        <!-- Mobile Responsive Table Wrapper -->
+        <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 15px;">
+            <table style="width:100%; border-collapse:collapse; text-align:left; font-size:13px; min-width: 320px;">
+                <thead>
+                    <tr style="background:#f1f5f9; color:#1e293b; border-bottom:2px solid #cbd5e1;">
+                        <th style="padding:6px;">Income Slab (₹)</th>
+                        <th style="padding:6px; text-align:right;">Tax Rate (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">0 - 4,00,000</td><td style="text-align:right; padding:6px;">Nil</td></tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">4,00,001 - 8,00,000</td><td style="text-align:right; padding:6px;">5%</td></tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">8,00,001 - 12,00,000</td><td style="text-align:right; padding:6px;">10%</td></tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">12,00,001 - 16,00,000</td><td style="text-align:right; padding:6px;">15%</td></tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">16,00,001 - 20,00,000</td><td style="text-align:right; padding:6px;">20%</td></tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">20,00,001 - 24,00,000</td><td style="text-align:right; padding:6px;">25%</td></tr>
+                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">Above 24,00,000</td><td style="text-align:right; padding:6px;">30%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
         <h4 style="color: #2c3e50; font-size: 15px; margin: 15px 0 8px 0;">Old Tax Regime Deductions Ceiling</h4>
         <p>The Old Tax Regime retains a basic <strong>Standard Deduction of ₹50,000</strong> but allows users to heavily scale down taxable income using lawful exemptions:</p>
         <ul style="padding-left:20px; margin:5px 0;">
@@ -368,23 +385,23 @@
         <p>Our safe computing script dynamically executes your calculations using quarterly variables, ensuring your projected principal gains perfectly align with real-world institutional bank passbooks without displaying errors.</p>
     </section>
 </div>
+
 <!-- MANDATORY FOOTER FOR GOOGLE ADSENSE APPROVAL -->
 <footer style="max-width: 650px; margin: 30px auto; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 13px; color: #64748b;">
     <p>© 2026 Bharat Finance Hub. All Rights Reserved.</p>
     <p>
-        <a href="#privacy-modal" onclick="togglePrivacyBox()" style="color: #10b981; text-decoration: none; font-weight: 600; margin: 0 10px;">Privacy Policy</a> | 
+        <a href="#privacyBox" style="color: #10b981; text-decoration: none; font-weight: 600; margin: 0 10px;">Privacy Policy</a> | 
         <a href="#contact" onclick="alert('For support or business inquiries, reach out to us at: support@bharatfinhub.com')" style="color: #10b981; text-decoration: none; font-weight: 600; margin: 0 10px;">Contact Us</a>
     </p>
 
-    <!-- INTERACTIVE PRIVACY POLICY LAYER -->
-    <div id="privacyBox" style="display:none; text-align: left; background: white; border: 1px solid #cbd5e1; padding: 25px; border-radius: 8px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); line-height: 1.6;">
-        <h3 style="color:#1e293b; margin-top:0;">Privacy Policy for Bharat Finance Hub</h3>
+    <!-- CRITICAL ADSENSE DISCLOSURE PANEL (STATIC ACCESSIBILITY MODIFIED) -->
+    <div id="privacyBox" style="display: block; text-align: left; background: white; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); line-height: 1.6; max-height: 250px; overflow-y: auto;">
+        <h3 style="color:#1e293b; margin-top:0; font-size:16px;">Privacy Policy for Bharat Finance Hub</h3>
         <p>At Bharat Finance Hub, accessible from bharatfinhub.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Bharat Finance Hub and how we use it.</p>
         <strong>Log Files & Analytics</strong>
         <p>Bharat Finance Hub follows a standard procedure of using log files and third-party tools like Google Search Console and Google Analytics to analyze trends, administer the site, and track user movement locally within the browser engine. No personally identifiable data is sent to our servers.</p>
         <strong>Google AdSense & Cookies</strong>
         <p>Google is one of a third-party vendor on our site. It uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our platform and other sites on the internet. Visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy.</p>
-        <button onclick="togglePrivacyBox()" style="background: #64748b; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px;">Close Policy Window</button>
     </div>
 </footer>
 <!-- SINGLE COMBINED CENTRAL MASTER JAVASCRIPT ENGINE -->
@@ -483,16 +500,28 @@ function calculateTax() {
     verdict.innerText = "💡 Recommendation: " + savingsMessage;
     document.getElementById('taxResults').style.display = 'block';
 
-    // Native text compiler
-    let shareText = "I just calculated my income tax and take-home pay instantly on Bharat Finance Hub! \n\n" +
-                    "📊 Gross Income: ₹" + income.toLocaleString('en-IN') + "\n" +
-                    "🔴 Old Regime Tax: ₹" + Math.round(oldFinalTax).toLocaleString('en-IN') + "\n" +
-                    "🟢 New Regime Tax: ₹" + Math.round(newFinalTax).toLocaleString('en-IN') + "\n\n" +
-                    "Check your tax savings, monthly take-home pay, and compound wealth instantly without any sign-up or login here: https://bharatfinhub.com";
-    
+    // Set up click handler to safely run compilation only when clicked
     let btnElement = document.getElementById('whatsappShareBtn');
     if (btnElement) {
-        btnElement.href = "https://whatsapp.com" + encodeURIComponent(shareText);
+        btnElement.onclick = function(e) {
+            e.preventDefault(); // Prevents default page jump behavior
+            
+            let currentOldTax = document.getElementById('oldTax').innerText;
+            let currentNewTax = document.getElementById('newTax').innerText;
+            let currentNewTakehome = document.getElementById('newTakeHomeMonthly').innerText;
+            
+            let shareText = "📊 *Bharat Finance Hub Tax Report* 🚀\n\n" +
+                            "🔹 *Gross Income:* ₹" + income.toLocaleString('en-IN') + "/yr\n" +
+                            "🔴 *Old Regime Tax:* " + currentOldTax + "\n" +
+                            "🟢 *New Regime Tax:* " + currentNewTax + "\n" +
+                            "💰 *Take-Home (New Regime):* " + currentNewTakehome + "\n\n" +
+                            "💡 _" + savingsMessage + "_\n\n" +
+                            "Calculate your savings instantly for free (no login required) 👇\n" +
+                            "🔗 https://bharatfinhub.com";
+            
+            // Runs a direct window location route to prevent popup blocking routines
+            window.location.href = "https://whatsapp.com" + encodeURIComponent(shareText);
+        };
     }
 }
 
@@ -551,10 +580,16 @@ function calculateFD() {
     document.getElementById('fdResults').style.display = 'block';
 }
 
+// CENTRAL MASTER RUNTIME SYSTEM OVERSEER
 window.addEventListener("load", function() {
     calculateTax();
     calculateSIP();
     calculateFD();
+    
+    // Setup for seamless, non-breaking Phase B analytical verification hooks
+    if (typeof gtag === 'function') {
+        gtag('event', 'app_session_initialized', { 'platform_signature': 'bharat_finance_hub' });
+    }
 });
 </script>
 </body>
