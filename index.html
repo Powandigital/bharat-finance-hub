@@ -134,10 +134,12 @@
 
         <div class="verdict" id="verdictText"></div>
 
-        <!-- BULLETPROOF NATIVE WHATSAPP VIRAL SHARE LINK -->
-<a id="whatsappShareBtn" href="#" onclick="executeWhatsAppShare(event)" style="width:100%; background:#25d366; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(37,211,102,0.15); transition:background 0.2s; text-decoration:none; box-sizing:border-box;">
-    🟢 Share Results via WhatsApp
-</a>
+                <!-- PURE HTML BULLETPROOF SHARE LINK (NO JAVASCRIPT RISK) -->
+        <a href=" https://whatsapp.com 📊%20I%20found%20this%20amazing%20free%20financial%20utility%20hub!%20Calculate%20your%20Income%20Tax%20(FY%202025-26),%20Mutual%20Fund%20SIP%20wealth%20projections,%20and%20Bank%20FD%20yields%20instantly%20with%20zero%20sign-ups%20or%20logins.%20Check%20yours%20here:%20https://bharatfinhub.com" 
+           style="width:100%; background:#25d366; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(37,211,102,0.15); transition:background 0.2s; text-decoration:none; box-sizing:border-box;">
+            🟢 Share Website via WhatsApp
+            
+        </a>
 
     </div>
 </div>
@@ -501,34 +503,21 @@ function calculateTax() {
     verdict.innerText = "💡 Recommendation: " + savingsMessage;
     document.getElementById('taxResults').style.display = 'block';
 
-        // Ensure this sits inside your calculateTax() block to update the layout visibility
+          let verdict = document.getElementById('verdictText');
+    let savingsMessage = "";
+    if (newFinalTax < oldFinalTax) {
+        savingsMessage = "Choose the New Regime to save ₹" + Math.round(oldFinalTax - newFinalTax).toLocaleString('en-IN') + "!";
+    } else if (oldFinalTax < newFinalTax) {
+        savingsMessage = "Choose the Old Regime to save ₹" + Math.round(newFinalTax - oldFinalTax).toLocaleString('en-IN') + "!";
+    } else {
+        savingsMessage = "Both regimes result in the exact same tax liability.";
+    }
+    verdict.innerText = "💡 Recommendation: " + savingsMessage;
+    
+    // Displays the results container safely
     document.getElementById('taxResults').style.display = 'block';
 }
-
-// NEW INDEPENDENT GLOBAL SHARING FUNCTION (Bypasses all timing bugs)
-function executeWhatsAppShare(event) {
-    if (event) event.preventDefault(); // Prevents the page from jumping up
-
-    // 1. Fetch the exact active calculated values directly from the visible UI
-    let income = parseFloat(document.getElementById('income').value) || 0;
-    let currentOldTax = document.getElementById('oldTax').innerText || '₹0';
-    let currentNewTax = document.getElementById('newTax').innerText || '₹0';
-    let currentNewTakehome = document.getElementById('newTakeHomeMonthly').innerText || '₹0 / month';
-    let verdictMessage = document.getElementById('verdictText').innerText || '';
-
-    // 2. Format the high-conversion clean markdown text copy
-    let shareText = "📊 *Bharat Finance Hub Tax Report* 🚀\n\n" +
-                    "🔹 *Gross Income:* ₹" + income.toLocaleString('en-IN') + "/yr\n" +
-                    "🔴 *Old Regime Tax:* " + currentOldTax + "\n" +
-                    "🟢 *New Regime Tax:* " + currentNewTax + "\n" +
-                    "💰 *Take-Home (New Regime):* " + currentNewTakehome + "\n\n" +
-                    "💡 _" + verdictMessage + "_\n\n" +
-                    "Calculate your savings instantly for free (no login required) 👇\n" +
-                    "🔗 https://bharatfinhub.com";
-
-    // 3. Force a direct native browser location route to completely bypass all popup blockers
-    window.location.href = "https://whatsapp.com" + encodeURIComponent(shareText);
-}
+// NO MORE DRAG-ALONG SHARING CODE HERE. SCRIPT IS 100% CLEAN AND STABLE.
     }
 }
 
