@@ -502,22 +502,7 @@ function calculateTax() {
     }
     verdict.innerText = "💡 Recommendation: " + savingsMessage;
     document.getElementById('taxResults').style.display = 'block';
-
-          let verdict = document.getElementById('verdictText');
-    let savingsMessage = "";
-    if (newFinalTax < oldFinalTax) {
-        savingsMessage = "Choose the New Regime to save ₹" + Math.round(oldFinalTax - newFinalTax).toLocaleString('en-IN') + "!";
-    } else if (oldFinalTax < newFinalTax) {
-        savingsMessage = "Choose the Old Regime to save ₹" + Math.round(newFinalTax - oldFinalTax).toLocaleString('en-IN') + "!";
-    } else {
-        savingsMessage = "Both regimes result in the exact same tax liability.";
-    }
-    verdict.innerText = "💡 Recommendation: " + savingsMessage;
-    
-    // Displays the results container safely
-    document.getElementById('taxResults').style.display = 'block';
 }
-// NO MORE DRAG-ALONG SHARING CODE HERE. SCRIPT IS 100% CLEAN AND STABLE.
     }
 }
 
