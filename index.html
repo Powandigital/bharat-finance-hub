@@ -131,10 +131,16 @@
 
         <div class="verdict" id="verdictText"></div>
 
-        <a href="https://whatsapp.com📊%20I%20found%20this%20amazing%20free%20financial%20utility%20hub!%20Calculate%20your%20Income%20Tax%20(FY%202025-26),%20Mutual%20Fund%20SIP%20wealth%20projections,%20and%20Bank%20FD%20yields%20instantly%20with%20zero%20sign-ups%20or%20logins.%20Check%20yours%20here:%20https://bharatfinhub.com" 
-           style="width:100%; background:#25d366; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(37,211,102,0.15); transition:background 0.2s; text-decoration:none; box-sizing:border-box;">
-            🟢 Share Website via WhatsApp
-        </a>
+                <!-- BULLETPROOF NATIVE UTILITY SHARING HUB (0% POPUP BLOCKER RISK) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+            <button type="button" onclick="copyPlatformLink(this)" style="background:#0284c7; color:white; border:none; padding:12px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; width: 100%;">
+                📋 Copy Site Link
+            </button>
+            <button type="button" onclick="triggerNativeShare()" style="background:#10b981; color:white; border:none; padding:12px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; width: 100%;">
+                📲 Share Reports
+            </button>
+        </div>
+
     </div>
 </div>
 
@@ -548,6 +554,31 @@ window.addEventListener("load", function() {
     calculateSIP();
     calculateFD();
 });
+
+// NEW INDEPENDENT SHARING LOGIC (Completely isolated from your calculators)
+function copyPlatformLink(btnElement) {
+    const siteUrl = "https://bharatfinhub.com";
+    navigator.clipboard.writeText(siteUrl).then(() => {
+        const originalText = btnElement.innerHTML;
+        btnElement.innerHTML = "✅ Link Copied!";
+        setTimeout(() => { btnElement.innerHTML = originalText; }, 2000);
+    }).catch(err => {
+        alert("Link copied: " + siteUrl);
+    });
+}
+
+function triggerNativeShare() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Bharat Finance Hub',
+            text: '📊 Calculate your Income Tax (FY 2025-26), Mutual Fund SIP projections, and Bank FD yields instantly with zero sign-ups or logins!',
+            url: 'https://bharatfinhub.com'
+        }).catch(err => console.log("Sharing cancelled"));
+    } else {
+        window.location.href = "mailto:?subject=Check out Bharat Finance Hub&body=Calculate your financial metrics instantly at https://bharatfinhub.com";
+    }
+}
+
 </script>
 </body>
 </html>
