@@ -58,6 +58,8 @@
     <button class="tab-btn active" onclick="switchTab('tax-container', this)">📊 Tax Calculator</button>
     <button class="tab-btn" onclick="switchTab('sip-container', this)">📈 SIP Calculator</button>
     <button class="tab-btn" onclick="switchTab('fd-container', this)">💰 FD Calculator</button>
+    <button class="tab-btn" onclick="switchTab('car-gst-container', this)">🚗 Car Tax Calculator</button>
+
 </div>
 <!-- 1. TAX CALCULATOR CONTAINER -->
 <div id="tax-container" class="container active">
@@ -228,6 +230,36 @@
         <div class="result-row"><span>Invested Principal Amount:</span><span id="fdInvested" style="font-weight:600;">₹0</span></div>
         <div class="result-row"><span>Total Interest Acquired:</span><span id="fdInterest" style="color:#15803d; font-weight:600;">₹0</span></div>
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Maturity Wealth Value:</strong><span id="fdTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
+    </div>
+</div>
+    <!-- 4. CAR GST & CESS CALCULATOR CONTAINER -->
+<div id="car-gst-container" class="container">
+    <h2>🚗 Indian Car GST & Cess Calculator</h2>
+    <div class="ad-placeholder">Google AdSense Placement (High CPC Automobile Banner)</div>
+
+    <div class="form-group">
+        <label for="carExShowroom">Target Car Ex-Showroom Price (₹):</label>
+        <input type="number" id="carExShowroom" value="1000000" min="0" oninput="calculateCarTax()">
+    </div>
+
+    <div class="form-group">
+        <label for="carSegment">Select Car Fuel Type & Segment Type:</label>
+        <select id="carSegment" onchange="calculateCarTax()" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 16px;">
+            <option value="ev">Electric Vehicle (EV) - All Sizes (5% Total Tax)</option>
+            <option value="small_petrol" selected>Small Petrol Car (<1200cc, <4m Length) (29% Total Tax)</option>
+            <option value="small_diesel">Small Diesel Car (<1500cc, <4m Length) (31% Total Tax)</option>
+            <option value="mid_luxury">Luxury Sedan / Mid-Size Car (>1500cc) (45% Total Tax)</option>
+            <option value="suv">SUV Segment (Ground Clearance >170mm, >1500cc) (50% Total Tax)</option>
+        </select>
+    </div>
+
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Car Insurance Unit)</div>
+
+    <div class="results" id="carResults">
+        <div class="result-row"><span>Base Factory Price (Before Tax):</span><span id="carBasePrice" style="font-weight:600;">₹0</span></div>
+        <div class="result-row"><span>Base GST Component (28% or 5% for EV):</span><span id="carGstAmount" style="color:#b91c1c; font-weight:600;">₹0</span></div>
+        <div class="result-row"><span>Compensation Cess Amount:</span><span id="carCessAmount" style="color:#c2410c; font-weight:600;">₹0</span></div>
+        <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Tax Embedded in Invoice:</strong><span id="carTotalTax" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
     </div>
 </div>
 
@@ -548,11 +580,52 @@ function calculateFD() {
     document.getElementById('fdTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
     document.getElementById('fdResults').style.display = 'block';
 }
+    
+    function calculateCarTax() {
+    // 1. Gather values safely from the newly injected DOM selectors
+    let exShowroom = parseFloat(document.getElementById('carExShowroom').value) || 0;
+    let segment = document.getElementById('carSegment').value;
+
+    let gstRate = 0.28; // Standard absolute Indian car base GST tier
+    let cessRate = 0.00;
+
+    // 2. Compute specific combined tax loads depending on vehicle registration specifications
+    if (segment === "ev") {
+        gstRate = 0.05; // Favorable sub-tier for clean energy profiles
+        cessRate = 0.00;
+    } else if (segment === "small_petrol") {
+        cessRate = 0.01;
+    } else if (segment === "small_diesel") {
+        cessRate = 0.03;
+    } else if (segment === "mid_luxury") {
+        cessRate = 0.17;
+    } else if (segment === "suv") {
+        cessRate = 0.22;
+    }
+
+    let totalTaxRate = gstRate + cessRate;
+    
+    // Reverse engineer base factory invoice price from ex-showroom value
+    let baseFactoryPrice = exShowroom / (1 + totalTaxRate);
+    let gstCalculated = baseFactoryPrice * gstRate;
+    let cessCalculated = baseFactoryPrice * cessRate;
+    let combinedTaxPaid = exShowroom - baseFactoryPrice;
+
+    // 3. Render outputs dynamically to the results window nodes
+    document.getElementById('carBasePrice').innerText = "₹" + Math.round(baseFactoryPrice).toLocaleString('en-IN');
+    document.getElementById('carGstAmount').innerText = "₹" + Math.round(gstCalculated).toLocaleString('en-IN');
+    document.getElementById('carCessAmount').innerText = "₹" + Math.round(cessCalculated).toLocaleString('en-IN');
+    document.getElementById('carTotalTax').innerText = "₹" + Math.round(combinedTaxPaid).toLocaleString('en-IN') + " (" + Math.round(totalTaxRate * 100) + "%)";
+    
+    document.getElementById('carResults').style.display = 'block';
+}
+
 
 window.addEventListener("load", function() {
     calculateTax();
     calculateSIP();
     calculateFD();
+    calculateCarTax(); // Crucial addition to make sure fields populate instantly on load!
 });
 
 // NEW INDEPENDENT SHARING LOGIC (Completely isolated from your calculators)
