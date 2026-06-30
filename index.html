@@ -256,6 +256,11 @@
 
     <div class="ad-placeholder">Google AdSense Placement (In-Article Car Insurance Unit)</div>
 
+        <!-- DYNAMIC USER ENTRY WARNING SYSTEM (0% CODE COMPLICATION) -->
+    <div id="carTaxWarning" style="display:none; margin: 15px 0; padding: 12px; background: #fffbeb; border: 1px solid #fef08a; border-radius: 6px; color: #713f12; font-size: 13.5px; line-height: 1.5; font-weight: 500;">
+        ⚠️ <span id="warningMessageText">Notification Content</span>
+    </div>
+
     <div class="results" id="carResults">
         <div class="result-row"><span>Base Factory Price (Before Tax):</span><span id="carBasePrice" style="font-weight:600;">₹0</span></div>
         <div class="result-row"><span>Base GST Component (28% or 5% for EV):</span><span id="carGstAmount" style="color:#b91c1c; font-weight:600;">₹0</span></div>
@@ -591,43 +596,59 @@ function calculateFD() {
 }
     
     function calculateCarTax() {
-    // 1. Fetch live elements and values from the DOM
+    // 1. Target interface DOM layout components safely
     let inputElement = document.getElementById('carExShowroom');
     let segmentElement = document.getElementById('carSegment');
+    let warningElement = document.getElementById('carTaxWarning');
+    let warningText = document.getElementById('warningMessageText');
+    let resultsElement = document.getElementById('carResults');
     
     let rawPrice = parseFloat(inputElement.value) || 0;
-
-    // 🛑 BUG FIX 1: Hard absolute input ceiling (Restricts overflows at Max ₹100 Crore)
-    if (rawPrice > 1000000000) {
-        inputElement.value = 1000000000;
-        rawPrice = 1000000000;
-    }
-    
-    let exShowroom = rawPrice;
     let segment = segmentElement.value;
 
-    // 🚀 BUG FIX 2: Complete Bidirectional Auto-Correction Loop (Shifts both UP and DOWN)
-    if (exShowroom > 2500000) {
-        // High Tier: Force SUV classification if basic categories are left active
-        if (segment === "small_petrol" || segment === "small_diesel" || segment === "mid_luxury") {
-            segmentElement.value = "suv";
-            segment = "suv";
-        }
-    } else if (exShowroom > 1500000 && exShowroom <= 2500000) {
-        // Mid Tier: Force Luxury Sedan/Midsize classification if hatchbacks or mega SUVs are active
-        if (segment === "small_petrol" || segment === "small_diesel" || segment === "suv") {
-            segmentElement.value = "mid_luxury";
-            segment = "mid_luxury";
-        }
-    } else if (exShowroom > 0 && exShowroom <= 1500000) {
-        // Low Tier: If user scales price back down below 15 Lakhs, drop the selection back down automatically
-        if (segment === "suv" || segment === "mid_luxury") {
-            segmentElement.value = "small_petrol";
-            segment = "small_petrol";
+    // Initialize display states clean on every input loop trigger
+    warningElement.style.display = 'none';
+    resultsElement.style.display = 'block';
+
+    // 🛑 LOWER LIMIT GATEWAY: Validate floor boundary conditions
+    if (rawPrice > 0 && rawPrice < 250000) {
+        warningText.innerHTML = "<b>Minimum Range Alert:</b> No modern passenger car is available below ₹2,50,000 in India. Please enter a valid production price.";
+        warningElement.style.display = 'block';
+        resultsElement.style.display = 'none'; // Lock calculation outputs out to preserve integrity
+        return;
+    }
+
+    // 🛑 UPPER LIMIT GATEWAY: Clamp input at ₹1.5 Crore ceiling for mass-market vehicles
+    if (rawPrice > 15000000) {
+        inputElement.value = 15000000;
+        rawPrice = 15000000;
+        warningText.innerHTML = "<b>Maximum Range Cap:</b> This utility calculates taxes for standard Indian passenger cars up to ₹1.5 Crores. Imported luxury vehicles are excluded as they are subject to separate custom import duties.";
+        warningElement.style.display = 'block';
+    }
+
+    let exShowroom = rawPrice;
+
+    // 🚀 BIDIRECTIONAL AUTO-CORRECTION MATRIX (Completely bypasses EVs)
+    if (segment !== "ev") {
+        if (exShowroom > 2500000) {
+            if (segment === "small_petrol" || segment === "small_diesel" || segment === "mid_luxury") {
+                segmentElement.value = "suv";
+                segment = "suv";
+            }
+        } else if (exShowroom > 1500000 && exShowroom <= 2500000) {
+            if (segment === "small_petrol" || segment === "small_diesel" || segment === "suv") {
+                segmentElement.value = "mid_luxury";
+                segment = "mid_luxury";
+            }
+        } else if (exShowroom >= 250000 && exShowroom <= 1500000) {
+            if (segment === "suv" || segment === "mid_luxury") {
+                segmentElement.value = "small_petrol";
+                segment = "small_petrol";
+            }
         }
     }
 
-    // --- MATHEMATICAL MATH MODEL CALCULATIONS ---
+    // --- MATHEMATICAL MATH MODEL ENGINE FOR INDIAN AUTOMOTIVE REGISTER TAXES ---
     let gstRate = 0.28; 
     let cessRate = 0.00;
 
@@ -650,13 +671,13 @@ function calculateFD() {
     let cessCalculated = baseFactoryPrice * cessRate;
     let combinedTaxPaid = exShowroom - baseFactoryPrice;
 
-    // Render primary metrics to interface nodes safely
+    // Render results parameters to front-end node paths safely
     document.getElementById('carBasePrice').innerText = "₹" + Math.round(baseFactoryPrice).toLocaleString('en-IN');
     document.getElementById('carGstAmount').innerText = "₹" + Math.round(gstCalculated).toLocaleString('en-IN');
     document.getElementById('carCessAmount').innerText = "₹" + Math.round(cessCalculated).toLocaleString('en-IN');
     document.getElementById('carTotalTax').innerText = "₹" + Math.round(combinedTaxPaid).toLocaleString('en-IN') + " (" + Math.round(totalTaxRate * 100) + "%)";
 
-    // Accessory estimation wallet processing metrics
+    // Auxiliary wallet allocation calculations processing loops
     let estimatedRtoRate = (segment === "ev") ? 0.02 : 0.10; 
     let estimatedInsuranceRate = 0.04; 
     let tcsRate = (exShowroom > 1000000) ? 0.01 : 0.00; 
@@ -670,8 +691,6 @@ function calculateFD() {
     document.getElementById('carInsuranceDisplay').innerText = "₹" + Math.round(calculatedInsurance).toLocaleString('en-IN');
     document.getElementById('carTcsDisplay').innerText = "₹" + Math.round(calculatedTcs).toLocaleString('en-IN');
     document.getElementById('carOnRoadTotal').innerText = "₹" + Math.round(grandOnRoadPrice).toLocaleString('en-IN');
-    
-    document.getElementById('carResults').style.display = 'block';
 }
 
 window.addEventListener("load", function() {
