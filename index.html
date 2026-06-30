@@ -242,16 +242,17 @@
         <input type="number" id="carExShowroom" value="1000000" min="0" oninput="calculateCarTax()">
     </div>
 
-    <div class="form-group">
-        <label for="carSegment">Select Car Fuel Type & Segment Type:</label>
+        <div class="form-group">
+        <label for="carSegment">Select Car Type / Model Class:</label>
         <select id="carSegment" onchange="calculateCarTax()" style="width: 100%; padding: 12px 35px 12px 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 15px; background: #ffffff; color: #1e293b; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://w3.org width=%2224%22 height=%2224%22 viewBox=%220%22 y=%220%22><polygon points=%226,9 12,15 18,9%22 fill=%22%23475569%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
-            <option value="ev">Electric Vehicle (EV) - All Sizes (5% Total Tax)</option>
-            <option value="small_petrol" selected>Small Petrol Car (<1200cc, <4m Length) (29% Total Tax)</option>
-            <option value="small_diesel">Small Diesel Car (<1500cc, <4m Length) (31% Total Tax)</option>
-            <option value="mid_luxury">Luxury Sedan / Mid-Size Car (>1500cc) (45% Total Tax)</option>
-            <option value="suv">SUV Segment (Ground Clearance >170mm, >1500cc) (50% Total Tax)</option>
+            <option value="ev">🔌 Electric Vehicles (Nexon EV, Punch EV, Windsor, Curvv)</option>
+            <option value="small_petrol" selected>🚗 Small Petrol Cars / Hatchbacks (Swift, i20, WagonR, Baleno)</option>
+            <option value="small_diesel">🚙 Small Diesel Cars / Compact SUVs (Nexon Diesel, Brezza, Venue)</option>
+            <option value="mid_luxury"> sedan Luxury Sedans / Midsize Cars (City, Verna, Virtus, Creta Petrol)</option>
+            <option value="suv">🦁 Full SUV Segment (Fortuner, Scorpio-N, XUV700, Harrier, Safari)</option>
         </select>
     </div>
+
 
     <div class="ad-placeholder">Google AdSense Placement (In-Article Car Insurance Unit)</div>
 
