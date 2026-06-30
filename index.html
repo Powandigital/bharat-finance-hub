@@ -591,27 +591,43 @@ function calculateFD() {
 }
     
     function calculateCarTax() {
-    // 1. Fetch current live user inputs
-    let exShowroom = parseFloat(document.getElementById('carExShowroom').value) || 0;
+    // 1. Fetch live elements and values from the DOM
+    let inputElement = document.getElementById('carExShowroom');
     let segmentElement = document.getElementById('carSegment');
+    
+    let rawPrice = parseFloat(inputElement.value) || 0;
+
+    // 🛑 BUG FIX 1: Hard absolute input ceiling (Restricts overflows at Max ₹100 Crore)
+    if (rawPrice > 1000000000) {
+        inputElement.value = 1000000000;
+        rawPrice = 1000000000;
+    }
+    
+    let exShowroom = rawPrice;
     let segment = segmentElement.value;
 
-    // 🚀 SMART AUTO-CORRECTION LAYER (Prevents unrealistic segment selections)
+    // 🚀 BUG FIX 2: Complete Bidirectional Auto-Correction Loop (Shifts both UP and DOWN)
     if (exShowroom > 2500000) {
-        // If price is above 25 Lakhs, it MUST be a Luxury/Full SUV segment
+        // High Tier: Force SUV classification if basic categories are left active
         if (segment === "small_petrol" || segment === "small_diesel" || segment === "mid_luxury") {
             segmentElement.value = "suv";
-            segment = "suv"; // Dynamically forces calculation parameters to update
+            segment = "suv";
         }
-    } else if (exShowroom > 1500000) {
-        // If price is between 15-25 Lakhs, it cannot be a basic small hatchback
-        if (segment === "small_petrol" || segment === "small_diesel") {
+    } else if (exShowroom > 1500000 && exShowroom <= 2500000) {
+        // Mid Tier: Force Luxury Sedan/Midsize classification if hatchbacks or mega SUVs are active
+        if (segment === "small_petrol" || segment === "small_diesel" || segment === "suv") {
             segmentElement.value = "mid_luxury";
-            segment = "mid_luxury"; // Shifts the calculation background tier instantly
+            segment = "mid_luxury";
+        }
+    } else if (exShowroom > 0 && exShowroom <= 1500000) {
+        // Low Tier: If user scales price back down below 15 Lakhs, drop the selection back down automatically
+        if (segment === "suv" || segment === "mid_luxury") {
+            segmentElement.value = "small_petrol";
+            segment = "small_petrol";
         }
     }
 
-    // --- REST OF YOUR EXACT MATHEMATICAL CALCULATION LOGIC RUNS SAFELY BELOW ---
+    // --- MATHEMATICAL MATH MODEL CALCULATIONS ---
     let gstRate = 0.28; 
     let cessRate = 0.00;
 
@@ -634,11 +650,13 @@ function calculateFD() {
     let cessCalculated = baseFactoryPrice * cessRate;
     let combinedTaxPaid = exShowroom - baseFactoryPrice;
 
+    // Render primary metrics to interface nodes safely
     document.getElementById('carBasePrice').innerText = "₹" + Math.round(baseFactoryPrice).toLocaleString('en-IN');
     document.getElementById('carGstAmount').innerText = "₹" + Math.round(gstCalculated).toLocaleString('en-IN');
     document.getElementById('carCessAmount').innerText = "₹" + Math.round(cessCalculated).toLocaleString('en-IN');
     document.getElementById('carTotalTax').innerText = "₹" + Math.round(combinedTaxPaid).toLocaleString('en-IN') + " (" + Math.round(totalTaxRate * 100) + "%)";
 
+    // Accessory estimation wallet processing metrics
     let estimatedRtoRate = (segment === "ev") ? 0.02 : 0.10; 
     let estimatedInsuranceRate = 0.04; 
     let tcsRate = (exShowroom > 1000000) ? 0.01 : 0.00; 
@@ -655,62 +673,6 @@ function calculateFD() {
     
     document.getElementById('carResults').style.display = 'block';
 }
-    {
-    // 1. Gather values safely from the newly injected DOM selectors
-    let exShowroom = parseFloat(document.getElementById('carExShowroom').value) || 0;
-    let segment = document.getElementById('carSegment').value;
-
-    let gstRate = 0.28; // Standard absolute Indian car base GST tier
-    let cessRate = 0.00;
-
-    // 2. Compute specific combined tax loads depending on vehicle registration specifications
-    if (segment === "ev") {
-        gstRate = 0.05; // Favorable sub-tier for clean energy profiles
-        cessRate = 0.00;
-    } else if (segment === "small_petrol") {
-        cessRate = 0.01;
-    } else if (segment === "small_diesel") {
-        cessRate = 0.03;
-    } else if (segment === "mid_luxury") {
-        cessRate = 0.17;
-    } else if (segment === "suv") {
-        cessRate = 0.22;
-    }
-
-    let totalTaxRate = gstRate + cessRate;
-    
-    // Reverse engineer base factory invoice price from ex-showroom value
-    let baseFactoryPrice = exShowroom / (1 + totalTaxRate);
-    let gstCalculated = baseFactoryPrice * gstRate;
-    let cessCalculated = baseFactoryPrice * cessRate;
-    let combinedTaxPaid = exShowroom - baseFactoryPrice;
-
-    // 3. Render outputs dynamically to the results window nodes
-    document.getElementById('carBasePrice').innerText = "₹" + Math.round(baseFactoryPrice).toLocaleString('en-IN');
-    document.getElementById('carGstAmount').innerText = "₹" + Math.round(gstCalculated).toLocaleString('en-IN');
-    document.getElementById('carCessAmount').innerText = "₹" + Math.round(cessCalculated).toLocaleString('en-IN');
-    document.getElementById('carTotalTax').innerText = "₹" + Math.round(combinedTaxPaid).toLocaleString('en-IN') + " (" + Math.round(totalTaxRate * 100) + "%)";
-    
-    document.getElementById('carResults').style.display = 'block';
-        
-    // Add-on math logic engine for estimated accessory wallet charges
-    let estimatedRtoRate = (segment === "ev") ? 0.02 : 0.10; // Favorable state registration concessions for green energy engines
-    let estimatedInsuranceRate = 0.04; // Baseline structural comprehensive insurance index
-    let tcsRate = (exShowroom > 1000000) ? 0.01 : 0.00; // Mandatory high-value asset government levy checkpoint
-
-    let calculatedRto = exShowroom * estimatedRtoRate;
-    let calculatedInsurance = exShowroom * estimatedInsuranceRate;
-    let calculatedTcs = exShowroom * tcsRate;
-    let grandOnRoadPrice = exShowroom + calculatedRto + calculatedInsurance + calculatedTcs;
-
-    // Render output modifications directly to the newly added DOM components
-    document.getElementById('carRtoDisplay').innerText = "₹" + Math.round(calculatedRto).toLocaleString('en-IN');
-    document.getElementById('carInsuranceDisplay').innerText = "₹" + Math.round(calculatedInsurance).toLocaleString('en-IN');
-    document.getElementById('carTcsDisplay').innerText = "₹" + Math.round(calculatedTcs).toLocaleString('en-IN');
-    document.getElementById('carOnRoadTotal').innerText = "₹" + Math.round(grandOnRoadPrice).toLocaleString('en-IN');
-
-}
-
 
 window.addEventListener("load", function() {
     calculateTax();
