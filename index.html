@@ -244,7 +244,7 @@
 
     <div class="form-group">
         <label for="carSegment">Select Car Fuel Type & Segment Type:</label>
-        <select id="carSegment" onchange="calculateCarTax()" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 16px;">
+        <select id="carSegment" onchange="calculateCarTax()" style="width: 100%; padding: 12px 35px 12px 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 15px; background: #ffffff; color: #1e293b; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://w3.org width=%2224%22 height=%2224%22 viewBox=%220%22 y=%220%22><polygon points=%226,9 12,15 18,9%22 fill=%22%23475569%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
             <option value="ev">Electric Vehicle (EV) - All Sizes (5% Total Tax)</option>
             <option value="small_petrol" selected>Small Petrol Car (<1200cc, <4m Length) (29% Total Tax)</option>
             <option value="small_diesel">Small Diesel Car (<1500cc, <4m Length) (31% Total Tax)</option>
@@ -260,6 +260,14 @@
         <div class="result-row"><span>Base GST Component (28% or 5% for EV):</span><span id="carGstAmount" style="color:#b91c1c; font-weight:600;">₹0</span></div>
         <div class="result-row"><span>Compensation Cess Amount:</span><span id="carCessAmount" style="color:#c2410c; font-weight:600;">₹0</span></div>
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Tax Embedded in Invoice:</strong><span id="carTotalTax" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
+            <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">🗺️ Estimated Total On-Road Cost Breakdown:</div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Estimated State RTO / Road Tax:</span><span id="carRtoDisplay">₹0</span></div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Estimated Comprehensive Insurance:</span><span id="carInsuranceDisplay">₹0</span></div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Government TCS (Flat 1% > ₹10L):</span><span id="carTcsDisplay">₹0</span></div>
+            <div class="result-row" style="background:#1e3a8a; color:white; padding:10px; border-radius:6px; margin-top:8px; font-weight:bold; font-size:16px;">
+                <span>Total Est. On-Road Wallet Cost:</span>
+                <span id="carOnRoadTotal">₹0</span>    
     </div>
 </div>
 
@@ -618,6 +626,23 @@ function calculateFD() {
     document.getElementById('carTotalTax').innerText = "₹" + Math.round(combinedTaxPaid).toLocaleString('en-IN') + " (" + Math.round(totalTaxRate * 100) + "%)";
     
     document.getElementById('carResults').style.display = 'block';
+        
+    // Add-on math logic engine for estimated accessory wallet charges
+    let estimatedRtoRate = (segment === "ev") ? 0.02 : 0.10; // Favorable state registration concessions for green energy engines
+    let estimatedInsuranceRate = 0.04; // Baseline structural comprehensive insurance index
+    let tcsRate = (exShowroom > 1000000) ? 0.01 : 0.00; // Mandatory high-value asset government levy checkpoint
+
+    let calculatedRto = exShowroom * estimatedRtoRate;
+    let calculatedInsurance = exShowroom * estimatedInsuranceRate;
+    let calculatedTcs = exShowroom * tcsRate;
+    let grandOnRoadPrice = exShowroom + calculatedRto + calculatedInsurance + calculatedTcs;
+
+    // Render output modifications directly to the newly added DOM components
+    document.getElementById('carRtoDisplay').innerText = "₹" + Math.round(calculatedRto).toLocaleString('en-IN');
+    document.getElementById('carInsuranceDisplay').innerText = "₹" + Math.round(calculatedInsurance).toLocaleString('en-IN');
+    document.getElementById('carTcsDisplay').innerText = "₹" + Math.round(calculatedTcs).toLocaleString('en-IN');
+    document.getElementById('carOnRoadTotal').innerText = "₹" + Math.round(grandOnRoadPrice).toLocaleString('en-IN');
+
 }
 
 
