@@ -591,6 +591,71 @@ function calculateFD() {
 }
     
     function calculateCarTax() {
+    // 1. Fetch current live user inputs
+    let exShowroom = parseFloat(document.getElementById('carExShowroom').value) || 0;
+    let segmentElement = document.getElementById('carSegment');
+    let segment = segmentElement.value;
+
+    // 🚀 SMART AUTO-CORRECTION LAYER (Prevents unrealistic segment selections)
+    if (exShowroom > 2500000) {
+        // If price is above 25 Lakhs, it MUST be a Luxury/Full SUV segment
+        if (segment === "small_petrol" || segment === "small_diesel" || segment === "mid_luxury") {
+            segmentElement.value = "suv";
+            segment = "suv"; // Dynamically forces calculation parameters to update
+        }
+    } else if (exShowroom > 1500000) {
+        // If price is between 15-25 Lakhs, it cannot be a basic small hatchback
+        if (segment === "small_petrol" || segment === "small_diesel") {
+            segmentElement.value = "mid_luxury";
+            segment = "mid_luxury"; // Shifts the calculation background tier instantly
+        }
+    }
+
+    // --- REST OF YOUR EXACT MATHEMATICAL CALCULATION LOGIC RUNS SAFELY BELOW ---
+    let gstRate = 0.28; 
+    let cessRate = 0.00;
+
+    if (segment === "ev") {
+        gstRate = 0.05; 
+        cessRate = 0.00;
+    } else if (segment === "small_petrol") {
+        cessRate = 0.01;
+    } else if (segment === "small_diesel") {
+        cessRate = 0.03;
+    } else if (segment === "mid_luxury") {
+        cessRate = 0.17;
+    } else if (segment === "suv") {
+        cessRate = 0.22;
+    }
+
+    let totalTaxRate = gstRate + cessRate;
+    let baseFactoryPrice = exShowroom / (1 + totalTaxRate);
+    let gstCalculated = baseFactoryPrice * gstRate;
+    let cessCalculated = baseFactoryPrice * cessRate;
+    let combinedTaxPaid = exShowroom - baseFactoryPrice;
+
+    document.getElementById('carBasePrice').innerText = "₹" + Math.round(baseFactoryPrice).toLocaleString('en-IN');
+    document.getElementById('carGstAmount').innerText = "₹" + Math.round(gstCalculated).toLocaleString('en-IN');
+    document.getElementById('carCessAmount').innerText = "₹" + Math.round(cessCalculated).toLocaleString('en-IN');
+    document.getElementById('carTotalTax').innerText = "₹" + Math.round(combinedTaxPaid).toLocaleString('en-IN') + " (" + Math.round(totalTaxRate * 100) + "%)";
+
+    let estimatedRtoRate = (segment === "ev") ? 0.02 : 0.10; 
+    let estimatedInsuranceRate = 0.04; 
+    let tcsRate = (exShowroom > 1000000) ? 0.01 : 0.00; 
+
+    let calculatedRto = exShowroom * estimatedRtoRate;
+    let calculatedInsurance = exShowroom * estimatedInsuranceRate;
+    let calculatedTcs = exShowroom * tcsRate;
+    let grandOnRoadPrice = exShowroom + calculatedRto + calculatedInsurance + calculatedTcs;
+
+    document.getElementById('carRtoDisplay').innerText = "₹" + Math.round(calculatedRto).toLocaleString('en-IN');
+    document.getElementById('carInsuranceDisplay').innerText = "₹" + Math.round(calculatedInsurance).toLocaleString('en-IN');
+    document.getElementById('carTcsDisplay').innerText = "₹" + Math.round(calculatedTcs).toLocaleString('en-IN');
+    document.getElementById('carOnRoadTotal').innerText = "₹" + Math.round(grandOnRoadPrice).toLocaleString('en-IN');
+    
+    document.getElementById('carResults').style.display = 'block';
+}
+ 
     // 1. Gather values safely from the newly injected DOM selectors
     let exShowroom = parseFloat(document.getElementById('carExShowroom').value) || 0;
     let segment = document.getElementById('carSegment').value;
