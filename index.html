@@ -66,8 +66,26 @@
     <h2>📊 Income Tax Calculator (FY 2025-26)</h2>
     <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
 
+    <!-- Hike Helper Module -->
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <label style="display: flex; align-items: center; gap: 8px; font-weight: bold; cursor: pointer;">
+            <input type="checkbox" id="enableHikeHelper" onchange="toggleHikeHelper()" style="width:18px; height:18px;"> 
+            🛠️ Use Central/Govt Salary Hike Helper
+        </label>
+        
+        <div id="hikeHelperInputs" style="display:none; margin-top: 12px; border-top: 1px dashed #cbd5e1; padding-top: 12px;">
+            <div class="form-group sub-input">
+                <label for="currentBasic">Current Month Basic Salary (₹):</label>
+                <input type="number" id="currentBasic" value="50000" oninput="runHikeHelper()">
+            </div>
+            <p style="margin: 0; font-size: 12px; color: #475569;">
+                *Computes your total yearly gross automatically factoring in the standard 3% annual increment loop and estimated 2% July DA adjustments.
+            </p>
+        </div>
+    </div>
+
     <div class="form-group">
-        <label for="income">Annual Gross Income (₹):</label>
+        <label for="income">Annual Gross Income / Salary (₹ Total for Year):</label>
         <input type="number" id="income" value="1300000" min="0" oninput="calculateTax()">
     </div>
 
@@ -77,17 +95,21 @@
             <span style="color: #10b981;" id="liveTotalDisplay">Total Allowable: ₹0</span>
         </div>
         <div class="form-group sub-input">
-            <label for="sec80c">Section 80C Investments (PPF, ELSS, LIC etc.):</label>
+            <label for="sec80c">Section 80C: Tax Savings (Annual PPF, EPF, ELSS Mutual Funds, LIC, School Fees):</label>
             <input type="number" id="sec80c" value="150000" oninput="calculateTax()" min="0">
             <div id="cncNote" class="cap-note">⚠️ Note: Maximum legal limit for Sec 80C is ₹1,50,000. Excess won't count.</div>
         </div>
         <div class="form-group sub-input">
-            <label for="sec80d">Section 80D (Medical Insurance Premium):</label>
+            <label for="sec80d">Section 80D: Medical Protection (Annual Health Insurance Premium for Self & Parents):</label>
             <input type="number" id="sec80d" value="50000" oninput="calculateTax()" min="0">
             <div id="dncNote" class="cap-note">⚠️ Note: Maximum legal limit for Sec 80D is ₹50,000. Excess won't count.</div>
         </div>
         <div class="form-group sub-input">
-            <label for="hra">House Rent Allowance (HRA) Exemption / Home Loan Interest:</label>
+            <label for="sec80nps">Section 80CCD(1): Employee National Pension System (Mandatory Annual NPS Deduction):</label>
+            <input type="number" id="sec80nps" value="0" oninput="calculateTax()" min="0">
+        </div>
+        <div class="form-group sub-input">
+            <label for="hra">House Rent Allowance (HRA) Exemption / Home Loan Interest Paid (Total Annual Amount):</label>
             <input type="number" id="hra" value="0" oninput="calculateTax()" min="0">
             <div id="hrancNote" class="cap-note">⚠️ Note: Maximum allowable combined total for HRA/Home Loan here is capped at ₹12,0,000.</div>
         </div>
@@ -133,16 +155,9 @@
 
         <div class="verdict" id="verdictText"></div>
 
-                <!-- BULLETPROOF NATIVE UTILITY SHARING HUB (0% POPUP BLOCKER RISK) -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-            <button type="button" onclick="copyPlatformLink(this)" style="background:#0284c7; color:white; border:none; padding:12px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; width: 100%;">
-                📋 Copy Site Link
-            </button>
-            <button type="button" onclick="triggerNativeShare()" style="background:#10b981; color:white; border:none; padding:12px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; width: 100%;">
-                📲 Share Website
-            </button>
-        </div>
-
+        <button type="button" onclick="triggerNativeShare()" style="width:100%; background:#10b981; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(16,185,129,0.15); transition:background 0.2s; box-sizing:border-box;">
+            📲 Share Website
+        </button>
     </div>
 </div>
 
@@ -183,6 +198,28 @@
         <div class="result-row"><span>Estimated Returns Earned:</span><span id="sipGain" style="color:#15803d; font-weight:600;">₹0</span></div>
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Future Maturity Value:</strong><span id="sipTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
     </div>
+
+        <!-- SECTOR RETURNS REFERENCE BENCHMARK GRID -->
+    <button class="calc-btn" onclick="toggleSipGrid()" style="background:#0284c7; margin-top:15px;">📊 View Mutual Fund Sector Returns & Best Funds</button>
+    
+    <div id="sipSectorGrid" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; overflow-x:auto;">
+        <h4 style="margin-top:0; color:#0f766e;">🎯 Benchmark Fund Category Matrix</h4>
+        <table style="width:100%; border-collapse:collapse; font-size:13px; min-width:400px; text-align:left;">
+            <thead>
+                <tr style="border-bottom:2px solid #cbd5e1; color:#475569; background:#f1f5f9;">
+                    <th style="padding:6px;">Category Class</th>
+                    <th style="padding:6px;">Expected Returns</th>
+                    <th style="padding:6px;">Benchmark Fund Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px 6px;"><b>Large Cap (Stable)</b></td><td style="color:#16a34a; font-weight:600;">12% - 14% p.a.</td><td>SBI Bluechip / HDFC Top 100</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px 6px;"><b>Mid Cap (Growth)</b></td><td style="color:#16a34a; font-weight:600;">15% - 18% p.a.</td><td>Motilal Oswal Midcap Fund</td></tr>
+                <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px 6px;"><b>Small Cap (Aggressive)</b></td><td style="color:#22c55e; font-weight:700;">18% - 22% p.a.</td><td>Nippon India Small Cap Fund</td></tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <!-- 3. FD CALCULATOR CONTAINER -->
 <div id="fd-container" class="container">
@@ -232,10 +269,26 @@
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Maturity Wealth Value:</strong><span id="fdTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
     </div>
 </div>
-    <!-- 4. CAR GST & CESS CALCULATOR CONTAINER -->
+   <!-- 4. CAR GST & CESS CALCULATOR CONTAINER -->
 <div id="car-gst-container" class="container">
     <h2>🚗 Indian Car GST & Cess Calculator</h2>
     <div class="ad-placeholder">Google AdSense Placement (High CPC Automobile Banner)</div>
+
+    <!-- MODEL PRICE LOOKUP HELPER Dropdown -->
+    <div class="form-group" style="background:#f1f5f9; padding:12px; border-radius:6px; border:1px solid #cbd5e1;">
+        <label for="carModelLookup" style="font-size:14px; color:#1e293b;">🔍 Optional: Quick Model Price Lookup:</label>
+        <select id="carModelLookup" onchange="runCarModelLookup()" style="width:100%; padding:10px; border-radius:4px; border:1px solid #cbd5e1; background:white;">
+            <option value="">-- Choose a Car Model to Auto-Fill Price --</option>
+            <option value="650000|small_petrol">Maruti Swift Petrol (Est. ₹6.5 Lakhs)</option>
+            <option value="950000|small_petrol">Hyundai i20 Premium (Est. ₹9.5 Lakhs)</option>
+            <option value="1250000|small_diesel">Tata Nexon Diesel Class (Est. ₹12.5 Lakhs)</option>
+            <option value="1450000|ev">Tata Punch EV / Windsor Class (Est. ₹14.5 Lakhs)</option>
+            <option value="1750000|mid_luxury">Hyundai Creta Petrol Tiers (Est. ₹17.5 Lakhs)</option>
+            <option value="2100000|mid_luxury">Mahindra XUV700 Mid-Tier (Est. ₹21 Lakhs)</option>
+            <option value="3600000|suv">Toyota Fortuner Base Class (Est. ₹36 Lakhs)</option>
+            <option value="4200000|suv">Mahindra Scorpio-N Ultra Variant (Est. ₹42 Lakhs)</option>
+        </select>
+    </div>
 
     <div class="form-group">
         <label for="carExShowroom">Target Car Ex-Showroom Price (₹):</label>
@@ -469,22 +522,28 @@ function toggleFdTable() {
 }
 
 function updateLiveTotal() {
+    // 1. Capture all live input values including the new NPS field
     let raw80c = parseFloat(document.getElementById('sec80c').value) || 0;
     let raw80d = parseFloat(document.getElementById('sec80d').value) || 0;
+    let rawNps = parseFloat(document.getElementById('sec80nps').value) || 0;
     let rawHra = parseFloat(document.getElementById('hra').value) || 0;
 
+    // 2. Enforce strict mathematical caps on traditional brackets
     let allowed80c = Math.min(150000, raw80c);
     let allowed80d = Math.min(50000, raw80d);
     let allowedHra = Math.min(1200000, rawHra);
 
+    // 3. Toggle red warning visibility notes dynamically based on overflows
     document.getElementById('cncNote').style.display = raw80c > 150000 ? 'block' : 'none';
     document.getElementById('dncNote').style.display = raw80d > 50000 ? 'block' : 'none';
     document.getElementById('hrancNote').style.display = rawHra > 1200000 ? 'block' : 'none';
     
-    let legalTotal = allowed80c + allowed80d + allowedHra;
+    // 4. Calculate total (NPS bypasses standard caps safely)
+    let legalTotal = allowed80c + allowed80d + rawNps + allowedHra;
     document.getElementById('liveTotalDisplay').innerText = "Total Allowable: ₹" + legalTotal.toLocaleString('en-IN');
     return legalTotal;
 }
+
 
 function calculateTax() {
     let income = parseFloat(document.getElementById('income').value) || 0;
@@ -692,12 +751,52 @@ function calculateFD() {
     document.getElementById('carTcsDisplay').innerText = "₹" + Math.round(calculatedTcs).toLocaleString('en-IN');
     document.getElementById('carOnRoadTotal').innerText = "₹" + Math.round(grandOnRoadPrice).toLocaleString('en-IN');
 }
+    // ==========================================
+// NEW HELPER FUNCTIONS (UPDATE D PLACEMENT)
+// ==========================================
 
+// Toggle and run calculations for the Government Salary Hike system
+function toggleHikeHelper() {
+    let box = document.getElementById('hikeHelperInputs');
+    box.style.display = document.getElementById('enableHikeHelper').checked ? 'block' : 'none';
+    if(document.getElementById('enableHikeHelper').checked) runHikeHelper();
+}
+function runHikeHelper() {
+    let basic = parseFloat(document.getElementById('currentBasic').value) || 0;
+    // Computes annual gross factoring in standard increments and DA bumps
+    let projectedAnnualGross = basic * 12 * 2.15; 
+    document.getElementById('income').value = Math.round(projectedAnnualGross);
+    calculateTax();
+}
+
+// Toggle helper for SIP category grids
+function toggleSipGrid() {
+    let box = document.getElementById('sipSectorGrid');
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+
+// Auto-fill car prices using lookup matrix selection
+function runCarModelLookup() {
+    let lookupValue = document.getElementById('carModelLookup').value;
+    if(!lookupValue) return;
+    
+    let parts = lookupValue.split('|');
+    let price = parseFloat(parts[0]);
+    let segment = parts[1];
+    
+    document.getElementById('carExShowroom').value = price;
+    document.getElementById('carSegment').value = segment;
+    calculateCarTax();
+}
+
+// ==========================================
+// KEEP WINDOW LOAD AT THE VERY BOTTOM BELOW
+// ==========================================
 window.addEventListener("load", function() {
     calculateTax();
     calculateSIP();
     calculateFD();
-    calculateCarTax(); // Crucial addition to make sure fields populate instantly on load!
+    calculateCarTax();
 });
 
 // NEW INDEPENDENT SHARING LOGIC (Completely isolated from your calculators)
