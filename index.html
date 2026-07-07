@@ -93,10 +93,12 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="income">Annual Gross Income / Salary (₹ Total for Year):</label>
-        <input type="number" id="income" value="1300000" min="0" oninput="calculateTax()">
+        <div class="form-group">
+        <label for="income">Annual Gross Income (₹):</label>
+        <input type="number" id="income" value="1300000" min="0" max="1000000000" oninput="calculateTax()">
+        <div id="taxIncomeNote" class="cap-note">⚠️ Note: Maximum annual gross income for this tool is capped at ₹100 Crore.</div>
     </div>
+
 
     <div class="breakdown-box">
         <div class="breakdown-title">
@@ -559,8 +561,16 @@ function updateLiveTotal() {
 
 
 function calculateTax() {
-    let income = parseFloat(document.getElementById('income').value) || 0;
+    let rawIncome = parseFloat(document.getElementById('income').value) || 0;
+    
+    // Enforce an absolute safety cap to protect mathematical processors from breaking
+    let income = Math.min(1000000000, Math.max(0, rawIncome));
+
+    // Toggle the visual warning note immediately if user inputs a crazy amount
+    document.getElementById('taxIncomeNote').style.display = rawIncome > 1000000000 ? 'block' : 'none';
+
     let legalDeductions = updateLiveTotal();
+
     
     let oldStdDeduction = 50000; 
     let taxableOld = Math.max(0, income - legalDeductions - oldStdDeduction);
