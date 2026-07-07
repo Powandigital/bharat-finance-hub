@@ -561,15 +561,37 @@ function updateLiveTotal() {
 
 
 function calculateTax() {
-    let rawIncome = parseFloat(document.getElementById('income').value) || 0;
-    
-    // Enforce an absolute safety cap to protect mathematical processors from breaking
-    let income = Math.min(1000000000, Math.max(0, rawIncome));
+    // 1. Check if the Salary Hike Helper checkbox is ticked
+    let hikeHelperActive = document.getElementById('hikeHelperCheckbox') ? document.getElementById('hikeHelperCheckbox').checked : false;
+    let finalIncome = 0;
+
+    if (hikeHelperActive) {
+        // Extract the monthly basic salary entry
+        let monthlyBasic = parseFloat(document.getElementById('monthlyBasicInput').value) || 0;
+        
+        // --- REALISTIC GOVERNMENT SALARY CONVERSION LOGIC ---
+        // Gross income includes: Basic + Dearness Allowance (DA approx 53%) + HRA/Allowances (approx 20-30%)
+        // Standard structural projection translates 1 Month Basic into roughly 2.15x total Gross over a full year
+        let projectedAnnualGross = monthlyBasic * 12 * 2.15; 
+        
+        // Lock the calculated valuation back into the visible input field box automatically
+        document.getElementById('income').value = Math.round(projectedAnnualGross);
+        finalIncome = projectedAnnualGross;
+    } else {
+        // If the helper checkbox is off, simply extract the value from the manual entry box as usual
+        finalIncome = parseFloat(document.getElementById('income').value) || 0;
+    }
+
+    // 2. Enforce our absolute safety cap of ₹100 Crore to keep code stable
+    let income = Math.min(1000000000, Math.max(0, finalIncome));
 
     // Toggle the visual warning note immediately if user inputs a crazy amount
-    document.getElementById('taxIncomeNote').style.display = rawIncome > 1000000000 ? 'block' : 'none';
+    if(document.getElementById('taxIncomeNote')) {
+        document.getElementById('taxIncomeNote').style.display = finalIncome > 1000000000 ? 'block' : 'none';
+    }
 
     let legalDeductions = updateLiveTotal();
+
 
     
     let oldStdDeduction = 50000; 
