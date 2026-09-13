@@ -68,7 +68,7 @@
     <button class="tab-btn" onclick="switchTab('sip-container', this)">📈 SIP Calculator</button>
     <button class="tab-btn" onclick="switchTab('fd-container', this)">💰 FD Calculator</button>
     <button class="tab-btn" onclick="switchTab('car-gst-container', this)">🚗 Car Tax Calculator</button>
-
+    <button class="tab-btn" onclick="switchTab('loan-container', this)">🏠 Loan Calculator</button>
 </div>
 <!-- 1. TAX CALCULATOR CONTAINER -->
 <div id="tax-container" class="container active">
@@ -341,8 +341,76 @@
                 <span id="carOnRoadTotal">₹0</span>
             </div>
         </div>
+
+        <!-- 5. 🆕 LOAN EMI & PREPAYMENT CALCULATOR CONTAINER -->
+<div id="loan-container" class="container">
+    <h2>🏠 Loan EMI & Prepayment Calculator</h2>
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px; border-radius: 6px; color: #1e40af; font-size: 13px; font-weight: 500; margin-bottom: 20px;">
+        ✨ <b>100% Ad-Free Feature:</b> Map out how lump-sum prepayments shorten your loan tenure and maximize interest savings.
     </div>
-</div> <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
+
+    <div class="form-group">
+        <label for="loanAmount">Loan Principal Amount (₹):</label>
+        <input type="number" id="loanAmount" value="5000000" min="0" oninput="calculateLoan()">
+    </div>
+    
+    <div class="form-group">
+        <label for="loanRate">Annual Interest Rate (% p.a.):</label>
+        <input type="number" id="loanRate" value="8.5" step="0.05" min="1" max="30" oninput="calculateLoan()">
+    </div>
+    
+    <div class="form-group">
+        <label for="loanTenure">Loan Tenure (Years):</label>
+        <input type="number" id="loanTenure" value="20" min="1" max="40" oninput="calculateLoan()">
+    </div>
+
+    <!-- Prepayment Core Module Block -->
+    <div class="breakdown-box">
+        <div class="breakdown-title">
+            <span>💡 Prepayment Optimization Strategy</span>
+        </div>
+        <div class="form-group sub-input">
+            <label for="prepaymentAmount">Lump-Sum Prepayment Amount (₹):</label>
+            <input type="number" id="prepaymentAmount" value="500000" min="0" oninput="calculateLoan()">
+        </div>
+        <div class="form-group sub-input">
+            <label for="prepaymentMonth">Make Prepayment At Month Number:</label>
+            <input type="number" id="prepaymentMonth" value="12" min="1" oninput="calculateLoan()">
+            <span style="font-size: 11px; color: #64748b; display: block; margin-top: 4px;">
+                *For example: Entering 12 runs the prepayment right at the end of your 1st loan anniversary year.
+            </span>
+        </div>
+    </div>
+
+    <div class="results" id="loanResults" style="display: block;">
+        <div class="result-row" style="background:#f1f5f9; padding:10px; border-radius:6px; font-weight:600;">
+            <span>Monthly EMI Base Payment:</span>
+            <span id="loanEmiDisplay" style="color:#1e3a8a; font-size:16px;">₹0</span>
+        </div>
+        <div class="result-row">
+            <span>Total Principal Borrowed:</span>
+            <span id="loanPrincipalDisplay">₹0</span>
+        </div>
+        
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
+            <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">📉 Without Prepayment (Standard Schedule):</div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Total Interest Payable:</span><span id="normalInterestDisplay">₹0</span></div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Total Overall Outflow:</span><span id="normalTotalDisplay">₹0</span></div>
+        </div>
+
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #cbd5e1;">
+            <div style="font-weight: bold; margin-bottom: 8px; color: #15803d; font-size: 14px;">🚀 With Prepayment Dynamic Impact:</div>
+            <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>New Dynamic Interest Cost:</span><span id="prepaidInterestDisplay">₹0</span></div>
+            <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>Actual Months Saved from Tenure:</span><span id="monthsSavedDisplay" style="font-weight:bold;">0 months</span></div>
+            
+            <div style="background:#dcfce7; color:#14532d; padding:12px; border-radius:6px; margin-top:10px; font-weight:bold; font-size:15px; text-align:center;" id="loanSavingsVerdict">
+                Net Interest Cash Saved: ₹0
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
 
 <!-- GLOBAL SEO KEYWORD CONTENT HUB (FOR GOOGLE RANKING) -->
 <div class="seo-static-hub" style="max-width: 650px; background: white; margin: 20px auto 30px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #10b981; font-size: 14px; line-height: 1.6; color: #475569; box-sizing: border-box;">
@@ -796,6 +864,96 @@ function calculateFD() {
     document.getElementById('carTcsDisplay').innerText = "₹" + Math.round(calculatedTcs).toLocaleString('en-IN');
     document.getElementById('carOnRoadTotal').innerText = "₹" + Math.round(grandOnRoadPrice).toLocaleString('en-IN');
 }
+    function calculateLoan() {
+    let rawPrincipal = parseFloat(document.getElementById('loanAmount').value) || 0;
+    let rawRate = parseFloat(document.getElementById('loanRate').value) || 0;
+    let rawYears = parseFloat(document.getElementById('loanTenure').value) || 0;
+    let rawPrepayment = parseFloat(document.getElementById('prepaymentAmount').value) || 0;
+    let prepayMonth = parseInt(document.getElementById('prepaymentMonth').value) || 1;
+
+    let principal = Math.max(0, rawPrincipal);
+    let annualRate = Math.max(0, rawRate);
+    let totalYears = Math.max(1, rawYears);
+    let prepayment = Math.max(0, rawPrepayment);
+
+    let monthlyRate = (annualRate / 100) / 12;
+    let totalMonths = totalYears * 12;
+
+    // Standard Math Formula for base EMI processing
+    let emi = 0;
+    if (monthlyRate > 0) {
+        emi = principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+    } else {
+        emi = principal / totalMonths;
+    }
+
+    let normalTotalPayment = emi * totalMonths;
+    let normalInterestPayable = normalTotalPayment - principal;
+
+    // Run Amortisation Loop Simulation to calculate explicit prepayment benefits
+    let balance = principal;
+    let prepaidInterestTotal = 0;
+    let activeMonthsRan = 0;
+    
+    for (let m = 1; m <= totalMonths; m++) {
+        if (balance <= 0) break;
+        
+        let interestComponent = balance * monthlyRate;
+        let principalComponent = emi - interestComponent;
+        
+        // Handle final broken month adjustments gracefully
+        if (principalComponent > balance) {
+            principalComponent = balance;
+        }
+        
+        balance -= principalComponent;
+        prepaidInterestTotal += interestComponent;
+        activeMonthsRan = m;
+
+        // Apply dynamic prepayment injector tracking logic
+        if (m === prepayMonth && balance > 0) {
+            if (prepayment >= balance) {
+                prepayment = balance;
+            }
+            balance -= prepayment;
+        }
+    }
+
+    let monthsSaved = totalMonths - activeMonthsRan;
+    let totalNetSavings = normalInterestPayable - prepaidInterestTotal;
+
+    // Render metrics updates directly to document node targets
+    document.getElementById('loanEmiDisplay').innerText = "₹" + Math.round(emi).toLocaleString('en-IN') + " / month";
+    document.getElementById('loanPrincipalDisplay').innerText = "₹" + Math.round(principal).toLocaleString('en-IN');
+    
+    document.getElementById('normalInterestDisplay').innerText = "₹" + Math.round(normalInterestPayable).toLocaleString('en-IN');
+    document.getElementById('normalTotalDisplay').innerText = "₹" + Math.round(normalTotalPayment).toLocaleString('en-IN');
+    
+    document.getElementById('prepaidInterestDisplay').innerText = "₹" + Math.round(prepaidInterestTotal).toLocaleString('en-IN');
+    
+    // Formatting text display for months & structural years saved
+    if(monthsSaved > 0) {
+        let displayYears = Math.floor(monthsSaved / 12);
+        let displayMonths = monthsSaved % 12;
+        let textString = "";
+        if(displayYears > 0) textString += displayYears + " Years ";
+        if(displayMonths > 0) textString += displayMonths + " Months";
+        document.getElementById('monthsSavedDisplay').innerText = textString + " (" + monthsSaved + " months)";
+    } else {
+        document.getElementById('monthsSavedDisplay').innerText = "0 months";
+    }
+
+    if(totalNetSavings > 0) {
+        document.getElementById('loanSavingsVerdict').innerText = "🎉 Net Interest Cash Saved: ₹" + Math.round(totalNetSavings).toLocaleString('en-IN');
+        document.getElementById('loanSavingsVerdict').style.background = "#dcfce7";
+        document.getElementById('loanSavingsVerdict').style.color = "#14532d";
+    } else {
+        document.getElementById('loanSavingsVerdict').innerText = "No Interest Savings Generated Yet.";
+        document.getElementById('loanSavingsVerdict').style.background = "#f1f5f9";
+        document.getElementById('loanSavingsVerdict').style.color = "#475569";
+    }
+}
+
     // ==========================================
 // NEW HELPER FUNCTIONS (UPDATE D PLACEMENT)
 // ==========================================
@@ -842,6 +1000,7 @@ window.addEventListener("load", function() {
     calculateSIP();
     calculateFD();
     calculateCarTax();
+    calculateLoan();
 });
 
 // NEW INDEPENDENT SHARING LOGIC (Completely isolated from your calculators)
