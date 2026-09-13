@@ -291,12 +291,25 @@
     <h2>📈 Mutual Fund SIP Calculator</h2>
     <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
     
+        <!-- UPDATED SIP CALCULATOR CONFIGURATION LAYER -->
     <div class="form-group">
-        <label for="sipAmount">Monthly Investment Amount (₹):</label>
+        <label for="sipAmount">Initial Monthly Investment Amount (₹):</label>
         <input type="number" id="sipAmount" value="5000" min="0" max="1000000" oninput="calculateSIP()">
         <div id="sipAmtNote" class="cap-note">⚠️ Note: Maximum monthly investment for this tool is capped at ₹1,0,0,000.</div>
     </div>
     
+    <!-- 🌟 NEW: ANNUAL STEP-UP PERCENTAGE SELECTOR ELEMENT -->
+    <div class="form-group" style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 6px;">
+        <label for="sipStepUp" style="color: #0284c7; font-weight: 700;">🚀 Annual SIP Step-Up (% Increase Every Year):</label>
+        <select id="sipStepUp" onchange="calculateSIP()" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #cbd5e1; background: white; font-size: 15px; color: #1e293b;">
+            <option value="0" selected>Regular SIP (0% Constant Growth)</option>
+            <option value="5">5% Step-Up Yearly (Matches Standard Inflation)</option>
+            <option value="10">10% Step-Up Yearly (Recommended for Salaried)</option>
+            <option value="15">15% Step-Up Yearly (Aggressive Wealth Building)</option>
+            <option value="20">20% Step-Up Yearly (Maximum Compounding Accelerator)</option>
+        </select>
+    </div>
+
     <div class="form-group">
         <label for="sipRate">Expected Return Rate per Year (%):</label>
         <input type="number" id="sipRate" value="12" min="1" max="30" oninput="calculateSIP()">
@@ -308,6 +321,7 @@
         <input type="number" id="sipYears" value="10" min="1" max="50" oninput="calculateSIP()">
         <div id="sipYearsNote" class="cap-note">⚠️ Note: Time period is limited to a maximum of 50 years.</div>
     </div>
+
     
     <button class="calc-btn" onclick="toggleSipTips()">💡 Get Wealth Maximization Tips</button>
     
@@ -502,6 +516,20 @@
         <label for="loanTenure">Loan Tenure (Years):</label>
         <input type="number" id="loanTenure" value="20" min="1" max="40" oninput="calculateLoan()">
     </div>
+        <!-- 🌟 NEW: PROCESSING FEE & AUTOMATED STATUTORY GST ADJUSTER MODULE -->
+    <div class="breakdown-box" style="border: 1px dashed #64748b; background: #f8fafc;">
+        <div class="breakdown-title" style="color: #475569;">
+            <span>🛠️ Processing Fee & Bank Charges Adjuster</span>
+        </div>
+        <div class="form-group sub-input">
+            <label for="processingFeeRate">Bank Processing Fee Rate (% of Loan):</label>
+            <input type="number" id="processingFeeRate" value="0.5" step="0.1" min="0" max="5" oninput="calculateLoan()">
+        </div>
+        <div style="font-size: 11px; color: #64748b; margin-top: -5px; margin-bottom: 12px;">
+            *Automatically bundles the standard <b>18% Indian Financial Services GST</b> on top of the base bank charges.
+        </div>
+    </div>
+
 
     <!-- Prepayment Core Module Block -->
     <div class="breakdown-box">
@@ -561,6 +589,24 @@
             <span>Monthly EMI Base Payment:</span>
             <span id="loanEmiDisplay" style="color:#1e3a8a; font-size:16px;">₹0</span>
         </div>
+
+        <div class="result-row" style="background:#f1f5f9; padding:10px; border-radius:6px; font-weight:600;">
+    <span>Monthly EMI Base Payment:</span>
+    <span id="loanEmiDisplay" style="color:#1e3a8a; font-size:16px;">₹0</span>
+</div>
+
+<!-- 🌟 NEW: NET EXPENSES WALLET DISBURSEMENT AUDIT ROW -->
+<div class="result-row" style="background:#fff7ed; padding:10px; border-radius:6px; margin-top:10px; display:block; border-left: 4px solid #f97316; box-sizing: border-box;">
+    <div style="display:flex; justify-content:space-between; font-weight:600; color:#c2410c;">
+        <span>Total Processing Fees + 18% GST:</span>
+        <span id="loanFeesDisplay">₹0</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#9a3412; margin-top:4px; border-top:1px dashed #fed7aa; padding-top:4px;">
+        <span>Actual Net Wallet Bank Disbursement:</span>
+        <span id="loanNetDisbursedDisplay" style="font-weight:700;">₹0</span>
+    </div>
+</div>
+
         
         <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
             <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">❌ Without Prepayment (Standard Schedule):</div>
@@ -831,45 +877,45 @@ function calculateTax() {
 }
 
 // MUTUAL FUND SIP STRUCTURAL COMPOUNDING ENGINE
+// ADVANCED SIP growth ENGINE INCORPORATING ANNUAL STEP-UP ACCELERATION MATRIX
 function calculateSIP() {
-    // 1. Extract values from user input nodes
     let rawP = parseFloat(document.getElementById('sipAmount').value) || 0;
     let rawRate = parseFloat(document.getElementById('sipRate').value) || 0;
     let rawYears = parseFloat(document.getElementById('sipYears').value) || 0;
+    let stepUpPercent = parseFloat(document.getElementById('sipStepUp').value) || 0;
     
-    // 2. Enforce strict mathematical boundaries for structural safety
     let P = Math.min(1000000, Math.max(0, rawP));
     let annualRate = Math.min(30, Math.max(0, rawRate));
     let years = Math.min(50, Math.max(0, rawYears));
     
-    // 3. Toggle visual capacity warning blocks contextually
     document.getElementById('sipAmtNote').style.display = rawP > 1000000 ? 'block' : 'none';
     document.getElementById('sipRateNote').style.display = rawRate > 30 ? 'block' : 'none';
     document.getElementById('sipYearsNote').style.display = rawYears > 50 ? 'block' : 'none';
     
-    // 4. Transform annual tracking components into monthly intervals
-    let i = (annualRate / 100) / 12;
-    let n = years * 12;
+    let monthlyRate = (annualRate / 100) / 12;
+    let totalMonths = years * 12;
     
-    // 5. Run calculations logic based on rate boundaries
-    if (i === 0 || n === 0) {
-        let totalInvested = P * n;
-        document.getElementById('sipInvested').innerText = "₹" + totalInvested.toLocaleString('en-IN');
-        document.getElementById('sipGain').innerText = "₹0";
-        document.getElementById('sipTotal').innerText = "₹" + totalInvested.toLocaleString('en-IN');
-    } else {
-        // Core structural equation processing future maturity yields
-        let maturityValue = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
-        let totalInvested = P * n;
-        let estimatedReturns = maturityValue - totalInvested;
+    let currentSipAmount = P;
+    let totalInvested = 0;
+    let maturityValue = 0;
+    
+    // Simulate month-by-month compounding matrix safely
+    for (let m = 1; m <= totalMonths; m++) {
+        // Run step-up increment loop at the start of every 12-month boundary interval (Except year 1)
+        if (m > 1 && (m - 1) % 12 === 0) {
+            currentSipAmount = currentSipAmount * (1 + (stepUpPercent / 100));
+        }
         
-        // 6. Push formatted data to text node targets smoothly
-        document.getElementById('sipInvested').innerText = "₹" + Math.round(totalInvested).toLocaleString('en-IN');
-        document.getElementById('sipGain').innerText = "₹" + Math.round(estimatedReturns).toLocaleString('en-IN');
-        document.getElementById('sipTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
+        totalInvested += currentSipAmount;
+        // Apply single month compound interest accumulation lifecycle phase
+        maturityValue = (maturityValue + currentSipAmount) * (1 + monthlyRate);
     }
     
-    // 7. Make the results grid completely visible
+    let estimatedReturns = maturityValue - totalInvested;
+    
+    document.getElementById('sipInvested').innerText = "₹" + Math.round(totalInvested).toLocaleString('en-IN');
+    document.getElementById('sipGain').innerText = "₹" + Math.round(estimatedReturns).toLocaleString('en-IN');
+    document.getElementById('sipTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
     document.getElementById('sipResults').style.display = 'block';
 }
 
@@ -1112,6 +1158,17 @@ function calculateLoan() {
         document.getElementById('chartInterestBar').style.width = interestRatio + "%";
         document.getElementById('chartRatioText').innerText = `Principal: ${Math.round(principalRatio)}% | Interest: ${Math.round(interestRatio)}%`;
     }
+        // --- 🌟 NEW: PROCESSING FEE & GST CHARGES MATHEMATICAL ENGINE MATRIX ---
+    let baseFeeRate = parseFloat(document.getElementById('processingFeeRate').value) || 0;
+    let rawBaseCharges = principal * (baseFeeRate / 100);
+    let financialGstComponent = rawBaseCharges * 0.18; // Apply standard 18% Indian Financial Services Tax
+    let aggregateChargesOutflow = rawBaseCharges + financialGstComponent;
+    let netBankDisbursementValuation = principal - aggregateChargesOutflow;
+
+    // Push calculated allocations values down straight into new presentation DOM rows
+    document.getElementById('loanFeesDisplay').innerText = "₹" + Math.round(aggregateChargesOutflow).toLocaleString('en-IN') + ` (${baseFeeRate}% Fee + 18% GST)`;
+    document.getElementById('loanNetDisbursedDisplay').innerText = "₹" + Math.round(netBankDisbursementValuation).toLocaleString('en-IN');
+
     // Render Primary Data Points
     document.getElementById('loanEmiDisplay').innerText = "₹" + Math.round(emi).toLocaleString('en-IN') + " / month";
     document.getElementById('normalInterestDisplay').innerText = "₹" + Math.round(normalInterestPayable).toLocaleString('en-IN');
