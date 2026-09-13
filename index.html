@@ -4,17 +4,16 @@
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y83E4KM2HK"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Y83E4KM2HK');
-</script>
+  
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y83E4KM2HK');
+    </script>
     <meta name="google-site-verification" content="B3jJKWLfQ1cBau_EL2Exkw5ZGATUZbBjStINmqvnPRM" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bharat Finance Hub - Tax, SIP & FD Calculators</title>
-
     <!-- OpenGraph Metadata Infrastructure for WhatsApp Rich Preview Cards -->
     <meta property="og:site_name" content="Bharat Finance Hub" />
     <meta property="og:title" content="Bharat Finance Hub - Free Tax & Wealth Calculators" />
@@ -27,21 +26,20 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Bharat Finance Hub Dashboard Interface Preview" />
-
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; color: #333; }
         .portal-header { text-align: center; margin: 20px 0 10px 0; }
         .portal-header h1 { color: #1e293b; margin: 0; font-size: 28px; }
         .portal-header p { color: #64748b; margin: 5px 0 20px 0; font-size: 15px; }
-        .tabs { display: flex; max-width: 650px; margin: 0 auto 20px auto; background: #e2e8f0; border-radius: 8px; padding: 4px; }
-        .tab-btn { flex: 1; padding: 12px; text-align: center; background: none; border: none; font-weight: bold; color: #4a5568; cursor: pointer; border-radius: 6px; transition: all 0.2s; font-size: 14px; }
+        .tabs { display: flex; max-width: 650px; margin: 0 auto 20px auto; background: #e2e8f0; border-radius: 8px; padding: 4px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; padding: 12px; text-align: center; background: none; border: none; font-weight: bold; color: #4a5568; cursor: pointer; border-radius: 6px; transition: all 0.2s; font-size: 14px; min-width: 110px; }
         .tab-btn.active { background: white; color: #10b981; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .container { max-width: 650px; background: white; margin: 0 auto 30px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: none; box-sizing: border-box; }
         .container.active { display: block; }
         h2 { color: #2c3e50; font-size: 20px; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-weight: 600; margin-bottom: 8px; color: #4a5568; font-size: 15px; }
-        input[type="number"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        input[type="number"], select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
         .breakdown-box { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
         .breakdown-title { font-weight: bold; margin-bottom: 12px; color: #1e293b; font-size: 15px; display: flex; justify-content: space-between; }
         .sub-input { margin-bottom: 12px; }
@@ -57,12 +55,10 @@
     </style>
 </head>
 <body>
-
 <div class="portal-header">
     <h1>🇮🇳 Bharat Finance Hub</h1>
     <p>Free Premium Financial Tools & Calculators</p>
 </div>
-
 <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('tax-container', this)">📊 Tax Calculator</button>
     <button class="tab-btn" onclick="switchTab('sip-container', this)">📈 SIP Calculator</button>
@@ -70,11 +66,12 @@
     <button class="tab-btn" onclick="switchTab('car-gst-container', this)">🚗 Car Tax Calculator</button>
     <button class="tab-btn" onclick="switchTab('loan-container', this)">🏠 Loan Calculator</button>
 </div>
+
 <!-- 1. TAX CALCULATOR CONTAINER -->
 <div id="tax-container" class="container active">
     <h2>📊 Income Tax Calculator (FY 2025-26)</h2>
     <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
-
+    
     <!-- Hike Helper Module -->
     <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
         <label style="display: flex; align-items: center; gap: 8px; font-weight: bold; cursor: pointer;">
@@ -93,12 +90,11 @@
         </div>
     </div>
 
-        <div class="form-group">
+    <div class="form-group">
         <label for="income">Annual Gross Income (₹):</label>
         <input type="number" id="income" value="1300000" min="0" max="1000000000" oninput="calculateTax()">
         <div id="taxIncomeNote" class="cap-note">⚠️ Note: Maximum annual gross income for this tool is capped at ₹100 Crore.</div>
     </div>
-
 
     <div class="breakdown-box">
         <div class="breakdown-title">
@@ -128,7 +124,7 @@
 
     <button class="calc-btn" onclick="window.print()">🖨️ Print / Save Tax Summary</button>
     <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
-
+    
     <div class="results" id="taxResults">
         <div class="result-row"><span>Standard Deduction (Old Regime):</span><span>₹50,000</span></div>
         <div class="result-row"><span>Standard Deduction (New Regime):</span><span>₹75,000</span></div>
@@ -148,7 +144,7 @@
                 <span id="oldTakeHomeMonthly">₹0 / month</span>
             </div>
         </div>
-
+        
         <div class="result-row" style="background:#dcfce7; padding:10px; border-radius:6px; margin-top:10px; display:block;">
             <div style="display:flex; justify-content:space-between; font-weight:bold; color:#15803d;">
                 <span>Tax under New Regime (Annual):</span>
@@ -163,36 +159,156 @@
                 <span id="newTakeHomeMonthly">₹0 / month</span>
             </div>
         </div>
-
+        
         <div class="verdict" id="verdictText"></div>
-
         <button type="button" onclick="triggerNativeShare()" style="width:100%; background:#10b981; color:white; border:none; padding:12px; font-size:15px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 10px rgba(16,185,129,0.15); transition:background 0.2s; box-sizing:border-box;">
             📲 Share Website
         </button>
     </div>
+
+    <!-- INTERNAL SEO PIECE: SMART TAX SAVING IDEAS INSIDE THE TAX CONTAINER -->
+    <div class="seo-static-hub" style="background: white; margin: 25px 0 0 0; padding: 20px 0 0 0; border-top: 4px solid #10b981; font-size: 14px; line-height: 1.6; color: #475569; box-sizing: border-box;">
+        <h3 style="color: #0f766e; font-size: 19px; margin-top: 0; margin-bottom: 22px; display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.3px;">💡 Smart Tax Saving Ideas & Hidden Clauses (FY 2025-26)</h3>
+        
+        <div style="display: grid; gap: 20px;">
+            <!-- Strategy 1 -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #10b981; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #dcfce7; color: #15803d; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">1</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Corporate NPS Loophole</strong>
+                        <span style="background: #dbeafe; color: #1e40af; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase;">Both Regimes</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px;">
+                        If your employer sets up a <strong>Section 80CCD(2)</strong> corporate program, they can route up to 10% of your Basic Salary + DA directly into your Tier-1 NPS. This deduction lowers your gross taxable head directly without impacting any standard deduction baselines.
+                    </p>
+                </div>
+            </div>
+            
+                        <!-- Strategy 2 -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #3b82f6; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #dbeafe; color: #1e40af; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">2</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Deemed Let-Out Property Loophole</strong>
+                        <span style="background: #dcfce7; color: #15803d; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase;">New Regime Limit Fix</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px;">
+                        Home loan interest deductions for self-occupied homes are blocked under the New Regime. However, if you declare that asset as a <strong>Deemed Let-Out Property</strong>, you can completely offset the annual home loan interest paid against incoming rental yields under Section 24(b).
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Strategy 3 -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #f97316; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">3</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Maximize Medical Protection Deductions</strong>
+                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase;">Old Regime Only</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px;">
+                        While your personal insurance deduction limit stands capped at ₹25,000, funding premium health coverage for your parents opens up an additional <strong>₹25,000 allowance</strong>. If your parents are senior citizens (60+), that bracket securely scales to ₹50,000.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Strategy 4 -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #f97316; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">4</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Simultaneous HRA & Home Loan Claims</strong>
+                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase;">Old Regime Only</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px;">
+                        You can legally claim <strong>both HRA exemptions and Home Loan interest reliefs</strong> simultaneously if you live in a rented property in your work city while your owned residential asset sits in a separate city or remains under active development.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Strategy 5 -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #06b6d4; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #ecfeff; color: #0891b2; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">5</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Section 80CCD(1B) Extra Cushion</strong>
+                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase;">Old Regime Only</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px;">
+                        Most taxpayers believe their total deduction stops at the ₹1,50,000 threshold under Section 80C. However, by manually putting an additional investment into a voluntary <strong>NPS Tier-1 Account</strong>, you can claim an exclusive supplementary exemption of up to <strong>₹50,000</strong> completely above the 80C limit.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Strategy 6 -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #a855f7; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #f3e8ff; color: #7e22ce; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">6</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Unlimited Section 80E Interest Clause</strong>
+                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase;">Old Regime Only</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px;">
+                        If you have secured a financing loan for higher education for yourself, your spouse, or your children, <strong>Section 80E</strong> allows you to deduct the entire interest amount paid from your taxable salary pool. Unlike home loans, this section features no upper ceiling limit for an active span of up to 8 consecutive fiscal years.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Strategy 7 -->
+            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #ec4899; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
+                <div style="background: #fce7f3; color: #be185d; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;">7</div>
+                <div style="flex: 1;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Donation Exemptions via Section 80G</strong>
+                        <span style="background: #dbeafe; color: #1e40af; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase;">Both Regimes</span>
+                    </div>
+                    <p style="margin: 0; color: #475569; font-size: 13.5px;">
+                        Contributions routed toward notified government relief funds, clean energy structures, or certified charitable foundations entitle you to either a 50% or 100% deduction under <strong>Section 80G</strong>. Ensure to retain a valid digital receipt containing the institution's active 10-digit PAN details to defend the deduction claims during filing.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+                <!-- REGIME EXPLANATIONS SECTION -->
+        <section style="margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+            <h3 style="color: #1e293b; font-size: 17px; margin-bottom: 10px;">Understanding the Indian Income Tax Regime (FY 2025-26 / AY 2026-27)</h3>
+            <p style="font-size: 13px; color: #64748b;">Choosing between the <strong>Old Tax Regime</strong> and the <strong>New Tax Regime</strong> depends entirely on your investment profile and gross salary structure. Bharat Finance Hub provides an instant calculations matrix utilizing current legal limits to map your exact tax liability.</p>
+            
+            <h4 style="color: #2c3e50; font-size: 14px; margin: 15px 0 8px 0;">Old Tax Regime Deductions Ceiling</h4>
+            <p style="font-size: 13px; color: #64748b;">The Old Tax Regime retains a basic <strong>Standard Deduction of ₹50,000</strong> but allows users to heavily scale down taxable income using lawful exemptions:</p>
+            <ul style="padding-left:20px; margin:5px 0; font-size:13px; color:#64748b; line-height: 1.6;">
+                <li><strong>Section 80C (Max ₹1.5 Lakh):</strong> Covers Public Provident Fund (PPF), Employee Provident Fund (EPF), ELSS Mutual Funds, National Savings Certificates (NSC), and Life Insurance premiums.</li>
+                <li><strong>Section 80D (Max ₹50,000):</strong> Exemptions on health insurance premiums for yourself, your spouse, children, and dependent parents.</li>
+                <li><strong>HRA & Home Loan Interest (Section 24b):</strong> Exemption benefits on house rent allowance or up to ₹2 Lakhs deduction on interest paid toward home loans.</li>
+            </ul>
+        </section>
+    </div>
 </div>
-    
+
 <!-- 2. SIP CALCULATOR CONTAINER -->
 <div id="sip-container" class="container">
     <h2>📈 Mutual Fund SIP Calculator</h2>
     <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
-
+    
     <div class="form-group">
         <label for="sipAmount">Monthly Investment Amount (₹):</label>
         <input type="number" id="sipAmount" value="5000" min="0" max="1000000" oninput="calculateSIP()">
         <div id="sipAmtNote" class="cap-note">⚠️ Note: Maximum monthly investment for this tool is capped at ₹1,0,0,000.</div>
     </div>
+    
     <div class="form-group">
         <label for="sipRate">Expected Return Rate per Year (%):</label>
         <input type="number" id="sipRate" value="12" min="1" max="30" oninput="calculateSIP()">
         <div id="sipRateNote" class="cap-note">⚠️ Note: Expected return rate is restricted to a maximum of 30% p.a.</div>
     </div>
+    
     <div class="form-group">
         <label for="sipYears">Time Period (Years):</label>
         <input type="number" id="sipYears" value="10" min="1" max="50" oninput="calculateSIP()">
         <div id="sipYearsNote" class="cap-note">⚠️ Note: Time period is limited to a maximum of 50 years.</div>
     </div>
-
+    
     <button class="calc-btn" onclick="toggleSipTips()">💡 Get Wealth Maximization Tips</button>
     
     <div id="sipTipsBox" style="display:none; margin-top:15px; padding:15px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; font-size:14px; line-height:1.5;">
@@ -201,15 +317,15 @@
         • <strong>Step-Up Strategy:</strong> Increase your monthly SIP amount by 5-10% every year as your salary grows.<br>
         • <strong>Long-Term Horizon:</strong> Keeping a SIP active for more than 7+ years significantly reduces risk.
     </div>
-
+    
     <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
-
+    
     <div class="results" id="sipResults">
         <div class="result-row"><span>Total Amount Invested:</span><span id="sipInvested" style="font-weight:600;">₹0</span></div>
         <div class="result-row"><span>Estimated Returns Earned:</span><span id="sipGain" style="color:#15803d; font-weight:600;">₹0</span></div>
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Future Maturity Value:</strong><span id="sipTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
     </div>
-
+    
     <!-- SECTOR RETURNS REFERENCE BENCHMARK GRID -->
     <button class="calc-btn" onclick="toggleSipGrid()" style="background:#0284c7; margin-top:15px;">📊 View Mutual Fund Sector Returns & Best Funds</button>
     
@@ -230,29 +346,41 @@
             </tbody>
         </table>
     </div>
+    
+    <section style="margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <h3 style="color: #1e293b; font-size: 17px; margin-bottom: 10px;">How Does a Mutual Fund SIP Calculator Work?</h3>
+        <p style="font-size: 13px; color: #64748b; line-height: 1.6;">A Systematic Investment Plan (SIP) allows individuals to deploy fixed monetary amounts into equity mutual funds systematically. Our calculator computes future estimated wealth generation utilizing standard compound interest formulas.</p>
+        <p style="font-size: 13px; color: #64748b; line-height: 1.6;">The mathematical architecture behind the tool processes compounding cycles monthly using this specific structural engineering formula:</p>
+        <div style="background:#f8fafc; padding:10px; border-radius:6px; font-family:monospace; text-align:center; margin:10px 0; font-weight:bold; color:#0f766e; font-size: 14px;">
+            M = P &times; [ ((1 + i)^n - 1) / i ] &times; (1 + i)
+        </div>
+        <p style="font-size: 13px; color: #64748b; line-height: 1.6;">Where <em>M</em> represents ultimate maturity wealth, <em>P</em> represents your fixed monthly deposit, <em>i</em> denotes the monthly periodic rate of return, and <em>n</em> reflects the aggregate compounding intervals (total months duration).</p>
+    </section>
 </div>
 
-<!-- 3. FD CALCULATOR CONTAINER -->
+ <!-- 3. FD CALCULATOR CONTAINER -->
 <div id="fd-container" class="container">
     <h2>💰 Fixed Deposit (FD) Calculator</h2>
     <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
-
+    
     <div class="form-group">
         <label for="fdPrincipal">Total Principal Deposit Amount (₹):</label>
         <input type="number" id="fdPrincipal" value="100000" min="0" max="1000000000" oninput="calculateFD()">
         <div id="fdAmtNote" class="cap-note">⚠️ Note: Maximum principal amount for this tool is capped at ₹100 Crore.</div>
     </div>
+    
     <div class="form-group">
         <label for="fdRate">Rate of Interest per Year (%):</label>
         <input type="number" id="fdRate" value="7.1" step="0.1" min="1" max="20" oninput="calculateFD()">
         <div id="fdRateNote" class="cap-note">⚠️ Note: Maximum interest rate is restricted to a maximum of 20% p.a.</div>
     </div>
+    
     <div class="form-group">
         <label for="fdYears">Time Period (Years):</label>
         <input type="number" id="fdYears" value="5" min="1" max="25" oninput="calculateFD()">
         <div id="fdYearsNote" class="cap-note">⚠️ Note: Time period is limited to a maximum of 25 years.</div>
     </div>
-
+    
     <button class="calc-btn" onclick="toggleFdTable()">🏦 View Bank Interest Comparison</button>
     
     <div id="fdTableBox" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; font-size:14px; overflow-x:auto;">
@@ -271,21 +399,27 @@
             </tbody>
         </table>
     </div>
-
+    
     <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
-
+    
     <div class="results" id="fdResults">
         <div class="result-row"><span>Invested Principal Amount:</span><span id="fdInvested" style="font-weight:600;">₹0</span></div>
         <div class="result-row"><span>Total Interest Acquired:</span><span id="fdInterest" style="color:#15803d; font-weight:600;">₹0</span></div>
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Maturity Wealth Value:</strong><span id="fdTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
     </div>
+
+    <section style="margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <h3 style="color: #1e293b; font-size: 17px; margin-bottom: 10px;">Fixed Deposit (FD) Quarterly Compounding Explained</h3>
+        <p style="font-size: 13px; color: #64748b; line-height: 1.6;">Unlike simple savings systems, fixed deposits held across prominent Indian banking institutions like SBI, HDFC, and ICICI utilize Quarterly Compounding Cycles (4 calculation phases per fiscal year). This ensures that interest earned during the initial three months is added to your core principal pool, increasing the base amount for the next quarter's interest calculation.</p>
+        <p style="font-size: 13px; color: #64748b; line-height: 1.6;">Our safe computing script dynamically executes your calculations using quarterly variables, ensuring your projected principal gains perfectly align with real-world institutional bank passbooks without displaying errors.</p>
+    </section>
 </div>
-    
-   <!-- 4. CAR GST & CESS CALCULATOR CONTAINER -->
+   
+<!-- 4. CAR GST & CESS CALCULATOR CONTAINER -->
 <div id="car-gst-container" class="container">
     <h2>🚗 Indian Car GST & Cess Calculator</h2>
     <div class="ad-placeholder">Google AdSense Placement (High CPC Automobile Banner)</div>
-
+    
     <!-- MODEL PRICE LOOKUP HELPER Dropdown -->
     <div class="form-group" style="background:#f1f5f9; padding:12px; border-radius:6px; border:1px solid #cbd5e1;">
         <label for="carModelLookup" style="font-size:14px; color:#1e293b; font-weight:600;">🔍 Optional: Quick Model Price Lookup:</label>
@@ -301,12 +435,12 @@
             <option value="4200000|suv">Mahindra Scorpio-N Ultra Variant (Est. ₹42 Lakhs)</option>
         </select>
     </div>
-
+    
     <div class="form-group">
         <label for="carExShowroom">Target Car Ex-Showroom Price (₹):</label>
         <input type="number" id="carExShowroom" value="1000000" min="0" oninput="calculateCarTax()">
     </div>
-
+    
     <div class="form-group">
         <label for="carSegment">Select Car Type / Model Class:</label>
         <select id="carSegment" onchange="calculateCarTax()" style="width: 100%; padding: 12px 35px 12px 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 15px; background: #ffffff; color: #1e293b; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://w3.org width=%2224%22 height=%2224%22 viewBox=%220%22 y=%220%22><polygon points=%226,9 12,15 18,9%22 fill=%22%23475569%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
@@ -317,32 +451,34 @@
             <option value="suv">🦁 Full SUV Segment (Fortuner, Scorpio-N, XUV700, Harrier, Safari)</option>
         </select>
     </div>
-
+    
     <div class="ad-placeholder">Google AdSense Placement (In-Article Car Insurance Unit)</div>
-
+    
     <div id="carTaxWarning" style="display:none; margin: 15px 0; padding: 12px; background: #fffbeb; border: 1px solid #fef08a; border-radius: 6px; color: #713f12; font-size: 13.5px; line-height: 1.5; font-weight: 500;">
         ⚠️ <span id="warningMessageText">Notification Content</span>
     </div>
-
+    
     <div class="results" id="carResults">
         <div class="result-row"><span>Base Factory Price (Before Tax):</span><span id="carBasePrice" style="font-weight:600;">₹0</span></div>
         <div class="result-row"><span>Base GST Component (28% or 5% for EV):</span><span id="carGstAmount" style="color:#b91c1c; font-weight:600;">₹0</span></div>
         <div class="result-row"><span>Compensation Cess Amount:</span><span id="carCessAmount" style="color:#c2410c; font-weight:600;">₹0</span></div>
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Tax Embedded in Invoice:</strong><span id="carTotalTax" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
-
+        
         <!-- ESTIMATED ON-ROAD PRICE PREDICTOR -->
         <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
             <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">🗺️ Estimated Total On-Road Cost Breakdown:</div>
             <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Estimated State RTO / Road Tax:</span><span id="carRtoDisplay">₹0</span></div>
             <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Estimated Comprehensive Insurance:</span><span id="carInsuranceDisplay">₹0</span></div>
-            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Government TCS (Flat 1% > ₹10L):</span><span id="carTcsDisplay">₹0</span></div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Government TCS (Flat 1% &gt; ₹10L):</span><span id="carTcsDisplay">₹0</span></div>
             <div class="result-row" style="background:#1e3a8a; color:white; padding:10px; border-radius:6px; margin-top:8px; font-weight:bold; font-size:16px;">
                 <span>Total Est. On-Road Wallet Cost:</span>
                 <span id="carOnRoadTotal">₹0</span>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- 5. 🆕 LOAN EMI & PREPAYMENT CALCULATOR CONTAINER -->
+<!-- 5. 🆕 LOAN EMI & PREPAYMENT CALCULATOR CONTAINER -->
 <div id="loan-container" class="container">
     <h2>🏠 Loan EMI & Prepayment Calculator</h2>
     <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px; border-radius: 6px; color: #1e40af; font-size: 13px; font-weight: 500; margin-bottom: 20px;">
@@ -393,13 +529,13 @@
         </div>
         
         <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
-            <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">📉 Without Prepayment (Standard Schedule):</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">%E2%9C%98 Without Prepayment (Standard Schedule):</div>
             <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Total Interest Payable:</span><span id="normalInterestDisplay">₹0</span></div>
             <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Total Overall Outflow:</span><span id="normalTotalDisplay">₹0</span></div>
         </div>
 
         <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #cbd5e1;">
-            <div style="font-weight: bold; margin-bottom: 8px; color: #15803d; font-size: 14px;">🚀 With Prepayment Dynamic Impact:</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #15803d; font-size: 14px;">%F0%9F%9A%80 With Prepayment Dynamic Impact:</div>
             <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>New Dynamic Interest Cost:</span><span id="prepaidInterestDisplay">₹0</span></div>
             <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>Actual Months Saved from Tenure:</span><span id="monthsSavedDisplay" style="font-weight:bold;">0 months</span></div>
             
@@ -408,152 +544,12 @@
             </div>
         </div>
     </div>
-</div>
-
-    <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
-
+</div> <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
+    
 <!-- GLOBAL SEO KEYWORD CONTENT HUB (FOR GOOGLE RANKING) -->
 <div class="seo-static-hub" style="max-width: 650px; background: white; margin: 20px auto 30px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #10b981; font-size: 14px; line-height: 1.6; color: #475569; box-sizing: border-box;">
     
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 5px 0; margin-bottom: 25px; box-sizing: border-box;">
-        <h3 style="color: #0f766e; font-size: 20px; margin-top: 0; margin-bottom: 22px; display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.3px;">💡 Smart Tax Saving Ideas & Hidden Clauses (FY 2025-26)</h3>
-        
-        <div style="display: grid; gap: 20px;">
-            <!-- Strategy 1 -->
-            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #10b981; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #dcfce7; color: #15803d; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(16,185,129,0.1); flex-shrink: 0;">1</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Corporate NPS Loophole</strong>
-                        <span style="background: #dbeafe; color: #1e40af; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Both Regimes</span>
-                    </div>
-                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        If your employer sets up a <strong>Section 80CCD(2)</strong> corporate program, they can route up to 10% of your Basic Salary + DA directly into your Tier-1 NPS. This deduction lowers your gross taxable head directly without impacting any standard deduction baselines.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Strategy 2 -->
-            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #3b82f6; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #dbeafe; color: #1e40af; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(59,130,246,0.1); flex-shrink: 0;">2</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Deemed Let-Out Property Loophole</strong>
-                        <span style="background: #dcfce7; color: #15803d; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">New Regime Limit Fix</span>
-                    </div>
-                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        Home loan interest deductions for self-occupied homes are blocked under the New Regime. However, if you declare that asset as a <strong>Deemed Let-Out Property</strong>, you can completely offset the annual home loan interest paid against incoming rental yields under Section 24(b).
-                    </p>
-                </div>
-            </div>
-
-            <!-- Strategy 3 -->
-            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #f97316; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(249,115,22,0.1); flex-shrink: 0;">3</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Maximize Medical Protection Deductions</strong>
-                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Old Regime Only</span>
-                    </div>
-                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        While your personal insurance deduction limit stands capped at ₹25,000, funding premium health coverage for your parents opens up an additional <strong>₹25,000 allowance</strong>. If your parents are senior citizens (60+), that bracket securely scales to ₹50,000.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Strategy 4 -->
-            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #f97316; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #ffedd5; color: #c2410c; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(249,115,22,0.1); flex-shrink: 0;">4</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Simultaneous HRA & Home Loan Claims</strong>
-                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Old Regime Only</span>
-                    </div>
-                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        You can legally claim <strong>both HRA exemptions and Home Loan interest reliefs</strong> simultaneously if you live in a rented property in your work city while your owned residential asset sits in a separate city or remains under active development.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Strategy 5 -->
-            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #06b6d4; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #ecfeff; color: #0891b2; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(6,182,212,0.1); flex-shrink: 0;">5</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">The Section 80CCD(1B) Extra Cushion</strong>
-                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Old Regime Only</span>
-                    </div>
-                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        Most taxpayers believe their total deduction stops at the ₹1,50,000 threshold under Section 80C. However, by manually putting an additional investment into a voluntary <strong>NPS Tier-1 Account</strong>, you can claim an exclusive supplementary exemption of up to <strong>₹50,000</strong> completely above the 80C limit.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Strategy 6 -->
-            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #a855f7; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #f3e8ff; color: #7e22ce; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(168,85,247,0.1); flex-shrink: 0;">6</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Unlimited Section 80E Interest Clause</strong>
-                        <span style="background: #ffedd5; color: #c2410c; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Old Regime Only</span>
-                    </div>
-                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        If you have secured a financing loan for higher education for yourself, your spouse, or your children, <strong>Section 80E</strong> allows you to deduct the entire interest amount paid from your taxable salary pool. Unlike home loans, this section features no upper ceiling limit for an active span of up to 8 consecutive fiscal years.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Strategy 7 -->
-            <div style="background: #fdfdfd; border: 1px solid #f1f5f9; padding: 20px; border-radius: 12px; border-left: 5px solid #ec4899; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 2px 8px rgba(0,0,0,0.01);">
-                <div style="background: #fce7f3; color: #be185d; font-weight: 800; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 4px rgba(236,72,153,0.1); flex-shrink: 0;">7</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px;">
-                        <strong style="color: #1e293b; font-size: 16px; font-weight: 700;">Donation Exemptions via Section 80G</strong>
-                        <span style="background: #dbeafe; color: #1e40af; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Both Regimes</span>
-                    </div>
-                    <p style="margin: 0; color: #475569; font-size: 13.5px; line-height: 1.6;">
-                        Contributions routed toward notified government relief funds, clean energy structures, or certified charitable foundations entitle you to either a 50% or 100% deduction under <strong>Section 80G</strong>. Ensure to retain a valid digital receipt containing the institution's active 10-digit PAN details to defend the deduction claims during filing.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
     <section style="margin-bottom: 30px;">
-        <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">Understanding the Indian Income Tax Regime (FY 2025-26 / AY 2026-27)</h3>
-        <p>Choosing between the <strong>Old Tax Regime</strong> and the <strong>New Tax Regime</strong> depends entirely on your investment profile and gross salary structure. Bharat Finance Hub provides an instant calculations matrix utilizing current legal limits to map your exact tax liability.</p>
-        <h4 style="color: #2c3e50; font-size: 15px; margin: 15px 0 8px 0;">New Tax Regime Slab Rates</h4>
-        <p>The New Tax Regime offers lower tax rates but eliminates traditional deductions like Section 80C, 80D, and HRA. However, it provides a generous <strong>Standard Deduction of ₹75,000</strong> and complete tax relief under Section 87A rebate for net taxable income up to ₹12 Lakhs.</p>
-        
-        <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 15px;">
-            <table style="width:100%; border-collapse:collapse; text-align:left; font-size:13px; min-width: 320px;">
-                <thead>
-                    <tr style="background:#f1f5f9; color:#1e293b; border-bottom:2px solid #cbd5e1;">
-                        <th style="padding:6px;">Income Slab (₹)</th>
-                        <th style="padding:6px; text-align:right;">Tax Rate (%)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">0 - 4,00,000</td><td style="text-align:right; padding:6px;">Nil</td></tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">4,00,001 - 8,00,000</td><td style="text-align:right; padding:6px;">5%</td></tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">8,00,001 - 12,00,000</td><td style="text-align:right; padding:6px;">10%</td></tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">12,00,001 - 16,00,000</td><td style="text-align:right; padding:6px;">15%</td></tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">16,00,001 - 20,00,000</td><td style="text-align:right; padding:6px;">20%</td></tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">20,00,001 - 24,00,000</td><td style="text-align:right; padding:6px;">25%</td></tr>
-                    <tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:6px;">Above 24,00,000</td><td style="text-align:right; padding:6px;">30%</td></tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <h4 style="color: #2c3e50; font-size: 15px; margin: 15px 0 8px 0;">Old Tax Regime Deductions Ceiling</h4>
-        <p>The Old Tax Regime retains a basic <strong>Standard Deduction of ₹50,000</strong> but allows users to heavily scale down taxable income using lawful exemptions:</p>
-        <ul style="padding-left:20px; margin:5px 0;">
-            <li><strong>Section 80C (Max ₹1.5 Lakh):</strong> Covers PPF, Employee Provident Fund (EPF), ELSS Mutual Funds, National Savings Certificates (NSC), and Life Insurance premiums.</li>
-            <li><strong>Section 80D (Max ₹50,000):</strong> Exemptions on health insurance premiums for yourself, your spouse, children, and dependent parents.</li>
-            <li><strong>HRA & Home Loan Interest (Section 24b):</strong> Exemption benefits on house rent allowance or up to ₹2 Lakhs deduction on interest paid toward home loans.</li>
-        </ul>
-    </section>
-
-    <section style="margin-bottom: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
         <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">How Does a Mutual Fund SIP Calculator Work?</h3>
         <p>A Systematic Investment Plan (SIP) allows individuals to deploy fixed monetary amounts into equity mutual funds systematically. Our calculator computes future estimated wealth generation utilizing standard compound interest formulas.</p>
         <p>The mathematical architecture behind the tool processes compounding cycles monthly using this specific structural engineering formula:</p>
@@ -563,10 +559,16 @@
         <p>Where <em>M</em> represents ultimate maturity wealth, <em>P</em> represents your fixed monthly deposit, <em>i</em> denotes the monthly periodic rate of return, and <em>n</em> reflects the aggregate compounding intervals (total months duration).</p>
     </section>
 
-    <section style="border-top: 1px solid #e2e8f0; padding-top: 20px;">
+    <section style="margin-bottom: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
         <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">Fixed Deposit (FD) Quarterly Compounding Explained</h3>
         <p>Unlike simple savings systems, fixed deposits held across prominent Indian banking institutions like SBI, HDFC, and ICICI utilize Quarterly Compounding Cycles (4 calculation phases per fiscal year). This ensures that interest earned during the initial three months is added to your core principal pool, increasing the base amount for the next quarter's interest calculation.</p>
         <p>Our safe computing script dynamically executes your calculations using quarterly variables, ensuring your projected principal gains perfectly align with real-world institutional bank passbooks without displaying errors.</p>
+    </section>
+
+    <section style="border-top: 1px solid #e2e8f0; padding-top: 20px;">
+        <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px;">The Power of Loan Prepayments & Interest Amortization</h3>
+        <p>When you take a long-term loan like a home loan, a massive chunk of your initial EMIs goes toward paying off the interest component rather than the principal amount. Making an early lump-sum prepayment routes 100% of those extra funds directly toward bringing down your outstanding principal balance balance.</p>
+        <p>By shortening the core principal, the compounding base for interest generation shrinks permanently, compounding your savings over the remaining lifecycle. Our integrated model shows you exactly how many months you wipe off your tenure timeline cleanly.</p>
     </section>
 </div>
 
@@ -576,7 +578,6 @@
         <a href="#privacyBox" style="color: #10b981; text-decoration: none; font-weight: 600; margin: 0 10px;">Privacy Policy</a> | 
         <a href="#contact" onclick="alert('For support or business inquiries, reach out to us at: support@bharatfinhub.com')" style="color: #10b981; text-decoration: none; font-weight: 600; margin: 0 10px;">Contact Us</a>
     </p>
-
     <div id="privacyBox" style="display: block; text-align: left; background: white; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); line-height: 1.6; max-height: 250px; overflow-y: auto;">
         <h3 style="color:#1e293b; margin-top:0; font-size:16px;">Privacy Policy for Bharat Finance Hub</h3>
         <p>At Bharat Finance Hub, accessible from bharatfinhub.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Bharat Finance Hub and how we use it.</p>
@@ -586,105 +587,132 @@
         <p>Google is one of a third-party vendor on our site. It uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our platform and other sites on the internet. Visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy.</p>
     </div>
 </footer>
+
+   
 <script>
+// FIXED TAB SWITCHING ENGINE FOR ALL CALCULATORS
 function switchTab(containerId, buttonElement) {
-    document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+    // Hide ALL calculator containers on the page completely
+    document.querySelectorAll('.container').forEach(c => {
+        c.style.display = 'none';
+        c.classList.remove('active');
+    });
+    // Remove active CSS styling from all layout selection tabs
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(containerId).classList.add('active');
+    
+    // Target and explicitly reveal the selected workspace panel
+    let targetContainer = document.getElementById(containerId);
+    if(targetContainer) {
+        targetContainer.style.display = 'block';
+        targetContainer.classList.add('active');
+    }
+    // Set the state highlight layer to the clicked menu item
     buttonElement.classList.add('active');
 }
 
+// TOGGLE VISIBILITY: Mutual Fund SIP Wealth Strategy Box
 function toggleSipTips() {
     let box = document.getElementById('sipTipsBox');
-    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    if (box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
 }
 
+// TOGGLE VISIBILITY: Commercial Bank Interest Rates Panel
 function toggleFdTable() {
     let box = document.getElementById('fdTableBox');
-    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    if (box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
 }
 
+// TAX UTILITY: Live Math Updates & Deductions Overflow Caps (Old Regime)
 function updateLiveTotal() {
-    // 1. Capture all live input values including the new NPS field
+    // 1. Capture user inputs safely from DOM inputs
     let raw80c = parseFloat(document.getElementById('sec80c').value) || 0;
     let raw80d = parseFloat(document.getElementById('sec80d').value) || 0;
     let rawNps = parseFloat(document.getElementById('sec80nps').value) || 0;
     let rawHra = parseFloat(document.getElementById('hra').value) || 0;
 
-    // 2. Enforce strict mathematical caps on traditional brackets
+    // 2. Enforce explicit Indian Income Tax statutory upper ceilings
     let allowed80c = Math.min(150000, raw80c);
     let allowed80d = Math.min(50000, raw80d);
     let allowedHra = Math.min(1200000, rawHra);
 
-    // 3. Toggle red warning visibility notes dynamically based on overflows
+    // 3. Toggle threshold error alert tags contextually
     document.getElementById('cncNote').style.display = raw80c > 150000 ? 'block' : 'none';
     document.getElementById('dncNote').style.display = raw80d > 50000 ? 'block' : 'none';
     document.getElementById('hrancNote').style.display = rawHra > 1200000 ? 'block' : 'none';
     
-    // 4. Calculate total (NPS bypasses standard caps safely)
+    // 4. Calculate final qualified amount (NPS 80CCD-1 features direct stack routing here)
     let legalTotal = allowed80c + allowed80d + rawNps + allowedHra;
+    
+    // 5. Update UI text label seamlessly
     document.getElementById('liveTotalDisplay').innerText = "Total Allowable: ₹" + legalTotal.toLocaleString('en-IN');
+    
     return legalTotal;
 }
 
-
+    // PROGRESSIVE TAX CONVERSIONS ENGINE (FY 2025-26)
 function calculateTax() {
-    // 1. Check if the Salary Hike Helper checkbox is ticked
-    let hikeHelperActive = document.getElementById('hikeHelperCheckbox') ? document.getElementById('hikeHelperCheckbox').checked : false;
+    // 1. Evaluate if the Salary Hike Helper component frame is active
+    let hikeHelperActive = document.getElementById('enableHikeHelper') ? document.getElementById('enableHikeHelper').checked : false;
     let finalIncome = 0;
-
+    
     if (hikeHelperActive) {
-        // Extract the monthly basic salary entry
-        let monthlyBasic = parseFloat(document.getElementById('monthlyBasicInput').value) || 0;
+        let monthlyBasic = parseFloat(document.getElementById('currentBasic').value) || 0;
         
-        // --- REALISTIC GOVERNMENT SALARY CONVERSION LOGIC ---
-        // Gross income includes: Basic + Dearness Allowance (DA approx 53%) + HRA/Allowances (approx 20-30%)
-        // Standard structural projection translates 1 Month Basic into roughly 2.15x total Gross over a full year
+        // --- GOVERNMENT CONVERSION STRUCT MATRIX ---
+        // Gross income calculation includes: Basic + Dearness Allowance (DA approx 53%) + HRA/Allowances (approx 20-30%)
+        // Standard structural multiplier projects 1 Month Basic into roughly 2.15x total Gross over a full fiscal year
         let projectedAnnualGross = monthlyBasic * 12 * 2.15; 
         
-        // Lock the calculated valuation back into the visible input field box automatically
+        // Force sync the projected calculation back into the visible input display window node
         document.getElementById('income').value = Math.round(projectedAnnualGross);
         finalIncome = projectedAnnualGross;
     } else {
-        // If the helper checkbox is off, simply extract the value from the manual entry box as usual
         finalIncome = parseFloat(document.getElementById('income').value) || 0;
     }
 
-    // 2. Enforce our absolute safety cap of ₹100 Crore to keep code stable
+    // 2. Clamp input threshold at a safe absolute ceiling of ₹100 Crore to prevent overflow
     let income = Math.min(1000000000, Math.max(0, finalIncome));
-
-    // Toggle the visual warning note immediately if user inputs a crazy amount
     if(document.getElementById('taxIncomeNote')) {
         document.getElementById('taxIncomeNote').style.display = finalIncome > 1000000000 ? 'block' : 'none';
     }
-
-    let legalDeductions = updateLiveTotal();
-
-
     
+    // 3. Process calculations for the Old Tax Regime
+    let legalDeductions = updateLiveTotal();
     let oldStdDeduction = 50000; 
     let taxableOld = Math.max(0, income - legalDeductions - oldStdDeduction);
     let oldBaseTax = 0;
+    
     if (taxableOld > 1000000) { oldBaseTax += (taxableOld - 1000000) * 0.3 + 112500; }
     else if (taxableOld > 500000) { oldBaseTax += (taxableOld - 500000) * 0.2 + 12500; }
     else if (taxableOld > 250000) { oldBaseTax += (taxableOld - 250000) * 0.05; }
-    if (taxableOld <= 500000) { oldBaseTax = 0; } 
+    
+    if (taxableOld <= 500000) { oldBaseTax = 0; } // Apply complete Section 87A rebate for Old Regime limits
+    
     let oldSurcharge = taxableOld > 5000000 ? oldBaseTax * 0.10 : 0;
-    let oldFinalTax = (oldBaseTax + oldSurcharge) * 1.04; 
+    let oldFinalTax = (oldBaseTax + oldSurcharge) * 1.04; // Add flat 4% Health & Education Cess
 
+    // 4. Process calculations for the New Tax Regime
     let newStdDeduction = 75000;
     let taxableNew = Math.max(0, income - newStdDeduction);
     let newBaseTax = 0;
+    
     if (taxableNew > 2400000) { newBaseTax += (taxableNew - 2400000) * 0.3 + 300000; }
     else if (taxableNew > 2000000) { newBaseTax += (taxableNew - 2000000) * 0.25 + 200000; }
     else if (taxableNew > 1600000) { newBaseTax += (taxableNew - 1600000) * 0.2 + 120000; }
     else if (taxableNew > 1200000) { newBaseTax += (taxableNew - 1200000) * 0.15 + 60000; }
     else if (taxableNew > 800000) { newBaseTax += (taxableNew - 800000) * 0.1 + 20000; }
     else if (taxableNew > 400000) { newBaseTax += (taxableNew - 400000) * 0.05; }
-    if (taxableNew <= 1200000) { newBaseTax = 0; } 
+    
+    if (taxableNew <= 1200000) { newBaseTax = 0; } // Apply complete Section 87A rebate up to ₹12L net taxable income
+    
     let newSurcharge = taxableNew > 5000000 ? newBaseTax * 0.10 : 0;
-    let newFinalTax = (newBaseTax + newSurcharge) * 1.04; 
+    let newFinalTax = (newBaseTax + newSurcharge) * 1.04; // Add flat 4% Health & Education Cess
 
+    // 5. Compute monthly parameters and net cash distributions projections
     let grossMonthlyPay = income / 12;
     let oldTaxMonthlyPay = oldFinalTax / 12;
     let newTaxMonthlyPay = newFinalTax / 12;
@@ -692,16 +720,21 @@ function calculateTax() {
     let oldTakeHomeInHand = grossMonthlyPay - oldTaxMonthlyPay;
     let newTakeHomeInHand = grossMonthlyPay - newTaxMonthlyPay;
 
+    // 6. Push verified metrics text formatting straight to DOM target anchors
     document.getElementById('displayUsedDeductions').innerText = "₹" + legalDeductions.toLocaleString('en-IN');
     document.getElementById('oldTax').innerText = "₹" + Math.round(oldFinalTax).toLocaleString('en-IN');
     document.getElementById('newTax').innerText = "₹" + Math.round(newFinalTax).toLocaleString('en-IN');
+    
     document.getElementById('oldTaxMonthly').innerText = "₹" + Math.round(oldTaxMonthlyPay).toLocaleString('en-IN') + " / month";
     document.getElementById('oldTakeHomeMonthly').innerText = "₹" + Math.round(oldTakeHomeInHand).toLocaleString('en-IN') + " / month";
+    
     document.getElementById('newTaxMonthly').innerText = "₹" + Math.round(newTaxMonthlyPay).toLocaleString('en-IN') + " / month";
     document.getElementById('newTakeHomeMonthly').innerText = "₹" + Math.round(newTakeHomeInHand).toLocaleString('en-IN') + " / month";
-
+    
+    // 7. Generate financial recommendation summary text panel
     let verdict = document.getElementById('verdictText');
     let savingsMessage = "";
+    
     if (newFinalTax < oldFinalTax) {
         savingsMessage = "Choose the New Regime to save ₹" + Math.round(oldFinalTax - newFinalTax).toLocaleString('en-IN') + "!";
     } else if (oldFinalTax < newFinalTax) {
@@ -709,65 +742,89 @@ function calculateTax() {
     } else {
         savingsMessage = "Both regimes result in the exact same tax liability.";
     }
+    
     verdict.innerText = "💡 Recommendation: " + savingsMessage;
     document.getElementById('taxResults').style.display = 'block';
 }
+
+// MUTUAL FUND SIP STRUCTURAL COMPOUNDING ENGINE
 function calculateSIP() {
+    // 1. Extract values from user input nodes
     let rawP = parseFloat(document.getElementById('sipAmount').value) || 0;
     let rawRate = parseFloat(document.getElementById('sipRate').value) || 0;
     let rawYears = parseFloat(document.getElementById('sipYears').value) || 0;
-
+    
+    // 2. Enforce strict mathematical boundaries for structural safety
     let P = Math.min(1000000, Math.max(0, rawP));
     let annualRate = Math.min(30, Math.max(0, rawRate));
     let years = Math.min(50, Math.max(0, rawYears));
-
+    
+    // 3. Toggle visual capacity warning blocks contextually
     document.getElementById('sipAmtNote').style.display = rawP > 1000000 ? 'block' : 'none';
     document.getElementById('sipRateNote').style.display = rawRate > 30 ? 'block' : 'none';
     document.getElementById('sipYearsNote').style.display = rawYears > 50 ? 'block' : 'none';
-
+    
+    // 4. Transform annual tracking components into monthly intervals
     let i = (annualRate / 100) / 12;
     let n = years * 12;
-
-    if(i === 0 || n === 0) {
+    
+    // 5. Run calculations logic based on rate boundaries
+    if (i === 0 || n === 0) {
         let totalInvested = P * n;
         document.getElementById('sipInvested').innerText = "₹" + totalInvested.toLocaleString('en-IN');
         document.getElementById('sipGain').innerText = "₹0";
         document.getElementById('sipTotal').innerText = "₹" + totalInvested.toLocaleString('en-IN');
     } else {
+        // Core structural equation processing future maturity yields
         let maturityValue = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
         let totalInvested = P * n;
         let estimatedReturns = maturityValue - totalInvested;
+        
+        // 6. Push formatted data to text node targets smoothly
         document.getElementById('sipInvested').innerText = "₹" + Math.round(totalInvested).toLocaleString('en-IN');
         document.getElementById('sipGain').innerText = "₹" + Math.round(estimatedReturns).toLocaleString('en-IN');
         document.getElementById('sipTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
     }
+    
+    // 7. Make the results grid completely visible
     document.getElementById('sipResults').style.display = 'block';
 }
 
+// BANK FIXED DEPOSIT (FD) QUARTERLY COMPOUNDING ENGINE
 function calculateFD() {
+    // 1. Capture user entries from display input fields safely
     let rawP = parseFloat(document.getElementById('fdPrincipal').value) || 0;
     let rawR = parseFloat(document.getElementById('fdRate').value) || 0;
     let rawT = parseFloat(document.getElementById('fdYears').value) || 0;
-
+    
+    // 2. Enforce explicit safety caps to maintain computational stability
     let P = Math.min(1000000000, Math.max(0, rawP));
     let r = Math.min(20, Math.max(0, rawR));
     let t = Math.min(25, Math.max(0, rawT));
-
+    
+    // 3. Toggle visual threshold warning messages contextually
     document.getElementById('fdAmtNote').style.display = rawP > 1000000000 ? 'block' : 'none';
     document.getElementById('fdRateNote').style.display = rawR > 20 ? 'block' : 'none';
     document.getElementById('fdYearsNote').style.display = rawT > 25 ? 'block' : 'none';
-
+    
+    // 4. Set compounding frequency variable (n = 4 represents traditional Quarterly cycles)
     let n = 4; 
+    
+    // 5. Execute core compound interest formula equation
     let maturityValue = P * Math.pow((1 + (r / 100) / n), (n * t));
     let totalInterest = maturityValue - P;
-
+    
+    // 6. Push localized currency calculations cleanly to DOM element selectors
     document.getElementById('fdInvested').innerText = "₹" + Math.round(P).toLocaleString('en-IN');
     document.getElementById('fdInterest').innerText = "₹" + Math.round(totalInterest).toLocaleString('en-IN');
     document.getElementById('fdTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
+    
+    // 7. Make the Fixed Deposit calculations results panel visible
     document.getElementById('fdResults').style.display = 'block';
 }
-    
-    function calculateCarTax() {
+
+// INDIAN CAR GST, COMPENSATORY CESS & ON-ROAD PRICE ENGINE
+function calculateCarTax() {
     // 1. Target interface DOM layout components safely
     let inputElement = document.getElementById('carExShowroom');
     let segmentElement = document.getElementById('carSegment');
@@ -777,11 +834,11 @@ function calculateFD() {
     
     let rawPrice = parseFloat(inputElement.value) || 0;
     let segment = segmentElement.value;
-
+    
     // Initialize display states clean on every input loop trigger
     warningElement.style.display = 'none';
     resultsElement.style.display = 'block';
-
+    
     // 🛑 LOWER LIMIT GATEWAY: Validate floor boundary conditions
     if (rawPrice > 0 && rawPrice < 250000) {
         warningText.innerHTML = "<b>Minimum Range Alert:</b> No modern passenger car is available below ₹2,50,000 in India. Please enter a valid production price.";
@@ -789,7 +846,7 @@ function calculateFD() {
         resultsElement.style.display = 'none'; // Lock calculation outputs out to preserve integrity
         return;
     }
-
+    
     // 🛑 UPPER LIMIT GATEWAY: Clamp input at ₹1.5 Crore ceiling for mass-market vehicles
     if (rawPrice > 15000000) {
         inputElement.value = 15000000;
@@ -797,9 +854,9 @@ function calculateFD() {
         warningText.innerHTML = "<b>Maximum Range Cap:</b> This utility calculates taxes for standard Indian passenger cars up to ₹1.5 Crores. Imported luxury vehicles are excluded as they are subject to separate custom import duties.";
         warningElement.style.display = 'block';
     }
-
+    
     let exShowroom = rawPrice;
-
+    
     // 🚀 BIDIRECTIONAL AUTO-CORRECTION MATRIX (Completely bypasses EVs)
     if (segment !== "ev") {
         if (exShowroom > 2500000) {
@@ -819,11 +876,11 @@ function calculateFD() {
             }
         }
     }
-
+    
     // --- MATHEMATICAL MATH MODEL ENGINE FOR INDIAN AUTOMOTIVE REGISTER TAXES ---
     let gstRate = 0.28; 
     let cessRate = 0.00;
-
+    
     if (segment === "ev") {
         gstRate = 0.05; 
         cessRate = 0.00;
@@ -836,50 +893,55 @@ function calculateFD() {
     } else if (segment === "suv") {
         cessRate = 0.22;
     }
-
+    
     let totalTaxRate = gstRate + cessRate;
     let baseFactoryPrice = exShowroom / (1 + totalTaxRate);
     let gstCalculated = baseFactoryPrice * gstRate;
     let cessCalculated = baseFactoryPrice * cessRate;
     let combinedTaxPaid = exShowroom - baseFactoryPrice;
-
+    
     // Render results parameters to front-end node paths safely
     document.getElementById('carBasePrice').innerText = "₹" + Math.round(baseFactoryPrice).toLocaleString('en-IN');
     document.getElementById('carGstAmount').innerText = "₹" + Math.round(gstCalculated).toLocaleString('en-IN');
     document.getElementById('carCessAmount').innerText = "₹" + Math.round(cessCalculated).toLocaleString('en-IN');
     document.getElementById('carTotalTax').innerText = "₹" + Math.round(combinedTaxPaid).toLocaleString('en-IN') + " (" + Math.round(totalTaxRate * 100) + "%)";
-
+    
     // Auxiliary wallet allocation calculations processing loops
     let estimatedRtoRate = (segment === "ev") ? 0.02 : 0.10; 
     let estimatedInsuranceRate = 0.04; 
     let tcsRate = (exShowroom > 1000000) ? 0.01 : 0.00; 
-
+    
     let calculatedRto = exShowroom * estimatedRtoRate;
     let calculatedInsurance = exShowroom * estimatedInsuranceRate;
     let calculatedTcs = exShowroom * tcsRate;
     let grandOnRoadPrice = exShowroom + calculatedRto + calculatedInsurance + calculatedTcs;
-
+    
     document.getElementById('carRtoDisplay').innerText = "₹" + Math.round(calculatedRto).toLocaleString('en-IN');
     document.getElementById('carInsuranceDisplay').innerText = "₹" + Math.round(calculatedInsurance).toLocaleString('en-IN');
     document.getElementById('carTcsDisplay').innerText = "₹" + Math.round(calculatedTcs).toLocaleString('en-IN');
     document.getElementById('carOnRoadTotal').innerText = "₹" + Math.round(grandOnRoadPrice).toLocaleString('en-IN');
 }
-    function calculateLoan() {
+
+// NEW DYNAMIC AD-FREE LOAN EMI & PREPAYMENT AMORTIZATION ENGINE
+function calculateLoan() {
+    // 1. Target interface DOM input layout components safely
     let rawPrincipal = parseFloat(document.getElementById('loanAmount').value) || 0;
     let rawRate = parseFloat(document.getElementById('loanRate').value) || 0;
     let rawYears = parseFloat(document.getElementById('loanTenure').value) || 0;
     let rawPrepayment = parseFloat(document.getElementById('prepaymentAmount').value) || 0;
     let prepayMonth = parseInt(document.getElementById('prepaymentMonth').value) || 1;
 
+    // 2. Validate mathematical boundaries to keep inputs realistic
     let principal = Math.max(0, rawPrincipal);
     let annualRate = Math.max(0, rawRate);
     let totalYears = Math.max(1, rawYears);
     let prepayment = Math.max(0, rawPrepayment);
 
+    // 3. Transform standard annual baseline inputs into periodic monthly variables
     let monthlyRate = (annualRate / 100) / 12;
     let totalMonths = totalYears * 12;
 
-    // Standard Math Formula for base EMI processing
+    // 4. Execute standard diminishing balance equations for baseline monthly EMI
     let emi = 0;
     if (monthlyRate > 0) {
         emi = principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
@@ -890,7 +952,7 @@ function calculateFD() {
     let normalTotalPayment = emi * totalMonths;
     let normalInterestPayable = normalTotalPayment - principal;
 
-    // Run Amortisation Loop Simulation to calculate explicit prepayment benefits
+    // 5. Initialize the simulator loop matrices to map explicit prepayment impacts
     let balance = principal;
     let prepaidInterestTotal = 0;
     let activeMonthsRan = 0;
@@ -901,7 +963,7 @@ function calculateFD() {
         let interestComponent = balance * monthlyRate;
         let principalComponent = emi - interestComponent;
         
-        // Handle final broken month adjustments gracefully
+        // Handle final monthly payment adjustments safely near closing bounds
         if (principalComponent > balance) {
             principalComponent = balance;
         }
@@ -910,7 +972,7 @@ function calculateFD() {
         prepaidInterestTotal += interestComponent;
         activeMonthsRan = m;
 
-        // Apply dynamic prepayment injector tracking logic
+        // Apply dynamic prepayment injector right on the targeted month marker loop
         if (m === prepayMonth && balance > 0) {
             if (prepayment >= balance) {
                 prepayment = balance;
@@ -922,7 +984,7 @@ function calculateFD() {
     let monthsSaved = totalMonths - activeMonthsRan;
     let totalNetSavings = normalInterestPayable - prepaidInterestTotal;
 
-    // Render metrics updates directly to document node targets
+    // 6. Push verified calculated variables out to user presentation tags
     document.getElementById('loanEmiDisplay').innerText = "₹" + Math.round(emi).toLocaleString('en-IN') + " / month";
     document.getElementById('loanPrincipalDisplay').innerText = "₹" + Math.round(principal).toLocaleString('en-IN');
     
@@ -931,26 +993,28 @@ function calculateFD() {
     
     document.getElementById('prepaidInterestDisplay').innerText = "₹" + Math.round(prepaidInterestTotal).toLocaleString('en-IN');
     
-    // Formatting text display for months & structural years saved
-    if(monthsSaved > 0) {
+    // 7. Render dynamic text conversions format tracking tenure months & years saved
+    if (monthsSaved > 0) {
         let displayYears = Math.floor(monthsSaved / 12);
         let displayMonths = monthsSaved % 12;
         let textString = "";
-        if(displayYears > 0) textString += displayYears + " Years ";
-        if(displayMonths > 0) textString += displayMonths + " Months";
+        if (displayYears > 0) textString += displayYears + " Years ";
+        if (displayMonths > 0) textString += displayMonths + " Months";
         document.getElementById('monthsSavedDisplay').innerText = textString + " (" + monthsSaved + " months)";
     } else {
         document.getElementById('monthsSavedDisplay').innerText = "0 months";
     }
 
-    if(totalNetSavings > 0) {
-        document.getElementById('loanSavingsVerdict').innerText = "🎉 Net Interest Cash Saved: ₹" + Math.round(totalNetSavings).toLocaleString('en-IN');
-        document.getElementById('loanSavingsVerdict').style.background = "#dcfce7";
-        document.getElementById('loanSavingsVerdict').style.color = "#14532d";
+    // 8. Update the dynamic savings verdict highlight card panel styles seamlessly
+    let savingsBox = document.getElementById('loanSavingsVerdict');
+    if (totalNetSavings > 0) {
+        savingsBox.innerText = "🎉 Net Interest Cash Saved: ₹" + Math.round(totalNetSavings).toLocaleString('en-IN');
+        savingsBox.style.background = "#dcfce7";
+        savingsBox.style.color = "#14532d";
     } else {
-        document.getElementById('loanSavingsVerdict').innerText = "No Interest Savings Generated Yet.";
-        document.getElementById('loanSavingsVerdict').style.background = "#f1f5f9";
-        document.getElementById('loanSavingsVerdict').style.color = "#475569";
+        savingsBox.innerText = "No Interest Savings Generated Yet.";
+        savingsBox.style.background = "#f1f5f9";
+        savingsBox.style.color = "#475569";
     }
 }
 
@@ -958,52 +1022,77 @@ function calculateFD() {
 // NEW HELPER FUNCTIONS (UPDATE D PLACEMENT)
 // ==========================================
 
-// Toggle and run calculations for the Government Salary Hike system
+// TOGGLE UTILITY: Reveal/Hide Central & Govt Salary Hike Module
 function toggleHikeHelper() {
     let box = document.getElementById('hikeHelperInputs');
-    box.style.display = document.getElementById('enableHikeHelper').checked ? 'block' : 'none';
-    if(document.getElementById('enableHikeHelper').checked) runHikeHelper();
+    if (box) {
+        box.style.display = document.getElementById('enableHikeHelper').checked ? 'block' : 'none';
+        if (document.getElementById('enableHikeHelper').checked) {
+            runHikeHelper();
+        }
+    }
 }
+
+// CALCULATION HELPER: Automated Government Gross Projections Engine
 function runHikeHelper() {
     let basic = parseFloat(document.getElementById('currentBasic').value) || 0;
-    // Computes annual gross factoring in standard increments and DA bumps
+    
+    // --- INTEGRATED GOVERNMENT PAY SYSTEM MATRIX ---
+    // Gross valuation includes: Basic + Dearness Allowance (DA approx 53%) + HRA/Allowances (approx 20-30%)
+    // Standard conversion routine translates 1 Month Basic into roughly 2.15x total Gross over a full fiscal year
     let projectedAnnualGross = basic * 12 * 2.15; 
+    
+    // Auto-populate the calculated sum back into the main Annual Gross Income input box
     document.getElementById('income').value = Math.round(projectedAnnualGross);
     calculateTax();
 }
 
-// Toggle helper for SIP category grids
+// TOGGLE UTILITY: Reveal/Hide Mutual Fund Benchmark Matrix Grid
 function toggleSipGrid() {
     let box = document.getElementById('sipSectorGrid');
-    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    if (box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
 }
 
-// Auto-fill car prices using lookup matrix selection
+// AUTO-FILL DATA UTILITY: Parse Selected Car Model Lookup Values
 function runCarModelLookup() {
     let lookupValue = document.getElementById('carModelLookup').value;
-    if(!lookupValue) return;
+    if (!lookupValue) return;
     
+    // Unpack structural string delimiter parts: [Price, SegmentKey]
     let parts = lookupValue.split('|');
     let price = parseFloat(parts[0]);
     let segment = parts[1];
     
+    // Inject parsed parameters straight into matching layout node controls
     document.getElementById('carExShowroom').value = price;
     document.getElementById('carSegment').value = segment;
+    
+    // Force sync math model update across the car layout tracking loops
     calculateCarTax();
 }
 
 // ==========================================
 // KEEP WINDOW LOAD AT THE VERY BOTTOM BELOW
 // ==========================================
+// WINDOW LIFECYCLE EVENT INITIALIZER
 window.addEventListener("load", function() {
+    // 1. Force first-run mathematical calculations across all module engines to compile defaults
     calculateTax();
     calculateSIP();
     calculateFD();
     calculateCarTax();
     calculateLoan();
+    
+    // 2. Enforce the default tab style layout on launch to keep the user experience clean
+    let defaultBtn = document.querySelector(".tab-btn");
+    if (defaultBtn) {
+        defaultBtn.click();
+    }
 });
 
-// NEW INDEPENDENT SHARING LOGIC (Completely isolated from your calculators)
+// UI UTILITY: Copy Platform Web URL Link to System Clipboard
 function copyPlatformLink(btnElement) {
     const siteUrl = "https://bharatfinhub.com";
     navigator.clipboard.writeText(siteUrl).then(() => {
@@ -1015,17 +1104,19 @@ function copyPlatformLink(btnElement) {
     });
 }
 
+// NATIVE API UTILITY: Trigger Mobile Operating System Sharing Sheets
 function triggerNativeShare() {
     if (navigator.share) {
         navigator.share({
             title: 'Bharat Finance Hub',
-            text: '📊 Calculate your Income Tax (FY 2025-26), Mutual Fund SIP projections, and Bank FD yields instantly with zero sign-ups or logins!',
+            text: '📊 Calculate your Income Tax, SIP projections, Bank FD yields, and Home Loan prepayments instantly with zero sign-ups or logins!',
             url: 'https://bharatfinhub.com'
         }).catch(err => console.log("Sharing cancelled"));
     } else {
+        // Fallback interface anchor redirect for legacy desktop browser devices
         window.location.href = "mailto:?subject=Check out Bharat Finance Hub&body=Calculate your financial metrics instantly at https://bharatfinhub.com";
     }
-}
+}        
 
 </script>
 </body>
