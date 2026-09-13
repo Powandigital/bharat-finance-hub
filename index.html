@@ -482,7 +482,6 @@
 <div id="loan-container" class="container">
     <h2>🏠 Loan EMI & Prepayment Calculator</h2>
     
-    <!-- 🆕 AdSense Placement 1: Top Banner Slot -->
     <div class="ad-placeholder">Google AdSense Placement (Top Banner)</div>
     
     <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px; border-radius: 6px; color: #1e40af; font-size: 13px; font-weight: 500; margin-bottom: 20px; margin-top: 15px;">
@@ -522,9 +521,25 @@
         </div>
     </div>
 
-    <!-- 🆕 AdSense Placement 2: In-Article Middle Slot -->
-    <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
+    <!-- 🌟 ADVANCED LOAN COMPARISON MODULE INTERFACE -->
+    <div class="breakdown-box" style="border: 1px solid #3b82f6; background: #f8fafc;">
+        <div class="breakdown-title" style="color: #2563eb;">
+            <span>⚔️ Side-by-Side Loan Comparison (Alternative Bank Offer)</span>
+        </div>
+        <div style="font-size: 12px; color: #64748b; margin-bottom: 12px;">
+            Compare your main inputs against a competing lender's offer to instantly view monthly and total lifetime savings.
+        </div>
+        <div class="form-group sub-input">
+            <label for="compRate">Lender 2 Interest Rate (% p.a.):</label>
+            <input type="number" id="compRate" value="8.15" step="0.05" min="1" max="30" oninput="calculateLoan()">
+        </div>
+        <div class="form-group sub-input">
+            <label for="compTenure">Lender 2 Tenure (Years):</label>
+            <input type="number" id="compTenure" value="20" min="1" max="40" oninput="calculateLoan()">
+        </div>
+    </div>
 
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
     <div class="results" id="loanResults" style="display: block; margin-top: 25px;">
         <!-- PURE CSS VISUAL RATIO CHART BAR -->
         <div style="margin-bottom: 20px;">
@@ -546,10 +561,6 @@
             <span>Monthly EMI Base Payment:</span>
             <span id="loanEmiDisplay" style="color:#1e3a8a; font-size:16px;">₹0</span>
         </div>
-        <div class="result-row">
-            <span>Total Principal Borrowed:</span>
-            <span id="loanPrincipalDisplay">₹0</span>
-        </div>
         
         <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
             <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">❌ Without Prepayment (Standard Schedule):</div>
@@ -561,9 +572,18 @@
             <div style="font-weight: bold; margin-bottom: 8px; color: #15803d; font-size: 14px;">🚀 With Prepayment Dynamic Impact:</div>
             <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>New Dynamic Interest Cost:</span><span id="prepaidInterestDisplay">₹0</span></div>
             <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>Actual Months Saved from Tenure:</span><span id="monthsSavedDisplay" style="font-weight:bold;">0 months</span></div>
-            
             <div style="background:#dcfce7; color:#14532d; padding:12px; border-radius:6px; margin-top:10px; font-weight:bold; font-size:15px; text-align:center;" id="loanSavingsVerdict">
                 Net Interest Cash Saved: ₹0
+            </div>
+        </div>
+
+        <!-- LENDER RESULTS METRICS MATRIX -->
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
+            <div style="font-weight: bold; margin-bottom: 8px; color: #2563eb; font-size: 14px;">⚖️ Lender Comparison Summary:</div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Lender 2 Monthly EMI:</span><span id="compEmiDisplay">₹0</span></div>
+            <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Lender 2 Lifetime Interest:</span><span id="compInterestDisplay">₹0</span></div>
+            <div style="background:#eff6ff; color:#1e40af; padding:12px; border-radius:6px; margin-top:10px; font-weight:bold; font-size:14px; text-align:center;" id="comparisonVerdict">
+                Lender Comparison calculations ready.
             </div>
         </div>
     </div>
@@ -573,17 +593,15 @@
     
     <div id="loanScheduleGridWrapper" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px;">
         
-        <!-- Premium Action Controller Grid Row -->
         <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
-            <button onclick="exportLoanToExcel()" style="flex: 1; min-width: 140px; background: #059669; color: white; border: none; padding: 10px; font-size: 13px; font-weight: bold; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.2s;">
+            <button onclick="exportLoanToExcel()" style="flex: 1; min-width: 140px; background: #059669; color: white; border: none; padding: 10px; font-size: 13px; font-weight: bold; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
                 📥 Export to Excel Spreadsheet
             </button>
-            <button onclick="printPremiumAmortizationSummary()" style="flex: 1; min-width: 140px; background: #1e293b; color: white; border: none; padding: 10px; font-size: 13px; font-weight: bold; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.2s;">
+            <button onclick="printPremiumAmortizationSummary()" style="flex: 1; min-width: 140px; background: #1e293b; color: white; border: none; padding: 10px; font-size: 13px; font-weight: bold; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
                 🖨️ Print Premium Summary Statement
             </button>
         </div>
 
-        <!-- PRINT SUMMARY EMBED HEADER -->
         <div id="premiumPrintInvoiceHeader" style="display: none; padding: 15px; border-bottom: 2px solid #1e293b; margin-bottom: 20px;">
             <div style="font-size: 22px; font-weight: bold; color: #1e293b; text-align: center;">🇮🇳 BHARAT FINANCE HUB</div>
             <div style="font-size: 12px; color: #64748b; text-align: center; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Premium Amortization Timeline & Financial Audit Statement</div>
@@ -603,12 +621,13 @@
                     </tr>
                 </thead>
                 <tbody id="loanScheduleTableBody">
-                    <!-- Dynamic Javascript entries map loops execute securely here -->
+                    <!-- Dynamic JavaScript entries map loops execute securely here -->
                 </tbody>
             </table>
         </div>
     </div>
 </div> <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
+
 
     <!-- NEW INTERACTIVE MONTH-BY-MONTH AMORTIZATION TABLES ENGINE -->
         <!-- PASTE THIS ENHANCED LAYOUT BLOCK HERE -->
@@ -1033,6 +1052,8 @@ function calculateCarTax() {
 }
 
 // NEW DYNAMIC AD-FREE LOAN EMI & PREPAYMENT AMORTIZATION ENGINE
+
+  // NEW DYNAMIC AD-FREE LOAN EMI, PREPAYMENT & COMPARISON ENGINE
 function calculateLoan() {
     let rawPrincipal = parseFloat(document.getElementById('loanAmount').value) || 0;
     let rawRate = parseFloat(document.getElementById('loanRate').value) || 0;
@@ -1040,11 +1061,19 @@ function calculateLoan() {
     let rawPrepayment = parseFloat(document.getElementById('prepaymentAmount').value) || 0;
     let prepayMonth = parseInt(document.getElementById('prepaymentMonth').value) || 1;
 
+    // Competing Lender 2 Inputs
+    let rawCompRate = parseFloat(document.getElementById('compRate').value) || 0;
+    let rawCompYears = parseFloat(document.getElementById('compTenure').value) || 1;
+
     let principal = Math.max(0, rawPrincipal);
     let annualRate = Math.max(0, rawRate);
     let totalYears = Math.max(1, rawYears);
     let prepayment = Math.max(0, rawPrepayment);
+    
+    let compRate = Math.max(0, rawCompRate);
+    let compYears = Math.max(1, rawCompYears);
 
+    // --- MAIN LENDER MATH CALCULATIONS ---
     let monthlyRate = (annualRate / 100) / 12;
     let totalMonths = totalYears * 12;
 
@@ -1058,11 +1087,24 @@ function calculateLoan() {
     let normalTotalPayment = emi * totalMonths;
     let normalInterestPayable = normalTotalPayment - principal;
 
+    // --- COMPETING LENDER 2 MATH CALCULATIONS ---
+    let compMonthlyRate = (compRate / 100) / 12;
+    let compTotalMonths = compYears * 12;
+    let compEmi = 0;
+    
+    if (compMonthlyRate > 0) {
+        compEmi = principal * compMonthlyRate * Math.pow(1 + compMonthlyRate, compTotalMonths) / (Math.pow(1 + compMonthlyRate, compTotalMonths) - 1);
+    } else {
+        compEmi = principal / compTotalMonths;
+    }
+    let compTotalPayment = compEmi * compTotalMonths;
+    let compInterestPayable = compTotalPayment - principal;
+
+    // --- PROCESS MAIN AMORTIZATION SIMULATOR GENERATION GRID ---
     let balance = principal;
     let prepaidInterestTotal = 0;
     let activeMonthsRan = 0;
     
-    // Target HTML container builder engine path links clear
     let tableBody = document.getElementById('loanScheduleTableBody');
     let dynamicRowsHtml = "";
     
@@ -1081,7 +1123,6 @@ function calculateLoan() {
         prepaidInterestTotal += interestComponent;
         activeMonthsRan = m;
 
-        // Apply dynamic prepayment injector right on the targeted month marker loop
         if (m === prepayMonth && balance > 0) {
             if (prepayment >= balance) {
                 activeExtraInjected = balance;
@@ -1091,7 +1132,6 @@ function calculateLoan() {
             balance -= activeExtraInjected;
         }
         
-        // BUILD TABLE MATRIX STRUCTURAL ELEMENTS STRING ROW 
         let rowBgStyle = (activeExtraInjected > 0) ? "background-color: #ecfdf5; font-weight: 600;" : "";
         dynamicRowsHtml += `<tr style="border-bottom:1px solid #e2e8f0; ${rowBgStyle}">
             <td style="padding:8px; color: #475569;">Month ${m}</td>
@@ -1103,13 +1143,12 @@ function calculateLoan() {
         </tr>`;
     }
 
-    // Sync generated framework matrix elements cleanly back into DOM nodes safely
     if (tableBody) tableBody.innerHTML = dynamicRowsHtml;
 
     let monthsSaved = totalMonths - activeMonthsRan;
     let totalNetSavings = normalInterestPayable - prepaidInterestTotal;
 
-    // UPDATE PURE VISUAL LAYOUT PIE/RATIO GRAPH MATRIX CHART SLIDERS BARS
+    // --- VISUAL RATIO PROGRESSIVE PROPORTION SLIDERS ENGINE ---
     let aggregateDynamicOutflow = principal + prepaidInterestTotal;
     if (aggregateDynamicOutflow > 0) {
         let principalRatio = (principal / aggregateDynamicOutflow) * 100;
@@ -1119,10 +1158,8 @@ function calculateLoan() {
         document.getElementById('chartInterestBar').style.width = interestRatio + "%";
         document.getElementById('chartRatioText').innerText = `Principal: ${Math.round(principalRatio)}% | Interest: ${Math.round(interestRatio)}%`;
     }
-
+    // Render Primary Data Points
     document.getElementById('loanEmiDisplay').innerText = "₹" + Math.round(emi).toLocaleString('en-IN') + " / month";
-    document.getElementById('loanPrincipalDisplay').innerText = "₹" + Math.round(principal).toLocaleString('en-IN');
-    
     document.getElementById('normalInterestDisplay').innerText = "₹" + Math.round(normalInterestPayable).toLocaleString('en-IN');
     document.getElementById('normalTotalDisplay').innerText = "₹" + Math.round(normalTotalPayment).toLocaleString('en-IN');
     document.getElementById('prepaidInterestDisplay').innerText = "₹" + Math.round(prepaidInterestTotal).toLocaleString('en-IN');
@@ -1148,6 +1185,28 @@ function calculateLoan() {
         savingsBox.style.background = "#f1f5f9";
         savingsBox.style.color = "#475569";
     }
+
+    // --- RENDER SIDE-BY-SIDE LENDER EXPLICIT COMPARATIVE LABELS ---
+    document.getElementById('compEmiDisplay').innerText = "₹" + Math.round(compEmi).toLocaleString('en-IN') + " / month";
+    document.getElementById('compInterestDisplay').innerText = "₹" + Math.round(compInterestPayable).toLocaleString('en-IN');
+    
+    let compVerdictBox = document.getElementById('comparisonVerdict');
+    let monthlyEmiDifference = emi - compEmi;
+    let totalLifetimeSavingsDifference = normalInterestPayable - compInterestPayable;
+
+    if (totalLifetimeSavingsDifference > 0) {
+        compVerdictBox.innerText = `💡 Lender 2 saves you ₹${Math.round(totalLifetimeSavingsDifference).toLocaleString('en-IN')} in total interest & reduces monthly payment by ₹${Math.round(monthlyEmiDifference).toLocaleString('en-IN')}!`;
+        compVerdictBox.style.background = "#e0f2fe";
+        compVerdictBox.style.color = "#0369a1";
+    } else if (totalLifetimeSavingsDifference < 0) {
+        compVerdictBox.innerText = `💡 Your Primary Lender offer is cheaper by ₹${Math.round(Math.abs(totalLifetimeSavingsDifference)).toLocaleString('en-IN')} compared to Lender 2!`;
+        compVerdictBox.style.background = "#fee2e2";
+        compVerdictBox.style.color = "#991b1b";
+    } else {
+        compVerdictBox.innerText = "Both lender structures yield the exact same lifecycle cost profile.";
+        compVerdictBox.style.background = "#f1f5f9";
+        compVerdictBox.style.color = "#475569";
+    }
 }
 
 // TOGGLE PANEL UTILITY INTERFACE HOOK FOR SCHEDULE TABLE DISPLAY FRAME
@@ -1157,25 +1216,23 @@ function toggleLoanScheduleTable() {
         box.style.display = box.style.display === 'none' ? 'block' : 'none';
     }
 }
+
 // DYNAMIC UTILITY: Generate Excel Compatible CSV Format Matrix on Client Engine
 function exportLoanToExcel() {
     let loanAmt = document.getElementById('loanAmount').value;
     let loanRate = document.getElementById('loanRate').value;
     let loanTenure = document.getElementById('loanTenure').value;
     
-    // 1. Build string schema and structure metadata rows cleanly
-    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Injects standard UTF-8 BOM flag marker for Excel encoding
+    let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; 
     csvContent += `BHARAT FINANCE HUB - LOAN AMORTIZATION SCHEDULE SUMMARY\r\n`;
     csvContent += `Base Principal,₹${loanAmt},Annual Rate,${loanRate}%,Original Tenure,${loanTenure} Years\r\n\r\n`;
     csvContent += "Month,EMI Paid,Interest Component,Principal Component,Extra Prepayment Injected,Remaining Outstanding Balance\r\n";
     
-    // 2. Fetch table layout elements structures and scrape data entries dynamically
     let tableRows = document.querySelectorAll("#loanScheduleTableBody tr");
     tableRows.forEach(row => {
         let cols = row.querySelectorAll("td");
         let rowData = [];
-        cols.forEach((col, index) => {
-            // Sanitize structural strings by stripping text character layout artifacts out cleanly
+        cols.forEach((col) => {
             let clearText = col.innerText.replace(/₹|,/g, "").trim();
             if (clearText === "-") clearText = "0";
             rowData.push(clearText);
@@ -1183,27 +1240,22 @@ function exportLoanToExcel() {
         csvContent += rowData.join(",") + "\r\n";
     });
     
-    // 3. Mount synthetic file downloader frame anchor nodes natively
     let encodedUri = encodeURI(csvContent);
     let downloadLink = document.createElement("a");
     downloadLink.setAttribute("href", encodedUri);
     downloadLink.setAttribute("download", `BharatFinHub_Amortization_Schedule_${Math.round(loanAmt)}.csv`);
     document.body.appendChild(downloadLink);
-    
-    // 4. Fire execution trigger and sweep the ghost DOM frame node away immediately
     downloadLink.click();
     document.body.removeChild(downloadLink);
 }
 
 // PREMIUM UTILITY: Reformat Application DOM Rules Temporarily to Structure Clean Print Frames
 function printPremiumAmortizationSummary() {
-    // 1. Unpack targeted layout elements rules configurations
     let printHeader = document.getElementById('premiumPrintInvoiceHeader');
     let scrollBox = document.getElementById('scrollableTableContainer');
     let tabMenu = document.querySelector('.tabs');
     let portalHeader = document.querySelector('.portal-header');
     
-    // 2. Inject structural style modifications to expand scrolling limitations
     if(printHeader) printHeader.style.display = "block";
     if(scrollBox) {
         scrollBox.style.maxHeight = "none";
@@ -1212,15 +1264,12 @@ function printPremiumAmortizationSummary() {
     if(tabMenu) tabMenu.style.display = "none";
     if(portalHeader) portalHeader.style.display = "none";
     
-    // 3. Temporarily isolate the loan calculator from the other sections
     document.querySelectorAll('.container').forEach(c => {
         if(c.id !== 'loan-container') c.style.display = 'none';
     });
     
-    // 4. Call native web layout printing windows structures
     window.print();
     
-    // 5. Restore screen canvas layout tracking properties instantly
     if(printHeader) printHeader.style.display = "none";
     if(scrollBox) {
         scrollBox.style.maxHeight = "350px";
@@ -1229,7 +1278,6 @@ function printPremiumAmortizationSummary() {
     if(tabMenu) tabMenu.style.display = "flex";
     if(portalHeader) portalHeader.style.display = "block";
 }
-
 
     // ==========================================
 // NEW HELPER FUNCTIONS (UPDATE D PLACEMENT)
