@@ -519,6 +519,22 @@
     </div>
 
     <div class="results" id="loanResults" style="display: block;">
+        <!-- NEW PURE CSS VISUAL RATIO CHART BAR -->
+        <div style="margin-bottom: 20px;">
+            <div style="font-weight: bold; font-size: 13.5px; color: #475569; margin-bottom: 6px; display: flex; justify-content: space-between;">
+                <span>📊 Cost Breakout Proportions:</span>
+                <span id="chartRatioText" style="font-size: 12px; font-weight: normal; color: #64748b;">Principal: 0% | Interest: 0%</span>
+            </div>
+            <div style="width: 100%; height: 16px; background: #e2e8f0; border-radius: 20px; display: flex; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+                <div id="chartPrincipalBar" style="width: 50%; background: #3b82f6; transition: width 0.3s ease;"></div>
+                <div id="chartInterestBar" style="width: 50%; background: #f97316; transition: width 0.3s ease;"></div>
+            </div>
+            <div style="display: flex; gap: 15px; margin-top: 6px; font-size: 11px; color: #64748b; justify-content: center;">
+                <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; background: #3b82f6; border-radius: 50%; display: inline-block;"></span> Principal Amount</span>
+                <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; background: #f97316; border-radius: 50%; display: inline-block;"></span> Interest Outflow</span>
+            </div>
+        </div>
+
         <div class="result-row" style="background:#f1f5f9; padding:10px; border-radius:6px; font-weight:600;">
             <span>Monthly EMI Base Payment:</span>
             <span id="loanEmiDisplay" style="color:#1e3a8a; font-size:16px;">₹0</span>
@@ -529,13 +545,13 @@
         </div>
         
         <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
-            <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">%E2%9C%98 Without Prepayment (Standard Schedule):</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #1e293b; font-size: 14px;">❌ Without Prepayment (Standard Schedule):</div>
             <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Total Interest Payable:</span><span id="normalInterestDisplay">₹0</span></div>
             <div class="result-row" style="font-size: 13.5px; color: #4b5563;"><span>Total Overall Outflow:</span><span id="normalTotalDisplay">₹0</span></div>
         </div>
 
         <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #cbd5e1;">
-            <div style="font-weight: bold; margin-bottom: 8px; color: #15803d; font-size: 14px;">%F0%9F%9A%80 With Prepayment Dynamic Impact:</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: #15803d; font-size: 14px;">🚀 With Prepayment Dynamic Impact:</div>
             <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>New Dynamic Interest Cost:</span><span id="prepaidInterestDisplay">₹0</span></div>
             <div class="result-row" style="font-size: 13.5px; color: #166534;"><span>Actual Months Saved from Tenure:</span><span id="monthsSavedDisplay" style="font-weight:bold;">0 months</span></div>
             
@@ -544,7 +560,32 @@
             </div>
         </div>
     </div>
+
+    <!-- NEW INTERACTIVE MONTH-BY-MONTH AMORTIZATION TABLES ENGINE -->
+    <button class="calc-btn" onclick="toggleLoanScheduleTable()" style="background:#4f46e5; margin-top:20px;">📅 View Detailed Amortization Payment Schedule</button>
+    
+    <div id="loanScheduleGridWrapper" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px;">
+        <h4 style="margin-top:0; color:#4f46e5; margin-bottom: 10px;">📊 Strategic Payment Timeline (With Prepayment Flags)</h4>
+        <div style="max-height: 350px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 6px; background: white;">
+            <table style="width:100%; border-collapse:collapse; font-size:12.5px; text-align:left; min-width:500px;">
+                <thead style="position: sticky; top: 0; background: #f1f5f9; box-shadow: 0 1px 0 #cbd5e1;">
+                    <tr style="color:#475569;">
+                        <th style="padding:10px 8px;">Month</th>
+                        <th style="padding:10px 8px;">EMI Paid</th>
+                        <th style="padding:10px 8px;">Interest Component</th>
+                        <th style="padding:10px 8px;">Principal Component</th>
+                        <th style="padding:10px 8px;">Extra Prepay</th>
+                        <th style="padding:10px 8px; text-align:right;">Remaining Balance</th>
+                    </tr>
+                </thead>
+                <tbody id="loanScheduleTableBody">
+                    <!-- Dynamic Javascript generated list strings append loop execution routes securely here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div> <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
+
     
 <!-- GLOBAL SEO KEYWORD CONTENT HUB (FOR GOOGLE RANKING) -->
 <div class="seo-static-hub" style="max-width: 650px; background: white; margin: 20px auto 30px auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #10b981; font-size: 14px; line-height: 1.6; color: #475569; box-sizing: border-box;">
@@ -924,24 +965,20 @@ function calculateCarTax() {
 
 // NEW DYNAMIC AD-FREE LOAN EMI & PREPAYMENT AMORTIZATION ENGINE
 function calculateLoan() {
-    // 1. Target interface DOM input layout components safely
     let rawPrincipal = parseFloat(document.getElementById('loanAmount').value) || 0;
     let rawRate = parseFloat(document.getElementById('loanRate').value) || 0;
     let rawYears = parseFloat(document.getElementById('loanTenure').value) || 0;
     let rawPrepayment = parseFloat(document.getElementById('prepaymentAmount').value) || 0;
     let prepayMonth = parseInt(document.getElementById('prepaymentMonth').value) || 1;
 
-    // 2. Validate mathematical boundaries to keep inputs realistic
     let principal = Math.max(0, rawPrincipal);
     let annualRate = Math.max(0, rawRate);
     let totalYears = Math.max(1, rawYears);
     let prepayment = Math.max(0, rawPrepayment);
 
-    // 3. Transform standard annual baseline inputs into periodic monthly variables
     let monthlyRate = (annualRate / 100) / 12;
     let totalMonths = totalYears * 12;
 
-    // 4. Execute standard diminishing balance equations for baseline monthly EMI
     let emi = 0;
     if (monthlyRate > 0) {
         emi = principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
@@ -952,18 +989,21 @@ function calculateLoan() {
     let normalTotalPayment = emi * totalMonths;
     let normalInterestPayable = normalTotalPayment - principal;
 
-    // 5. Initialize the simulator loop matrices to map explicit prepayment impacts
     let balance = principal;
     let prepaidInterestTotal = 0;
     let activeMonthsRan = 0;
+    
+    // Target HTML container builder engine path links clear
+    let tableBody = document.getElementById('loanScheduleTableBody');
+    let dynamicRowsHtml = "";
     
     for (let m = 1; m <= totalMonths; m++) {
         if (balance <= 0) break;
         
         let interestComponent = balance * monthlyRate;
         let principalComponent = emi - interestComponent;
+        let activeExtraInjected = 0;
         
-        // Handle final monthly payment adjustments safely near closing bounds
         if (principalComponent > balance) {
             principalComponent = balance;
         }
@@ -975,25 +1015,49 @@ function calculateLoan() {
         // Apply dynamic prepayment injector right on the targeted month marker loop
         if (m === prepayMonth && balance > 0) {
             if (prepayment >= balance) {
-                prepayment = balance;
+                activeExtraInjected = balance;
+            } else {
+                activeExtraInjected = prepayment;
             }
-            balance -= prepayment;
+            balance -= activeExtraInjected;
         }
+        
+        // BUILD TABLE MATRIX STRUCTURAL ELEMENTS STRING ROW 
+        let rowBgStyle = (activeExtraInjected > 0) ? "background-color: #ecfdf5; font-weight: 600;" : "";
+        dynamicRowsHtml += `<tr style="border-bottom:1px solid #e2e8f0; ${rowBgStyle}">
+            <td style="padding:8px; color: #475569;">Month ${m}</td>
+            <td style="padding:8px;">₹${Math.round(emi).toLocaleString('en-IN')}</td>
+            <td style="padding:8px; color:#c2410c;">₹${Math.round(interestComponent).toLocaleString('en-IN')}</td>
+            <td style="padding:8px; color:#2563eb;">₹${Math.round(principalComponent).toLocaleString('en-IN')}</td>
+            <td style="padding:8px; color:#10b981;">${activeExtraInjected > 0 ? '₹' + Math.round(activeExtraInjected).toLocaleString('en-IN') : '-'}</td>
+            <td style="padding:8px; text-align:right; font-weight:500;">₹${Math.round(Math.max(0, balance)).toLocaleString('en-IN')}</td>
+        </tr>`;
     }
+
+    // Sync generated framework matrix elements cleanly back into DOM nodes safely
+    if (tableBody) tableBody.innerHTML = dynamicRowsHtml;
 
     let monthsSaved = totalMonths - activeMonthsRan;
     let totalNetSavings = normalInterestPayable - prepaidInterestTotal;
 
-    // 6. Push verified calculated variables out to user presentation tags
+    // UPDATE PURE VISUAL LAYOUT PIE/RATIO GRAPH MATRIX CHART SLIDERS BARS
+    let aggregateDynamicOutflow = principal + prepaidInterestTotal;
+    if (aggregateDynamicOutflow > 0) {
+        let principalRatio = (principal / aggregateDynamicOutflow) * 100;
+        let interestRatio = (prepaidInterestTotal / aggregateDynamicOutflow) * 100;
+        
+        document.getElementById('chartPrincipalBar').style.width = principalRatio + "%";
+        document.getElementById('chartInterestBar').style.width = interestRatio + "%";
+        document.getElementById('chartRatioText').innerText = `Principal: ${Math.round(principalRatio)}% | Interest: ${Math.round(interestRatio)}%`;
+    }
+
     document.getElementById('loanEmiDisplay').innerText = "₹" + Math.round(emi).toLocaleString('en-IN') + " / month";
     document.getElementById('loanPrincipalDisplay').innerText = "₹" + Math.round(principal).toLocaleString('en-IN');
     
     document.getElementById('normalInterestDisplay').innerText = "₹" + Math.round(normalInterestPayable).toLocaleString('en-IN');
     document.getElementById('normalTotalDisplay').innerText = "₹" + Math.round(normalTotalPayment).toLocaleString('en-IN');
-    
     document.getElementById('prepaidInterestDisplay').innerText = "₹" + Math.round(prepaidInterestTotal).toLocaleString('en-IN');
     
-    // 7. Render dynamic text conversions format tracking tenure months & years saved
     if (monthsSaved > 0) {
         let displayYears = Math.floor(monthsSaved / 12);
         let displayMonths = monthsSaved % 12;
@@ -1005,7 +1069,6 @@ function calculateLoan() {
         document.getElementById('monthsSavedDisplay').innerText = "0 months";
     }
 
-    // 8. Update the dynamic savings verdict highlight card panel styles seamlessly
     let savingsBox = document.getElementById('loanSavingsVerdict');
     if (totalNetSavings > 0) {
         savingsBox.innerText = "🎉 Net Interest Cash Saved: ₹" + Math.round(totalNetSavings).toLocaleString('en-IN');
@@ -1017,6 +1080,15 @@ function calculateLoan() {
         savingsBox.style.color = "#475569";
     }
 }
+
+// TOGGLE PANEL UTILITY INTERFACE HOOK FOR SCHEDULE TABLE DISPLAY FRAME
+function toggleLoanScheduleTable() {
+    let box = document.getElementById('loanScheduleGridWrapper');
+    if(box) {
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
 
     // ==========================================
 // NEW HELPER FUNCTIONS (UPDATE D PLACEMENT)
