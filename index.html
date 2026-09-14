@@ -811,29 +811,31 @@ function toggleFdTable() {
 }
 
 // TAX UTILITY: Live Math Updates & Deductions Overflow Caps (Old Regime)
+// UPDATED TAX UTILITY: Live Math Updates & Deductions Overflow Caps (Old Regime)
 function updateLiveTotal() {
-    // 1. Capture user inputs safely from DOM inputs
     let raw80c = parseFloat(document.getElementById('sec80c').value) || 0;
     let raw80d = parseFloat(document.getElementById('sec80d').value) || 0;
     let rawNps = parseFloat(document.getElementById('sec80nps').value) || 0;
     let rawHra = parseFloat(document.getElementById('hra').value) || 0;
 
-    // 2. Enforce explicit Indian Income Tax statutory upper ceilings
+    // Enforce explicit Indian Income Tax statutory upper ceilings
     let allowed80c = Math.min(150000, raw80c);
     let allowed80d = Math.min(50000, raw80d);
+    let allowedNps = Math.min(50000, rawNps); // 🟢 NEW: Hard cap voluntary NPS at ₹50,000 legal threshold limit
     let allowedHra = Math.min(1200000, rawHra);
 
-    // 3. Toggle threshold error alert tags contextually
+    // Auto-correct visible form values if user inputs extreme numbers
+    if (raw80c > 150000) document.getElementById('sec80c').value = 150000;
+    if (raw80d > 50000) document.getElementById('sec80d').value = 50000;
+    if (rawNps > 50000) document.getElementById('sec80nps').value = 50000; // 🟢 NEW: Auto-reset input to max cap
+    if (rawHra > 1200000) document.getElementById('hra').value = 1200000;
+
     document.getElementById('cncNote').style.display = raw80c > 150000 ? 'block' : 'none';
     document.getElementById('dncNote').style.display = raw80d > 50000 ? 'block' : 'none';
     document.getElementById('hrancNote').style.display = rawHra > 1200000 ? 'block' : 'none';
     
-    // 4. Calculate final qualified amount (NPS 80CCD-1 features direct stack routing here)
-    let legalTotal = allowed80c + allowed80d + rawNps + allowedHra;
-    
-    // 5. Update UI text label seamlessly
+    let legalTotal = allowed80c + allowed80d + allowedNps + allowedHra;
     document.getElementById('liveTotalDisplay').innerText = "Total Allowable: ₹" + legalTotal.toLocaleString('en-IN');
-    
     return legalTotal;
 }
 
@@ -1120,7 +1122,10 @@ function calculateLoan() {
     let rawCompRate = parseFloat(document.getElementById('compRate').value) || 0;
     let rawCompYears = parseFloat(document.getElementById('compTenure').value) || 1;
 
-    let principal = Math.max(0, rawPrincipal);
+    if (principal > 1000000000) {
+        document.getElementById('loanAmount').value = 1000000000;
+        principal = 1000000000;
+    }
     let annualRate = Math.max(0, rawRate);
     let totalYears = Math.max(1, rawYears);
     let prepayment = Math.max(0, rawPrepayment);
@@ -1405,7 +1410,10 @@ function calculateCorporateTax() {
     let rawProfit = parseFloat(document.getElementById('corpNetProfit').value) || 0;
     let regime = document.getElementById('corpRegime').value;
     
-    let profit = Math.max(0, rawProfit);
+    if (profit > 100000000000) {
+        document.getElementById('corpNetProfit').value = 100000000000;
+        profit = 100000000000;
+    }
     
     // 1. Establish the base statutory rate thresholds
     let baseRate = 0.22;
