@@ -65,6 +65,7 @@
     <button class="tab-btn" onclick="switchTab('fd-container', this)">💰 FD Calculator</button>
     <button class="tab-btn" onclick="switchTab('car-gst-container', this)">🚗 Car Tax Calculator</button>
     <button class="tab-btn" onclick="switchTab('loan-container', this)">🏠 Loan Calculator</button>
+    <button class="tab-btn" onclick="switchTab('corporate-container', this)">🏢 Corporate Tax</button> 
 </div>
 
 <!-- 1. TAX CALCULATOR CONTAINER -->
@@ -672,7 +673,61 @@
             </table>
         </div>
     </div>
-</div> <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
+</div> 
+    <!-- 6. 🆕 CORPORATE TAX BRACKET TRACKER CONTAINER -->
+<div id="corporate-container" class="container">
+    <h2>🏢 Indian Corporate Tax Tracker (AY 2026-27)</h2>
+    <div class="ad-placeholder">Google AdSense Placement (Top Corporate Banner)</div>
+    
+    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 12px; border-radius: 6px; color: #166534; font-size: 13px; font-weight: 500; margin-bottom: 20px;">
+        📊 <b>FY 2025-26 Standardized Tax Engine:</b> Calculate corporate income liabilities factoring in new framework options, statutory surcharges, and flat cess layers.
+    </div>
+
+    <div class="form-group">
+        <label for="corpNetProfit">Net Taxable Corporate Profit / Income (₹):</label>
+        <input type="number" id="corpNetProfit" value="15000000" min="0" oninput="calculateCorporateTax()">
+    </div>
+
+    <div class="form-group">
+        <label for="corpRegime">Select Corporate Taxation Section Framework:</label>
+        <select id="corpRegime" onchange="calculateCorporateTax()" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; background: white; font-size: 15px; color: #1e293b;">
+            <option value="baa" selected>Section 115BAA (Existing Domestic Companies - Flat 22% Base)</option>
+            <option value="bab">Section 115BAB (New Manufacturing Companies - Flat 15% Base)</option>
+            <option value="old_30">Old Regime / Standard Structure (Turnover &gt; ₹400 Cr - Flat 30% Base)</option>
+            <option value="old_25">Old Regime / Standard Structure (Turnover &le; ₹400 Cr - Flat 25% Base)</option>
+        </select>
+    </div>
+
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Corporate Unit)</div>
+
+    <div class="results" id="corpResults" style="display: block;">
+        <div class="result-row">
+            <span>Base Corporate Tax Rate:</span>
+            <span id="corpBaseRateDisplay" style="font-weight:600;">0%</span>
+        </div>
+        <div class="result-row">
+            <span>Core Tax Component Liability:</span>
+            <span id="corpBaseTaxDisplay">₹0</span>
+        </div>
+        <div class="result-row">
+            <span>Applicable Statutory Surcharge:</span>
+            <span id="corpSurchargeDisplay" style="color: #c2410c;">₹0</span>
+        </div>
+        <div class="result-row">
+            <span>Health & Education Cess (Flat 4%):</span>
+            <span id="corpCessDisplay" style="color: #c2410c;">₹0</span>
+        </div>
+        <div class="result-row" style="background:#1e3a8a; color:white; padding:12px; border-radius:6px; margin-top:12px; font-weight:bold; font-size:16px;">
+            <span>Total Effective Corporate Tax Outflow:</span>
+            <span id="corpGrandTotalTax">₹0</span>
+        </div>
+        <div class="verdict" id="corpVerdictDisplay" style="margin-top: 15px; font-weight: bold; background: #f1f5f9; color: #334155;">
+            Effective Net Tax Rate: 0%
+        </div>
+    </div>
+</div>
+   
+    <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
   
     
 <!-- GLOBAL SEO KEYWORD CONTENT HUB (FOR GOOGLE RANKING) -->
@@ -1345,6 +1400,56 @@ function runCarModelLookup() {
     calculateCarTax();
 }
 
+    // NEW INDIAN CORPORATE TAX AND SURCHARGE LIABILTY ENGINE
+function calculateCorporateTax() {
+    let rawProfit = parseFloat(document.getElementById('corpNetProfit').value) || 0;
+    let regime = document.getElementById('corpRegime').value;
+    
+    let profit = Math.max(0, rawProfit);
+    
+    // 1. Establish the base statutory rate thresholds
+    let baseRate = 0.22;
+    if (regime === "baa") baseRate = 0.22;
+    else if (regime === "bab") baseRate = 0.15;
+    else if (regime === "old_25") baseRate = 0.25;
+    else if (regime === "old_30") baseRate = 0.30;
+    
+    let baseTax = profit * baseRate;
+    
+    // 2. Compute dynamic corporate surcharge intervals safely
+    let surchargeRate = 0.00;
+    if (regime === "baa" || regime === "bab") {
+        // Sections 115BAA & 115BAB feature a flat 10% surcharge regardless of total revenue income bounds
+        surchargeRate = 0.10;
+    } else {
+        // Standard old regime companies scale surcharge brackets by qualified net profit amounts
+        if (profit > 100000000) { // Exceeds ₹10 Crore
+            surchargeRate = 0.12;
+        } else if (profit > 10000000) { // Exceeds ₹1 Crore
+            surchargeRate = 0.07;
+        }
+    }
+    
+    let calculatedSurcharge = baseTax * surchargeRate;
+    let taxWithSurcharge = baseTax + calculatedSurcharge;
+    
+    // 3. Stack flat 4% health and education cess layer overhead
+    let cessCalculated = taxWithSurcharge * 0.04;
+    let finalGrandCorporateTax = taxWithSurcharge + cessCalculated;
+    
+    let effectiveTaxRate = profit > 0 ? (finalGrandCorporateTax / profit) * 100 : 0;
+    
+    // 4. Render calculations smoothly back to active display slots
+    document.getElementById('corpBaseRateDisplay').innerText = (baseRate * 100) + "%";
+    document.getElementById('corpBaseTaxDisplay').innerText = "₹" + Math.round(baseTax).toLocaleString('en-IN');
+    document.getElementById('corpSurchargeDisplay').innerText = "₹" + Math.round(calculatedSurcharge).toLocaleString('en-IN') + ` (${surchargeRate * 100}%)`;
+    document.getElementById('corpCessDisplay').innerText = "₹" + Math.round(cessCalculated).toLocaleString('en-IN');
+    document.getElementById('corpGrandTotalTax').innerText = "₹" + Math.round(finalGrandCorporateTax).toLocaleString('en-IN');
+    
+    document.getElementById('corpVerdictDisplay').innerText = "📊 Effective Combined Corporate Tax Rate: " + effectiveTaxRate.toFixed(2) + "%";
+}
+
+    
 // ==========================================
 // KEEP WINDOW LOAD AT THE VERY BOTTOM BELOW
 // ==========================================
@@ -1356,6 +1461,7 @@ window.addEventListener("load", function() {
     calculateFD();
     calculateCarTax();
     calculateLoan();
+    calculateCorporateTax();
     
     // 2. Enforce the default tab style layout on launch to keep the user experience clean
     let defaultBtn = document.querySelector(".tab-btn");
