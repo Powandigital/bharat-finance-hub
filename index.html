@@ -590,11 +590,7 @@
             <span>Monthly EMI Base Payment:</span>
             <span id="loanEmiDisplay" style="color:#1e3a8a; font-size:16px;">₹0</span>
         </div>
-
-        <div class="result-row" style="background:#f1f5f9; padding:10px; border-radius:6px; font-weight:600;">
-    <span>Monthly EMI Base Payment:</span>
-    <span id="loanEmiDisplay" style="color:#1e3a8a; font-size:16px;">₹0</span>
-</div>
+       
 
 <!-- 🌟 NEW: NET EXPENSES WALLET DISBURSEMENT AUDIT ROW -->
 <div class="result-row" style="background:#fff7ed; padding:10px; border-radius:6px; margin-top:10px; display:block; border-left: 4px solid #f97316; box-sizing: border-box;">
@@ -1118,20 +1114,17 @@ function calculateLoan() {
     let rawPrepayment = parseFloat(document.getElementById('prepaymentAmount').value) || 0;
     let prepayMonth = parseInt(document.getElementById('prepaymentMonth').value) || 1;
 
-    // Competing Lender 2 Inputs
     let rawCompRate = parseFloat(document.getElementById('compRate').value) || 0;
     let rawCompYears = parseFloat(document.getElementById('compTenure').value) || 1;
 
-    if (principal > 1000000000) {
-        document.getElementById('loanAmount').value = 1000000000;
-        principal = 1000000000;
-    }
-    let annualRate = Math.max(0, rawRate);
-    let totalYears = Math.max(1, rawYears);
+    // 🟢 SILENT INTERIOR CLAMPING: Keeps calculator from breaking without interrupting the input field typing state
+    let principal = Math.min(1000000000, Math.max(0, rawPrincipal)); // Max ₹100 Crore
+    let annualRate = Math.min(30, Math.max(0, rawRate));
+    let totalYears = Math.min(40, Math.max(1, rawYears));
     let prepayment = Math.max(0, rawPrepayment);
     
-    let compRate = Math.max(0, rawCompRate);
-    let compYears = Math.max(1, rawCompYears);
+    let compRate = Math.min(30, Math.max(0, rawCompRate));
+    let compYears = Math.min(40, Math.max(1, rawCompYears));
 
     // --- MAIN LENDER MATH CALCULATIONS ---
     let monthlyRate = (annualRate / 100) / 12;
@@ -1218,18 +1211,18 @@ function calculateLoan() {
         document.getElementById('chartInterestBar').style.width = interestRatio + "%";
         document.getElementById('chartRatioText').innerText = `Principal: ${Math.round(principalRatio)}% | Interest: ${Math.round(interestRatio)}%`;
     }
-        // --- 🌟 NEW: PROCESSING FEE & GST CHARGES MATHEMATICAL ENGINE MATRIX ---
+
+    // --- PROCESSING FEE & GST CHARGES MATRIX ---
     let baseFeeRate = parseFloat(document.getElementById('processingFeeRate').value) || 0;
     let rawBaseCharges = principal * (baseFeeRate / 100);
-    let financialGstComponent = rawBaseCharges * 0.18; // Apply standard 18% Indian Financial Services Tax
+    let financialGstComponent = rawBaseCharges * 0.18;
     let aggregateChargesOutflow = rawBaseCharges + financialGstComponent;
     let netBankDisbursementValuation = principal - aggregateChargesOutflow;
 
-    // Push calculated allocations values down straight into new presentation DOM rows
     document.getElementById('loanFeesDisplay').innerText = "₹" + Math.round(aggregateChargesOutflow).toLocaleString('en-IN') + ` (${baseFeeRate}% Fee + 18% GST)`;
     document.getElementById('loanNetDisbursedDisplay').innerText = "₹" + Math.round(netBankDisbursementValuation).toLocaleString('en-IN');
 
-    // Render Primary Data Points
+    // Render Data Summaries
     document.getElementById('loanEmiDisplay').innerText = "₹" + Math.round(emi).toLocaleString('en-IN') + " / month";
     document.getElementById('normalInterestDisplay').innerText = "₹" + Math.round(normalInterestPayable).toLocaleString('en-IN');
     document.getElementById('normalTotalDisplay').innerText = "₹" + Math.round(normalTotalPayment).toLocaleString('en-IN');
@@ -1257,7 +1250,6 @@ function calculateLoan() {
         savingsBox.style.color = "#475569";
     }
 
-    // --- RENDER SIDE-BY-SIDE LENDER EXPLICIT COMPARATIVE LABELS ---
     document.getElementById('compEmiDisplay').innerText = "₹" + Math.round(compEmi).toLocaleString('en-IN') + " / month";
     document.getElementById('compInterestDisplay').innerText = "₹" + Math.round(compInterestPayable).toLocaleString('en-IN');
     
@@ -1410,12 +1402,9 @@ function calculateCorporateTax() {
     let rawProfit = parseFloat(document.getElementById('corpNetProfit').value) || 0;
     let regime = document.getElementById('corpRegime').value;
     
-    if (profit > 100000000000) {
-        document.getElementById('corpNetProfit').value = 100000000000;
-        profit = 100000000000;
-    }
+    // 🟢 SILENT INTERIOR CLAMPING: Caps calculations at a safe upper milestone of ₹10,000 Crore without freezing input typing loops
+    let profit = Math.min(100000000000, Math.max(0, rawProfit));
     
-    // 1. Establish the base statutory rate thresholds
     let baseRate = 0.22;
     if (regime === "baa") baseRate = 0.22;
     else if (regime === "bab") baseRate = 0.15;
@@ -1424,16 +1413,13 @@ function calculateCorporateTax() {
     
     let baseTax = profit * baseRate;
     
-    // 2. Compute dynamic corporate surcharge intervals safely
     let surchargeRate = 0.00;
     if (regime === "baa" || regime === "bab") {
-        // Sections 115BAA & 115BAB feature a flat 10% surcharge regardless of total revenue income bounds
         surchargeRate = 0.10;
     } else {
-        // Standard old regime companies scale surcharge brackets by qualified net profit amounts
-        if (profit > 100000000) { // Exceeds ₹10 Crore
+        if (profit > 100000000) { 
             surchargeRate = 0.12;
-        } else if (profit > 10000000) { // Exceeds ₹1 Crore
+        } else if (profit > 10000000) { 
             surchargeRate = 0.07;
         }
     }
@@ -1441,13 +1427,11 @@ function calculateCorporateTax() {
     let calculatedSurcharge = baseTax * surchargeRate;
     let taxWithSurcharge = baseTax + calculatedSurcharge;
     
-    // 3. Stack flat 4% health and education cess layer overhead
     let cessCalculated = taxWithSurcharge * 0.04;
     let finalGrandCorporateTax = taxWithSurcharge + cessCalculated;
     
     let effectiveTaxRate = profit > 0 ? (finalGrandCorporateTax / profit) * 100 : 0;
     
-    // 4. Render calculations smoothly back to active display slots
     document.getElementById('corpBaseRateDisplay').innerText = (baseRate * 100) + "%";
     document.getElementById('corpBaseTaxDisplay').innerText = "₹" + Math.round(baseTax).toLocaleString('en-IN');
     document.getElementById('corpSurchargeDisplay').innerText = "₹" + Math.round(calculatedSurcharge).toLocaleString('en-IN') + ` (${surchargeRate * 100}%)`;
