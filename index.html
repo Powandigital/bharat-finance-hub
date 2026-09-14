@@ -340,6 +340,28 @@
         <div class="result-row"><span>Estimated Returns Earned:</span><span id="sipGain" style="color:#15803d; font-weight:600;">₹0</span></div>
         <div class="result-row" style="background:#dbeafe; padding:6px 10px; border-radius:4px;"><strong>Total Future Maturity Value:</strong><span id="sipTotal" style="color:#1e3a8a; font-weight:bold;">₹0</span></div>
     </div>
+            <!-- 🌟 NEW: STEP-UP DYNAMIC INTENSITY COMPARISON PANEL -->
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
+            <div style="font-weight: bold; margin-bottom: 8px; color: #0284c7; font-size: 14px;">🚀 Annual Step-Up Strategy Impact Matrix:</div>
+            <div style="overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 6px; background: white;">
+                <table style="width:100%; border-collapse:collapse; font-size:12.5px; text-align:left; min-width:320px;">
+                    <thead>
+                        <tr style="background:#f1f5f9; color:#475569; border-bottom:1px solid #cbd5e1;">
+                            <th style="padding:8px;">Strategy Mode</th>
+                            <th style="padding:8px;">Total Invested</th>
+                            <th style="padding:8px; text-align:right;">Maturity Wealth</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sipComparisonTableBody">
+                        <!-- Dynamic matrix loop elements injected via script -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="sipStepUpVerdict" style="background:#e0f2fe; color:#0369a1; padding:10px; border-radius:6px; margin-top:10px; font-weight:bold; font-size:13px; text-align:center;">
+                Select a step-up rate above to view accelerated earnings.
+            </div>
+        </div>
+
     
     <!-- SECTOR RETURNS REFERENCE BENCHMARK GRID -->
     <button class="calc-btn" onclick="toggleSipGrid()" style="background:#0284c7; margin-top:15px;">📊 View Mutual Fund Sector Returns & Best Funds</button>
@@ -388,6 +410,11 @@
         <label for="fdRate">Rate of Interest per Year (%):</label>
         <input type="number" id="fdRate" value="7.1" step="0.1" min="1" max="20" oninput="calculateFD()">
         <div id="fdRateNote" class="cap-note">⚠️ Note: Maximum interest rate is restricted to a maximum of 20% p.a.</div>
+        <!-- 🌟 NEW: SENIOR CITIZEN FIXED DEPOSIT OPTIMIZER CHECKBOX -->
+    <label style="display: flex; align-items: center; gap: 8px; font-weight: 600; margin-top: 10px; color: #0f766e; font-size: 13.5px; cursor: pointer; background: #f0fdf4; padding: 8px; border-radius: 6px; border: 1px solid #bbf7d0; box-sizing: border-box;">
+        <input type="checkbox" id="fdSeniorCitizen" onchange="calculateFD()" style="width:16px; height:16px; cursor: pointer;">
+        👴 Apply Senior Citizen Higher Interest Rate Benefits (+0.50% p.a.)
+    </label>
     </div>
     
     <div class="form-group">
@@ -941,6 +968,7 @@ function calculateTax() {
 
 // MUTUAL FUND SIP STRUCTURAL COMPOUNDING ENGINE
 // ADVANCED SIP growth ENGINE INCORPORATING ANNUAL STEP-UP ACCELERATION MATRIX
+// ADVANCED SIP growth ENGINE INCORPORATING MATRIX STEP-UP ANALYSIS PROJECTIONS
 function calculateSIP() {
     let rawP = parseFloat(document.getElementById('sipAmount').value) || 0;
     let rawRate = parseFloat(document.getElementById('sipRate').value) || 0;
@@ -958,60 +986,98 @@ function calculateSIP() {
     let monthlyRate = (annualRate / 100) / 12;
     let totalMonths = years * 12;
     
-    let currentSipAmount = P;
-    let totalInvested = 0;
-    let maturityValue = 0;
-    
-    // Simulate month-by-month compounding matrix safely
-    for (let m = 1; m <= totalMonths; m++) {
-        // Run step-up increment loop at the start of every 12-month boundary interval (Except year 1)
-        if (m > 1 && (m - 1) % 12 === 0) {
-            currentSipAmount = currentSipAmount * (1 + (stepUpPercent / 100));
-        }
+    // Sub-calculation helper to run rapid multi-scenario loops cleanly
+    function runSipSimulation(baseAmt, rate, tenureYears, stepPercent) {
+        let currentSip = baseAmt;
+        let investedSum = 0;
+        let finalValue = 0;
+        let mRate = (rate / 100) / 12;
         
-        totalInvested += currentSipAmount;
-        // Apply single month compound interest accumulation lifecycle phase
-        maturityValue = (maturityValue + currentSipAmount) * (1 + monthlyRate);
+        for (let m = 1; m <= tenureYears * 12; m++) {
+            if (m > 1 && (m - 1) % 12 === 0) {
+                currentSip = currentSip * (1 + (stepPercent / 100));
+            }
+            investedSum += currentSip;
+            finalValue = (finalValue + currentSip) * (1 + mRate);
+        }
+        return { invested: investedSum, maturity: finalValue };
     }
+
+    // 1. Calculate active selected user scenario outputs
+    let activeResult = runSipSimulation(P, annualRate, years, stepUpPercent);
+    let estimatedReturns = activeResult.maturity - activeResult.invested;
     
-    let estimatedReturns = maturityValue - totalInvested;
-    
-    document.getElementById('sipInvested').innerText = "₹" + Math.round(totalInvested).toLocaleString('en-IN');
+    document.getElementById('sipInvested').innerText = "₹" + Math.round(activeResult.invested).toLocaleString('en-IN');
     document.getElementById('sipGain').innerText = "₹" + Math.round(estimatedReturns).toLocaleString('en-IN');
-    document.getElementById('sipTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
+    document.getElementById('sipTotal').innerText = "₹" + Math.round(activeResult.maturity).toLocaleString('en-IN');
+
+    // 2. Compute alternative strategy rates for comparison analysis grid matrix
+    let matrixRates = [0, 5, 10, 15, 20];
+    let matrixHtml = "";
+    let baseMaturityValue = 0;
+
+    matrixRates.forEach(rate => {
+        let sim = runSipSimulation(P, annualRate, years, rate);
+        let rowStyle = (rate === stepUpPercent) ? "background-color: #f0fdf4; font-weight: bold; color: #16a34a;" : "";
+        if (rate === 0) baseMaturityValue = sim.maturity;
+
+        matrixHtml += `<tr style="border-bottom:1px solid #e2e8f0; ${rowStyle}">
+            <td style="padding:8px;">${rate === 0 ? 'Regular SIP' : rate + '% Step-Up'}</td>
+            <td style="padding:8px;">₹${Math.round(sim.invested).toLocaleString('en-IN')}</td>
+            <td style="padding:8px; text-align:right;">₹${Math.round(sim.maturity).toLocaleString('en-IN')}</td>
+        </tr>`;
+    });
+
+    let compTableBody = document.getElementById('sipComparisonTableBody');
+    if (compTableBody) compTableBody.innerHTML = matrixHtml;
+
+    // 3. Render contextual smart summary wealth generation verdict block
+    let verdictBox = document.getElementById('sipStepUpVerdict');
+    if (verdictBox) {
+        if (stepUpPercent > 0) {
+            let acceleratedGain = activeResult.maturity - baseMaturityValue;
+            verdictBox.innerHTML = `💡 Choosing a ${stepUpPercent}% Step-Up yields <b>₹${Math.round(acceleratedGain).toLocaleString('en-IN')} MORE wealth</b> than a standard constant SIP!`;
+            verdictBox.style.background = "#dcfce7";
+            verdictBox.style.color = "#14532d";
+        } else {
+            let potentialMaxGain = runSipSimulation(P, annualRate, years, 10).maturity - activeResult.maturity;
+            verdictBox.innerHTML = `📈 Pro Tip: Stepping up your SIP by just 10% every year could build an extra <b>₹${Math.round(potentialMaxGain).toLocaleString('en-IN')}</b> portfolio cushion!`;
+            verdictBox.style.background = "#e0f2fe";
+            verdictBox.style.color = "#0369a1";
+        }
+    }
+
     document.getElementById('sipResults').style.display = 'block';
 }
 
-// BANK FIXED DEPOSIT (FD) QUARTERLY COMPOUNDING ENGINE
+// BANK FIXED DEPOSIT (FD) QUARTERLY COMPOUNDING & SENIOR CITIZEN ENHANCED ENGINE
 function calculateFD() {
-    // 1. Capture user entries from display input fields safely
     let rawP = parseFloat(document.getElementById('fdPrincipal').value) || 0;
     let rawR = parseFloat(document.getElementById('fdRate').value) || 0;
     let rawT = parseFloat(document.getElementById('fdYears').value) || 0;
     
-    // 2. Enforce explicit safety caps to maintain computational stability
+    let isSenior = document.getElementById('fdSeniorCitizen') ? document.getElementById('fdSeniorCitizen').checked : false;
+    
     let P = Math.min(1000000000, Math.max(0, rawP));
     let r = Math.min(20, Math.max(0, rawR));
     let t = Math.min(25, Math.max(0, rawT));
     
-    // 3. Toggle visual threshold warning messages contextually
+    // 🌟 Apply Senior Citizen Higher Yield Bonus (+0.50% p.a.) if checked
+    if (isSenior) {
+        r += 0.50;
+    }
+    
     document.getElementById('fdAmtNote').style.display = rawP > 1000000000 ? 'block' : 'none';
     document.getElementById('fdRateNote').style.display = rawR > 20 ? 'block' : 'none';
     document.getElementById('fdYearsNote').style.display = rawT > 25 ? 'block' : 'none';
     
-    // 4. Set compounding frequency variable (n = 4 represents traditional Quarterly cycles)
-    let n = 4; 
-    
-    // 5. Execute core compound interest formula equation
+    let n = 4; // Standard Bank Quarterly Compounding Intervals
     let maturityValue = P * Math.pow((1 + (r / 100) / n), (n * t));
     let totalInterest = maturityValue - P;
     
-    // 6. Push localized currency calculations cleanly to DOM element selectors
     document.getElementById('fdInvested').innerText = "₹" + Math.round(P).toLocaleString('en-IN');
     document.getElementById('fdInterest').innerText = "₹" + Math.round(totalInterest).toLocaleString('en-IN');
     document.getElementById('fdTotal').innerText = "₹" + Math.round(maturityValue).toLocaleString('en-IN');
-    
-    // 7. Make the Fixed Deposit calculations results panel visible
     document.getElementById('fdResults').style.display = 'block';
 }
 
