@@ -9,8 +9,8 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://icons8.com",
-      "sizes": "192x192",
+      "src": "https://jsdelivr.net",
+      "sizes": "72x72",
       "type": "image/png"
     },
     {
@@ -20,5 +20,6 @@
     }
   ]
 }
+
 
 
