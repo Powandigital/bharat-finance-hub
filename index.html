@@ -951,6 +951,24 @@
 </div>
 
 <footer style="max-width: 650px; margin: 30px auto; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 13px; color: #64748b;">
+        <!-- 🌟 NEW: PROGRESSIVE NATIVE APP DIRECT INSTALLATION CALL BANNER -->
+    <div id="pwaInstallBanner" style="display: none; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 16px; border-radius: 12px; margin: 25px auto 10px auto; max-width: 610px; text-align: left; box-shadow: 0 4px 15px rgba(16,185,129,0.25); box-sizing: border-box; align-items: center; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 250px;">
+            <strong style="font-size: 15px; display: block; margin-bottom: 2px;">📲 Install Bharat Finance Hub App</strong>
+            <span style="font-size: 12.5px; opacity: 0.95; line-height: 1.4; display: block;">
+                Add this workspace platform directly to your mobile home screen grid! Enjoy 100% full-screen utilization, faster boot loads, and offline computation support.
+            </span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button onclick="dismissPwaBanner()" style="background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: background 0.2s;">
+                Later
+            </button>
+            <button onclick="triggerPwaInstallationPrompt()" style="background: white; color: #059669; border: none; padding: 9px 16px; font-size: 13px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.1s;">
+                ⚡ Install Now
+            </button>
+        </div>
+    </div>
+
     <p>© 2026 Bharat Finance Hub. All Rights Reserved.</p>
     <p>
         <a href="#privacyBox" style="color: #10b981; text-decoration: none; font-weight: 600; margin: 0 10px;">Privacy Policy</a> | 
@@ -1584,6 +1602,56 @@ function printPremiumAmortizationSummary() {
     if(tabMenu) tabMenu.style.display = "flex";
     if(portalHeader) portalHeader.style.display = "block";
 }
+
+    // PWA INSTALLATION INTERCEPTOR UTILITY ENGINE
+let deferredInstallPromptSignal = null;
+
+// Listen explicitly for the native mobile browser asset deployment event cue
+window.addEventListener('beforeinstallprompt', (event) => {
+    // 1. Prevent older browser models from showing their default prompt automatically
+    event.preventDefault();
+    
+    // 2. Cache the system prompt signal into global execution memory hooks
+    deferredInstallPromptSignal = event;
+    
+    // 3. Unhide the premium styled footer call-to-action install banner element card
+    let installBannerCard = document.getElementById('pwaInstallBanner');
+    if (installBannerCard) {
+        installBannerCard.style.display = 'flex';
+    }
+});
+
+// Triggered immediately when the visitor taps your green "⚡ Install Now" button control
+function triggerPwaInstallationPrompt() {
+    if (!deferredInstallPromptSignal) return;
+    
+    // Reveal the operating system's native confirmation dialog panel modal drawer
+    deferredInstallPromptSignal.prompt();
+    
+    // Evaluate the choice result vector selected by the smartphone user loop
+    deferredInstallPromptSignal.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('App deployment accepted by user.');
+            dismissPwaBanner(); // Fade the interface banner out gracefully
+        }
+        // Purge the system signal buffer cache safely to reset lifecycle loops
+        deferredInstallPromptSignal = null;
+    });
+}
+
+// Gracefully dismiss the banner if the user clicks "Later"
+function dismissPwaBanner() {
+    let installBannerCard = document.getElementById('pwaInstallBanner');
+    if (installBannerCard) {
+        installBannerCard.style.display = 'none';
+    }
+}
+
+// Catch post-installation successes and clear trace structures contextually
+window.addEventListener('appinstalled', () => {
+    console.log('Bharat Finance Hub installed into operating system dashboard successfully.');
+    dismissPwaBanner();
+});
 
     // ==========================================
 // NEW HELPER FUNCTIONS (UPDATE D PLACEMENT)
