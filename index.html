@@ -59,14 +59,18 @@
     <h1>🇮🇳 Bharat Finance Hub</h1>
     <p>Free Premium Financial Tools & Calculators</p>
 </div>
-<div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('tax-container', this)">📊 Tax Calculator</button>
-    <button class="tab-btn" onclick="switchTab('sip-container', this)">📈 SIP Calculator</button>
-    <button class="tab-btn" onclick="switchTab('fd-container', this)">💰 FD Calculator</button>
-    <button class="tab-btn" onclick="switchTab('car-gst-container', this)">🚗 Car Tax Calculator</button>
-    <button class="tab-btn" onclick="switchTab('loan-container', this)">🏠 Loan Calculator</button>
-    <button class="tab-btn" onclick="switchTab('corporate-container', this)">🏢 Corporate Tax</button> 
+<!-- UPDATE THIS IN YOUR NAVIGATION TABS CONTAINER -->
+<div class="tabs" style="display: flex; max-width: 750px; margin: 0 auto 20px auto; background: #e2e8f0; border-radius: 8px; padding: 4px; flex-wrap: wrap; gap: 4px;">
+    <button class="tab-btn active" style="flex: 1; min-width: 110px;" onclick="switchTab('tax-container', this)">📊 Tax Calc</button>
+    <button class="tab-btn" style="flex: 1; min-width: 110px;" onclick="switchTab('sip-container', this)">📈 SIP Calc</button>
+    <button class="tab-btn" style="flex: 1; min-width: 110px;" onclick="switchTab('fd-container', this)">💰 FD Calc</button>
+    <button class="tab-btn" style="flex: 1; min-width: 110px;" onclick="switchTab('car-gst-container', this)">🚗 Car Tax</button>
+    <button class="tab-btn" style="flex: 1; min-width: 110px;" onclick="switchTab('loan-container', this)">🏠 Loan EMI</button>
+    <button class="tab-btn" style="flex: 1; min-width: 110px;" onclick="switchTab('corporate-container', this)">🏢 Corp Tax</button>
+    <button class="tab-btn" style="flex: 1; min-width: 110px; background: #fef3c7; color: #b45309;" onclick="switchTab('retirement-container', this)">🌴 Retirement</button> <!-- 🆕 Master Tab 1 -->
+    <button class="tab-btn" style="flex: 1; min-width: 110px; background: #e0f2fe; color: #0369a1;" onclick="switchTab('life-hub-container', this)">🏠 Life & Inflation</button> <!-- 🆕 Master Tab 2 -->
 </div>
+
 
 <!-- 1. TAX CALCULATOR CONTAINER -->
 <div id="tax-container" class="container active">
@@ -759,6 +763,162 @@
         </div>
     </div>
 </div>
+
+    <!-- 7. 🆕 RETIREMENT HUB CONTAINER (PPF, EPF, & NPS THREE-IN-ONE) -->
+<div id="retirement-container" class="container">
+    <h2>🌴 Indian Retirement & Provident Fund Hub</h2>
+    <div class="ad-placeholder">Google AdSense Placement (Top Retirement Unit)</div>
+
+    <div class="form-group" style="background: #fdf2f8; border: 1px solid #fbcfe8; padding: 12px; border-radius: 6px;">
+        <label for="retirementToolSelect" style="color: #be185d; font-weight: 700;">🎯 Select Active Retirement Vehicle Tool:</label>
+        <select id="retirementToolSelect" onchange="switchRetirementTool()" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #cbd5e1; background: white; font-size: 15px; font-weight: bold; color: #1e293b;">
+            <option value="ppf" selected>Public Provident Fund (PPF Calculator - 7.1% Sovereign Fixed)</option>
+            <option value="epf">Employees' Provident Fund (EPF Calculator - 8.25% Salaried Track)</option>
+            <option value="nps">National Pension System (NPS Calculator - Market-Linked Projections)</option>
+        </select>
+    </div>
+
+    <!-- SUB-SECTION A: PPF INPUT INTERFACE PANEL -->
+    <div id="sub-ppf-inputs" style="display: block;">
+        <div class="form-group">
+            <label for="ppfAnnualDeposit">Annual PPF Deposit Investment (₹):</label>
+            <input type="number" id="ppfAnnualDeposit" value="150000" min="500" max="150000" oninput="calculateRetirementHub()">
+            <div id="ppfMaxNote" class="cap-note" style="display:none; font-size:11px; color:#ef4444; margin-top:4px;">⚠️ Note: Statutory legal limit for annual PPF deposits is capped at ₹1.5 Lakhs.</div>
+        </div>
+        <div class="form-group">
+            <label for="ppfTenure">Lock-in Investment Tenure (Years):</label>
+            <input type="number" id="ppfTenure" value="15" min="15" max="50" oninput="calculateRetirementHub()">
+            <span style="font-size: 11px; color: #64748b;">*PPF features a mandatory baseline 15-year maturity lock-in lifecycle period.</span>
+        </div>
+    </div>
+
+    <!-- SUB-SECTION B: EPF INPUT INTERFACE PANEL -->
+    <div id="sub-epf-inputs" style="display: none;">
+        <div class="form-group">
+            <label for="epfMonthlyBasic">Monthly Basic Salary + DA component (₹):</label>
+            <input type="number" id="epfMonthlyBasic" value="50000" oninput="calculateRetirementHub()">
+        </div>
+        <div class="form-group">
+            <label for="epfEmployeeRate">Your Monthly EPF Contribution (%):</label>
+            <input type="number" id="epfEmployeeRate" value="12" min="1" max="12" oninput="calculateRetirementHub()">
+        </div>
+        <div class="form-group">
+            <label for="epfTenureYears">Expected Service Timeline remaining (Years):</label>
+            <input type="number" id="epfTenureYears" value="25" oninput="calculateRetirementHub()">
+        </div>
+    </div>
+
+    <!-- SUB-SECTION C: NPS INPUT INTERFACE PANEL -->
+    <div id="sub-nps-inputs" style="display: none;">
+        <div class="form-group">
+            <label for="npsMonthlyContribution">Monthly Voluntary NPS Contribution (₹):</label>
+            <input type="number" id="npsMonthlyContribution" value="10000" oninput="calculateRetirementHub()">
+        </div>
+        <div id="npsMaxNote" class="cap-note" style="display:none; font-size:11px; color:#ef4444; margin-top:-10px; margin-bottom:10px;">⚠️ Note: Maximum calculation metric benchmark locked at ₹10 Lakhs monthly.</div>
+        <div class="form-group">
+            <label for="npsExpectedRate">Expected Equity/Debt Combined Return Rate (% p.a.):</label>
+            <input type="number" id="npsExpectedRate" value="10" min="1" max="25" oninput="calculateRetirementHub()">
+        </div>
+        <div class="form-group">
+            <label for="npsDuration">Investment Accumulation Horizon (Years):</label>
+            <input type="number" id="npsDuration" value="30" oninput="calculateRetirementHub()">
+        </div>
+    </div>
+
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Retirement Unit)</div>
+
+    <!-- UNIFIED RETIREMENT MATHEMATICAL RESULTS INTERFACE DISPLAY -->
+    <div class="results" id="retirementResults" style="display: block; margin-top: 20px;">
+        <div class="result-row" style="background: #fdf2f8; padding: 10px; border-radius: 6px; font-weight: 600;">
+            <span id="retLabelPrincipal">Total Principal Contributed:</span>
+            <span id="retDisplayPrincipal" style="color:#be185d;">₹0</span>
+        </div>
+        <div class="result-row">
+            <span id="retLabelInterest">Total Cumulative Interest Yield:</span>
+            <span id="retDisplayInterest" style="color:#16a34a; font-weight:600;">₹0</span>
+        </div>
+        <div class="result-row" style="background:#be185d; color:white; padding:12px; border-radius:6px; margin-top:12px; font-weight:bold; font-size:16px;">
+            <span>Projected Maturity Retirement Capital:</span>
+            <span id="retDisplayGrandTotal">₹0</span>
+        </div>
+        <div class="verdict" id="retirementVerdictSummary" style="margin-top: 15px; font-weight: bold; background: #f8fafc; color: #475569; font-size: 13px; text-align: left; line-height: 1.5;">
+            Calculations processing initialized.
+        </div>
+    </div>
+</div>
+<!-- 8. 🆕 LIFE & INFLATION HUB CONTAINER (HRA EXEMPTION & INFLATION ADJUSTER) -->
+<div id="life-hub-container" class="container">
+    <h2>🏠 Life & Cost Inflation Index Hub</h2>
+    <div class="ad-placeholder">Google AdSense Placement (Top Life Insurance Banner)</div>
+
+    <!-- SUB-TOOL 1: HRA EXEMPTION ANALYSIS PANEL (SECTION 10(13A)) -->
+    <div class="breakdown-box" style="border: 1px solid #3b82f6; background: #ffffff; padding: 20px; margin-bottom: 25px;">
+        <h3 style="color: #1e3a8a; font-size: 16px; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; gap: 6px;">🏠 House Rent Allowance (HRA) Exemption Auditor</h3>
+        
+        <div class="form-group sub-input">
+            <label for="hraBasicSalary">Basic Monthly Salary + Dearness Allowance (₹):</label>
+            <input type="number" id="hraBasicSalary" value="50000" oninput="calculateLifeHub()">
+        </div>
+        <div class="form-group sub-input">
+            <label for="hraReceived">Actual Monthly HRA Allowance Received from Company (₹):</label>
+            <input type="number" id="hraReceived" value="20000" oninput="calculateLifeHub()">
+        </div>
+        <div class="form-group sub-input">
+            <label for="hraRentPaid">Actual Monthly Rent Paid to Landlord (₹):</label>
+            <input type="number" id="hraRentPaid" value="15000" oninput="calculateLifeHub()">
+        </div>
+        <div class="form-group sub-input">
+            <label for="hraCityType">Workplace City Metrological Classification:</label>
+            <select id="hraCityType" onchange="calculateLifeHub()" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #cbd5e1; background: white; font-size: 14.5px; color: #1e293b;">
+                <option value="metro" selected>Metro City (Delhi, Mumbai, Kolkata, Chennai - 50% Basic Cap)</option>
+                <option value="non_metro">Non-Metro Location / Other Tier Cities (40% Basic Cap)</option>
+            </select>
+        </div>
+
+        <div class="results" id="hraResultsArea" style="display: block; background: #f8fafc; border: 1px solid #e2e8f0; margin-top: 15px; padding: 12px; border-radius: 6px;">
+            <div class="result-row" style="font-size: 13.5px; color: #16a34a; font-weight: bold;">
+                <span>Legally Allowed Exempt HRA (Annual):</span>
+                <span id="hraExemptDisplay">₹0</span>
+            </div>
+            <div class="result-row" style="font-size: 13.5px; color: #dc2626;">
+                <span>Taxable Balance HRA Component (Annual):</span>
+                <span id="hraTaxableDisplay">₹0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="ad-placeholder">Google AdSense Placement (In-Article Unit)</div>
+
+    <!-- SUB-TOOL 2: CORE INFLATION ADJUSTER & EROSION TIMELINE METER -->
+    <div class="breakdown-box" style="border: 1px solid #d97706; background: #ffffff; padding: 20px;">
+        <h3 style="color: #9a3412; font-size: 16px; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; gap: 6px;">📈 Indian Living Cost Inflation Adjuster</h3>
+        
+        <div class="form-group sub-input">
+            <label for="inflationBaseAmount">Current Initial Cash Value / Target Budget (₹):</label>
+            <input type="number" id="inflationBaseAmount" value="500000" oninput="calculateLifeHub()">
+        </div>
+        <div class="form-group sub-input">
+            <label for="inflationRateValue">Projected Long-Term Inflation Rate per Year (%):</label>
+            <input type="number" id="inflationRateValue" value="6.0" step="0.1" min="1" max="25" oninput="calculateLifeHub()">
+        </div>
+        <div class="form-group sub-input">
+            <label for="inflationTimelineYears">Inflation Duration Horizon (Years):</label>
+            <input type="number" id="inflationTimelineYears" value="15" min="1" max="50" oninput="calculateLifeHub()">
+        </div>
+
+        <div class="results" id="inflationResultsArea" style="display: block; background: #f8fafc; border: 1px solid #e2e8f0; margin-top: 15px; padding: 12px; border-radius: 6px;">
+            <div class="result-row" style="font-size: 13.5px; color: #1e293b;">
+                <span>Future Inflated Cost (Equivalent Value):</span>
+                <span id="inflationFutureValueDisplay" style="font-weight: 700;">₹0</span>
+            </div>
+            <div class="result-row" style="font-size: 13.5px; color: #b45309; border-top: 1px dashed #cbd5e1; margin-top: 6px; padding-top: 6px;">
+                <span>Current Buying Power Value in Future:</span>
+                <span id="inflationBuyingPowerDisplay" style="font-weight: 700;">₹0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
    
     <!-- 📦 ALL CALCULATOR TAB TIERS END CLEANLY HERE -->
   
@@ -1529,6 +1689,192 @@ function calculateCorporateTax() {
     document.getElementById('corpVerdictDisplay').innerText = "📊 Effective Combined Corporate Tax Rate: " + effectiveTaxRate.toFixed(2) + "%";
 }
 
+    // ==========================================
+// 🌴 RETIREMENT WORKSPACE SUB-ENGINE LOGIC
+// ==========================================
+
+// Handle visibility states for the internal Retirement sub-tabs
+function switchRetirementTool() {
+    let activeTool = document.getElementById('retirementToolSelect').value;
+    
+    document.getElementById('sub-ppf-inputs').style.display = (activeTool === 'ppf') ? 'block' : 'none';
+    document.getElementById('sub-epf-inputs').style.display = (activeTool === 'epf') ? 'block' : 'none';
+    document.getElementById('sub-nps-inputs').style.display = (activeTool === 'nps') ? 'block' : 'none';
+    
+    // Reset structural label headings dynamically based on selection configurations
+    if (activeTool === 'ppf') {
+        document.getElementById('retLabelPrincipal').innerText = "Total Principal Contributed:";
+        document.getElementById('retLabelInterest').innerText = "Total Cumulative Interest Yield:";
+    } else if (activeTool === 'epf') {
+        document.getElementById('retLabelPrincipal').innerText = "Accumulated Principal Pool:";
+        document.getElementById('retLabelInterest').innerText = "Total Employer + Interest Gains:";
+    } else if (activeTool === 'nps') {
+        document.getElementById('retLabelPrincipal').innerText = "Total Principal Invested:";
+        document.getElementById('retLabelInterest').innerText = "Market Compound Interest Gains:";
+    }
+    
+    calculateRetirementHub();
+}
+
+// Master execution gateway routing calculations contextually across the retirement pool
+function calculateRetirementHub() {
+    let activeTool = document.getElementById('retirementToolSelect').value;
+    
+    if (activeTool === 'ppf') {
+        runPpfCalculation();
+    } else if (activeTool === 'epf') {
+        runEpfCalculation();
+    } else if (activeTool === 'nps') {
+        runNpsCalculation();
+    }
+}
+
+// Public Provident Fund (PPF) sovereign fixed compounding loop logic
+function runPpfCalculation() {
+    let rawDeposit = parseFloat(document.getElementById('ppfAnnualDeposit').value) || 0;
+    let rawYears = parseFloat(document.getElementById('ppfTenure').value) || 15;
+    
+    let deposit = Math.min(150000, Math.max(0, rawDeposit)); // Legal max ceiling check
+    let years = Math.min(50, Math.max(15, rawYears)); // PPF baseline minimum limit check
+    
+    document.getElementById('ppfMaxNote').style.display = rawDeposit > 150000 ? 'block' : 'none';
+    
+    let rate = 7.1 / 100; // Current long-term fixed rate metric
+    let balance = 0;
+    let totalInvested = deposit * years;
+    
+    // Traditional Indian PPF compounding equation executes at the close of every fiscal year cycle
+    for (let y = 1; y <= years; y++) {
+        balance = (balance + deposit) * (1 + rate);
+    }
+    
+    let interestEarned = balance - totalInvested;
+    
+    document.getElementById('retDisplayPrincipal').innerText = "₹" + Math.round(totalInvested).toLocaleString('en-IN');
+    document.getElementById('retDisplayInterest').innerText = "₹" + Math.round(interestEarned).toLocaleString('en-IN');
+    document.getElementById('retDisplayGrandTotal').innerText = "₹" + Math.round(balance).toLocaleString('en-IN');
+    
+    document.getElementById('retirementVerdictSummary').innerHTML = `🔒 <b>PPF Sovereign Guarantee Audit:</b> Your accumulation maturity wealth is <b>100% Tax-Free</b> under the standard EEE status framework. Capital safe from all market volatilities.`;
+}
+
+// Employees' Provident Fund (EPF) progressive salary deduction tracking loops
+function runEpfCalculation() {
+    let basicSalary = parseFloat(document.getElementById('epfMonthlyBasic').value) || 0;
+    let employeeRatePercent = parseFloat(document.getElementById('epfEmployeeRate').value) || 12;
+    let serviceYears = parseFloat(document.getElementById('epfTenureYears').value) || 0;
+    
+    let basic = Math.max(0, basicSalary);
+    let empRate = Math.min(12, Math.max(0, employeeRatePercent)) / 100;
+    let years = Math.min(45, Math.max(0, serviceYears));
+    
+    let epfRate = 8.25 / 100; // Standard baseline financial year rate metric
+    let monthlyEpfRate = epfRate / 12;
+    let totalMonths = years * 12;
+    
+    // Breakdown employee vs employer contribution metrics fractions cleanly
+    let employeeMonthlyContribution = basic * empRate;
+    let employerMonthlyEPFShare = basic * 0.0367; // 3.67% routes straight into EPF corpus (8.33% bypasses to EPS Pension)
+    
+    let currentBalance = 0;
+    let employeePrincipalPool = employeeMonthlyContribution * totalMonths;
+    let employerPrincipalPool = employerMonthlyEPFShare * totalMonths;
+    
+    for (let m = 1; m <= totalMonths; m++) {
+        let monthShareTotal = employeeMonthlyContribution + employerMonthlyEPFShare;
+        currentBalance = (currentBalance + monthShareTotal) * (1 + monthlyEpfRate);
+    }
+    
+    let aggregateInterestPlusEmployerYields = currentBalance - employeePrincipalPool;
+    
+    document.getElementById('retDisplayPrincipal').innerText = "₹" + Math.round(employeePrincipalPool).toLocaleString('en-IN');
+    document.getElementById('retDisplayInterest').innerText = "₹" + Math.round(aggregateInterestPlusEmployerYields).toLocaleString('en-IN');
+    document.getElementById('retDisplayGrandTotal').innerText = "₹" + Math.round(currentBalance).toLocaleString('en-IN');
+    
+    document.getElementById('retirementVerdictSummary').innerHTML = `💼 <b>EPF Account Allocation breakdown:</b> Computation includes your core salary deductions, the matching 3.67% employer share, and current annual compound interest accrual vectors.`;
+}
+// National Pension System (NPS) compounding annuity projector
+function runNpsCalculation() {
+    let rawContribution = parseFloat(document.getElementById('npsMonthlyContribution').value) || 0;
+    let expectedRate = parseFloat(document.getElementById('npsExpectedRate').value) || 10;
+    let durationYears = parseFloat(document.getElementById('npsDuration').value) || 30;
+    
+    let monthlyAmt = Math.min(1000000, Math.max(0, rawContribution));
+    let annualRate = Math.min(25, Math.max(1, expectedRate));
+    let years = Math.min(50, Math.max(1, durationYears));
+    
+    document.getElementById('npsMaxNote').style.display = rawContribution > 1000000 ? 'block' : 'none';
+    
+    let periodicMonthlyRate = (annualRate / 100) / 12;
+    let aggregateIntervalMonths = years * 12;
+    
+    let finalAccumulationValue = monthlyAmt * ((Math.pow(1 + periodicMonthlyRate, aggregateIntervalMonths) - 1) / periodicMonthlyRate) * (1 + periodicMonthlyRate);
+    let totalInvestedPrincipal = monthlyAmt * aggregateIntervalMonths;
+    let compoundInterestGain = finalAccumulationValue - totalInvestedPrincipal;
+    
+    document.getElementById('retDisplayPrincipal').innerText = "₹" + Math.round(totalInvestedPrincipal).toLocaleString('en-IN');
+    document.getElementById('retDisplayInterest').innerText = "₹" + Math.round(compoundInterestGain).toLocaleString('en-IN');
+    document.getElementById('retDisplayGrandTotal').innerText = "₹" + Math.round(finalAccumulationValue).toLocaleString('en-IN');
+    
+    // Incorporate the standard statutory 40% mandatory lock-in annuity distribution metrics rule
+    let minimumAnnuityLumpSumAllocation = finalAccumulationValue * 0.40;
+    let taxFreeWithdrawableLumpSum = finalAccumulationValue * 0.60;
+    
+    document.getElementById('retirementVerdictSummary').innerHTML = `🏖️ <b>NPS Maturity Rule Disclaimer:</b> At retirement, up to <b>60% (₹${Math.round(taxFreeWithdrawableLumpSum).toLocaleString('en-IN')})</b> can be withdrawn completely tax-free. The remaining <b>40% (₹${Math.round(minimumAnnuityLumpSumAllocation).toLocaleString('en-IN')})</b> routes into an annuity system to secure a monthly pension.`;
+}
+
+// ==========================================
+// 🏠 LIFE & INFLATION WORKSPACE SUB-ENGINE
+// ==========================================
+
+function calculateLifeHub() {
+    // 1. DYNAMIC HRA AUDITOR CALCULATION CORE (SECTION 10(13A))
+    let basicSal = parseFloat(document.getElementById('hraBasicSalary').value) || 0;
+    let hraReceived = parseFloat(document.getElementById('hraReceived').value) || 0;
+    let rentPaid = parseFloat(document.getElementById('hraRentPaid').value) || 0;
+    let cityType = document.getElementById('hraCityType').value;
+    
+    let monthlyBasic = Math.max(0, basicSal);
+    let monthlyHra = Math.max(0, hraReceived);
+    let monthlyRent = Math.max(0, rentPaid);
+    
+    // Convert monthly metrics parameters safely into full annual horizons
+    let annualBasic = monthlyBasic * 12;
+    let annualHraReceived = monthlyHra * 12;
+    let annualRentPaid = monthlyRent * 12;
+    
+    // Evaluate Rule 1: Rent Paid Minus 10% of Basic Salary
+    let excessRentPaidOverBasicTenPercent = Math.max(0, annualRentPaid - (annualBasic * 0.10));
+    
+    // Evaluate Rule 2: Workplace City Metropolitan threshold caps
+    let cityPercentageCap = (cityType === 'metro') ? 0.50 : 0.40;
+    let basicSalaryPercentageAllowance = annualBasic * cityPercentageCap;
+    
+    // Execute comparison matching the legal statutory limit minimum condition rules
+    let exemptHraAnnualValue = Math.min(annualHraReceived, excessRentPaidOverBasicTenPercent, basicSalaryPercentageAllowance);
+    let taxableHraAnnualRemainder = Math.max(0, annualHraReceived - exemptHraAnnualValue);
+    
+    document.getElementById('hraExemptDisplay').innerText = "₹" + Math.round(exemptHraAnnualValue).toLocaleString('en-IN');
+    document.getElementById('hraTaxableDisplay').innerText = "₹" + Math.round(taxableHraAnnualRemainder).toLocaleString('en-IN');
+    
+    // 2. DYNAMIC COST INFLATION INDEX AND PURCHASING EROSION CALCULATIONS
+    let rawInflationBase = parseFloat(document.getElementById('inflationBaseAmount').value) || 0;
+    let rawInflationRate = parseFloat(document.getElementById('inflationRateValue').value) || 0;
+    let rawInflationYears = parseFloat(document.getElementById('inflationTimelineYears').value) || 0;
+    
+    let initialPrincipal = Math.max(0, rawInflationBase);
+    let activeInflationRate = Math.min(25, Math.max(0, rawInflationRate)) / 100;
+    let inflationHorizonTimeline = Math.min(50, Math.max(0, rawInflationYears));
+    
+    // Compounding future pricing formula equation
+    let futureInflatedCostEquivalent = initialPrincipal * Math.pow(1 + activeInflationRate, inflationHorizonTimeline);
+    
+    // Present intrinsic cash value structural erosion purchasing equation
+    let erodedFutureBuyingPowerValue = initialPrincipal / Math.pow(1 + activeInflationRate, inflationHorizonTimeline);
+    
+    document.getElementById('inflationFutureValueDisplay').innerText = "₹" + Math.round(futureInflatedCostEquivalent).toLocaleString('en-IN');
+    document.getElementById('inflationBuyingPowerDisplay').innerText = "₹" + Math.round(erodedFutureBuyingPowerValue).toLocaleString('en-IN');
+}
+
     
 // ==========================================
 // KEEP WINDOW LOAD AT THE VERY BOTTOM BELOW
@@ -1542,6 +1888,8 @@ window.addEventListener("load", function() {
     calculateCarTax();
     calculateLoan();
     calculateCorporateTax();
+    calculateRetirementHub();
+    calculateLifeHub();
     
     // 2. Enforce the default tab style layout on launch to keep the user experience clean
     let defaultBtn = document.querySelector(".tab-btn");
