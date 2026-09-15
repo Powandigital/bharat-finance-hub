@@ -7,37 +7,44 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Income Tax Calculator Tab Frame -->
+  <!-- Income Tax Calculator Landing Query -->
   <url>
-    <loc>https://bharatfinhub.com#tax-container</loc>
+    <loc>https://bharatfinhub.com?tab=tax</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Mutual Fund SIP Step-Up Calculator Tab Frame -->
+  <!-- Mutual Fund SIP Step-Up Calculator Landing Query -->
   <url>
-    <loc>https://bharatfinhub.com#sip-container</loc>
+    <loc>https://bharatfinhub.com?tab=sip</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Home Loan EMI & Prepayment Calculator Tab Frame -->
+  <!-- Home Loan EMI & Prepayment Calculator Landing Query -->
   <url>
-    <loc>https://bharatfinhub.com#loan-container</loc>
+    <loc>https://bharatfinhub.com?tab=loan</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Indian Corporate Tax & Surcharge Tracker Tab Frame -->
+  <!-- Indian Corporate Tax & Surcharge Tracker Landing Query -->
   <url>
-    <loc>https://bharatfinhub.com#corporate-container</loc>
+    <loc>https://bharatfinhub.com?tab=corporate</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Retirement Hub: PPF, EPF & NPS Three-in-One Tracker -->
+  <!-- Retirement Hub: PPF, EPF & NPS Landing Query -->
   <url>
-    <loc>https://bharatfinhub.com#retirement-container</loc>
+    <loc>https://bharatfinhub.com?tab=retirement</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Life & Cost Inflation Hub Landing Query -->
+  <url>
+    <loc>https://bharatfinhub.com?tab=life</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
