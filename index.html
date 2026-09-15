@@ -2052,9 +2052,41 @@ window.addEventListener("load", function() {
     calculateLifeHub();
     if(typeof switchRetirementTool === 'function') switchRetirementTool();
 
-    // 4. Retain active tab state highlighting baseline safely
-    let defaultBtn = document.querySelector(".tab-btn");
-    if (defaultBtn) defaultBtn.click();
+        // 🆕 SMART LINK PARSER: Auto-opens the right calculator if visited via Google Search Sitemap link
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetTabParam = urlParams.get('tab');
+    let tabMatched = false;
+
+    if (targetTabParam) {
+        // Map sitemap query keys directly to your structural HTML container IDs
+        const containerMap = {
+            'tax': 'tax-container',
+            'sip': 'sip-container',
+            'fd': 'fd-container',
+            'car': 'car-gst-container',
+            'loan': 'loan-container',
+            'corporate': 'corporate-container',
+            'retirement': 'retirement-container',
+            'life': 'life-hub-container'
+        };
+        
+        let targetId = containerMap[targetTabParam];
+        if (targetId) {
+            // Find the button that switches to this container ID
+            let matchBtn = document.querySelector(`button[onclick*="'${targetId}'"]`);
+            if (matchBtn) {
+                matchBtn.click();
+                tabMatched = true;
+            }
+        }
+    }
+
+    // Default fallback to first tab panel if no query variables are present in the URL
+    if (!tabMatched) {
+        let defaultBtn = document.querySelector(".tab-btn");
+        if (defaultBtn) defaultBtn.click();
+    }
+
 
     // 5. Progressive Web App (PWA): Register Service Worker
     if ("serviceWorker" in navigator) {
