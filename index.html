@@ -54,6 +54,35 @@
         .result-row:last-child { border-bottom: none; }
         .verdict { font-weight: bold; color: #1e3a8a; background: #dbeafe; padding: 12px; text-align: center; border-radius: 6px; margin-top: 15px; font-size: 15px; }
     </style>
+    <!-- 📊 GOOGLE STRUCTURED DATA SEARCH ENGINE SCHEMA INDEX -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "@id": "https://bharatfinhub.com",
+  "url": "https://bharatfinhub.com",
+  "name": "Bharat Finance Hub",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "description": "Free premium financial calculators tailored for Indian users. Compute Income Tax (FY 2025-26), Mutual Fund SIP with Step-Up, Bank FD Quarterly Compounding, Car GST, Loan Prepayment Timelines, Corporate Surcharges, and PPF/EPF/NPS Retirement projections.",
+  "about": [
+    {"@type": "Thing", "name": "Income Tax Calculator India"},
+    {"@type": "Thing", "name": "Mutual Fund SIP Step-Up Calculator"},
+    {"@type": "Thing", "name": "Fixed Deposit Compound Interest Calculator"},
+    {"@type": "Thing", "name": "Home Loan Prepayment Tenure Saver"},
+    {"@type": "Thing", "name": "Indian Corporate Tax Tracker"},
+    {"@type": "Thing", "name": "Public Provident Fund PPF Calculator"},
+    {"@type": "Thing", "name": "HRA Rental Tax Exemption Auditor"}
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  }
+}
+</script>
+
 </head>
 <body>
 <div class="portal-header">
@@ -969,6 +998,14 @@
         </div>
     </div>
 
+        <!-- 🧽 NEW: FLOATING LOCAL STORAGE RESET CONTROL -->
+    <div style="margin: 15px auto; text-align: center;">
+        <button onclick="clearAllCachedCalculatorsData()" style="background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; padding: 6px 14px; font-size: 11.5px; font-weight: 600; border-radius: 20px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s;">
+            🧹 Clear All Calculator Fields & Reset
+        </button>
+    </div>
+
+
     <p>© 2026 Bharat Finance Hub. All Rights Reserved.</p>
     <p>
         <a href="#privacyBox" style="color: #10b981; text-decoration: none; font-weight: 600; margin: 0 10px;">Privacy Policy</a> | 
@@ -1601,6 +1638,16 @@ function printPremiumAmortizationSummary() {
     }
     if(tabMenu) tabMenu.style.display = "flex";
     if(portalHeader) portalHeader.style.display = "block";
+}
+// MEMORY ENGINE UTILITY: Purge Local Storage State Data Instantly
+function clearAllCachedCalculatorsData() {
+    if (confirm("Are you sure you want to completely clear all calculators and reset fields to default?")) {
+        // 1. Wipe the entire browser storage bucket clean
+        localStorage.clear();
+        
+        // 2. Reload the page engine to compile default layout baselines fresh
+        window.location.reload();
+    }
 }
 
     // PWA INSTALLATION INTERCEPTOR UTILITY ENGINE
