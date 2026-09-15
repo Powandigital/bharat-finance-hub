@@ -1,0 +1,12 @@
+# BHARAT FINANCE HUB ROBOTS CONFIGURATION INSTRUCTIONS Matrix
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /manifest.json
+Allow: /sw.js
+
+# Block search engine crawlers from scraping duplicate layout cache files
+Disallow: /chrome-extension/
+
+# Point search crawlers directly to your verified XML map parameters
+Sitemap: https://bharatfinhub.com
