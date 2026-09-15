@@ -14,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bharat Finance Hub - Tax, SIP & FD Calculators</title>
+    <link rel="manifest" href="manifest.json">
     <!-- OpenGraph Metadata Infrastructure for WhatsApp Rich Preview Cards -->
     <meta property="og:site_name" content="Bharat Finance Hub" />
     <meta property="og:title" content="Bharat Finance Hub - Free Tax & Wealth Calculators" />
@@ -1881,7 +1882,55 @@ function calculateLifeHub() {
 // ==========================================
 // WINDOW LIFECYCLE EVENT INITIALIZER
 window.addEventListener("load", function() {
-    // 1. Force first-run mathematical calculations across all module engines to compile defaults
+    // 1. Array of all structural input element IDs across the platform
+    const inputIds = [
+        'income', 'sec80c', 'sec80d', 'sec80nps', 'hra', 'currentBasic',
+        'sipAmount', 'sipRate', 'sipYears', 'sipStepUp',
+        'fdPrincipal', 'fdRate', 'fdYears',
+        'carExShowroom', 'carSegment', 'carModelLookup',
+        'loanAmount', 'loanRate', 'loanTenure', 'prepaymentAmount', 'prepaymentMonth', 'processingFeeRate', 'compRate', 'compTenure',
+        'corpNetProfit', 'corpRegime',
+        'retirementToolSelect', 'ppfAnnualDeposit', 'ppfTenure', 'epfMonthlyBasic', 'epfEmployeeRate', 'epfTenureYears', 'npsMonthlyContribution', 'npsExpectedRate', 'npsDuration',
+        'hraBasicSalary', 'hraReceived', 'hraRentPaid', 'hraCityType', 'inflationBaseAmount', 'inflationRateValue', 'inflationTimelineYears'
+    ];
+
+    // 2. Local Save State: Restore cached user data values on load
+    inputIds.forEach(id => {
+        let el = document.getElementById(id);
+        if (el) {
+            let savedVal = localStorage.getItem(id);
+            if (savedVal !== null) {
+                // Handle checkbox fields contextually
+                if (el.type === 'checkbox') {
+                    el.checked = (savedVal === 'true');
+                } else {
+                    el.value = savedVal;
+                }
+            }
+            // Bind listener to auto-save input values to localStorage silently as the user types
+            el.addEventListener('input', () => {
+                localStorage.setItem(id, el.type === 'checkbox' ? el.checked : el.value);
+            });
+            if (el.tagName === 'SELECT') {
+                el.addEventListener('change', () => {
+                    localStorage.setItem(id, el.value);
+                });
+            }
+        }
+    });
+
+    // Special listener check for your structural checkboxes
+    const checkBoxes = ['enableHikeHelper', 'fdSeniorCitizen'];
+    checkBoxes.forEach(id => {
+        let el = document.getElementById(id);
+        if (el) {
+            let savedVal = localStorage.getItem(id);
+            if (savedVal !== null) el.checked = (savedVal === 'true');
+            el.addEventListener('change', () => { localStorage.setItem(id, el.checked); });
+        }
+    });
+
+    // 3. Force first-run calculations array compile
     calculateTax();
     calculateSIP();
     calculateFD();
@@ -1890,13 +1939,18 @@ window.addEventListener("load", function() {
     calculateCorporateTax();
     calculateRetirementHub();
     calculateLifeHub();
-    
-    // 2. Enforce the default tab style layout on launch to keep the user experience clean
+    if(typeof switchRetirementTool === 'function') switchRetirementTool();
+
+    // 4. Retain active tab state highlighting baseline safely
     let defaultBtn = document.querySelector(".tab-btn");
-    if (defaultBtn) {
-        defaultBtn.click();
+    if (defaultBtn) defaultBtn.click();
+
+    // 5. Progressive Web App (PWA): Register Service Worker
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").catch(err => console.log("SW registration skipped"));
     }
 });
+
 
 // UI UTILITY: Copy Platform Web URL Link to System Clipboard
 function copyPlatformLink(btnElement) {
