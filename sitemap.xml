@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://sitemaps.org">
+  <!-- Core Website Main Index -->
+  <url>
+    <loc>https://bharatfinhub.com</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <!-- Income Tax Calculator Tab Frame -->
+  <url>
+    <loc>https://bharatfinhub.com#tax-container</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Mutual Fund SIP Step-Up Calculator Tab Frame -->
+  <url>
+    <loc>https://bharatfinhub.com#sip-container</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Home Loan EMI & Prepayment Calculator Tab Frame -->
+  <url>
+    <loc>https://bharatfinhub.com#loan-container</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Indian Corporate Tax & Surcharge Tracker Tab Frame -->
+  <url>
+    <loc>https://bharatfinhub.com#corporate-container</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Retirement Hub: PPF, EPF & NPS Three-in-One Tracker -->
+  <url>
+    <loc>https://bharatfinhub.com#retirement-container</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
