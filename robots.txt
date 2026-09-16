@@ -1,7 +1,8 @@
-# BHARAT FINANCE HUB ROBOTS CONFIGURATION INSTRUCTIONS Matrix
+# BHARAT FINANCE HUB ROBOTS CONFIGURATION INSTRUCTIONS MATRIX
 User-agent: *
 Allow: /
 Allow: /index.html
+Allow: /privacy-policy.html
 Allow: /manifest.json
 Allow: /sw.js
 
