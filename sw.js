@@ -1,7 +1,10 @@
 const CACHE_NAME = "bfh-cache-v3";
 const ASSETS = [
   "./index.html",
-  "./manifest.json"
+  "./privacy-policy.html",
+  "./manifest.json",
+  "./robots.txt",
+  "./sitemap.xml"
 ];
 
 self.addEventListener("install", (e) => {
